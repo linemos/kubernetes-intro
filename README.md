@@ -36,25 +36,25 @@ You can create the cluster both in the Console view in your browser and by the g
 
 ## Install the Kubernetes command-line tool
   1. To operate our cluster, we will use the Kubernetes command line tool, kubectl:
-    ```
-    gcloud components install kubectl
-    ```
+   ```
+   gcloud components install kubectl
+   ```
 
-    The cloud SDK installs the tool for you. This tool is not Google Cloud specific, but is used to operate Kubernetes clusters regardless of where they are hosted.
+   The cloud SDK installs the tool for you. This tool is not Google Cloud specific, but is used to operate Kubernetes clusters regardless of where they are hosted.
 
   2. You can see if your cluster is created by this command:
-    ```
-    gcloud container clusters list
-    ```
+   ```
+   gcloud container clusters list
+   ```
 
-    If the status of your cluster is `RUNNING`, you are good to go.
+   If the status of your cluster is `RUNNING`, you are good to go.
 
   3. The next step is to make sure that the Kubernetes command line tool is authenticated against our new cluster. This is easily done by this neat gcloud command:
-    ```
-    gcloud container clusters get-credentials cv-cluster
-    ```
-
-    What this does is to write credentials to the file `~/.kube/config`. You can take a look at that file too see what is written to it.
+   ```
+   gcloud container clusters get-credentials cv-cluster
+   ```
+   
+   What this does is to write credentials to the file `~/.kube/config`. You can take a look at that file too see what is written to it.
 
 If you want bash autocompletion for kubectl, follow [these steps](https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion).
 
@@ -62,21 +62,21 @@ If you want bash autocompletion for kubectl, follow [these steps](https://kubern
 Now that we are authenticated, we can look at the components in our cluster by using the kubectl command.
 
   1. Remember how Kubernetes consists of nodes? List them by this command:
-    ```
-    kubectl get nodes
-    ```
+   ```
+   kubectl get nodes
+   ```
 
   2. If you want you can get more details about them by describing one of them:
-    ```
-    kubectl describe nodes <INSERT_NODE_NAME>
-    ```
+   ```
+   kubectl describe nodes <INSERT_NODE_NAME>
+   ```
 
   3. We also have different namespaces:
-    ```
-    kubectl get namespace
-    ```
+   ```
+   kubectl get namespace
+   ```
 
-    This should list three namespaces. `kube-system`, `kube-public` and `default`. The namespace `default`is where we will deploy our applications. `kube-system` is used by Kubernetes
+   This should list three namespaces. `kube-system`, `kube-public` and `default`. The namespace `default`is where we will deploy our applications. `kube-system` is used by Kubernetes
 
 ## Fork this repository
 In GitHub, fork this project. You need a fork to use build triggers in the next step. You have an account and be logged in to do so.
@@ -94,10 +94,10 @@ We could create the Docker images locally from our computer by building it with 
   2. Choose Github as build source. Click *Continue*
   3. Select your fork as repository and click *Continue*
   4. Now you must specify your build trigger:
-  	- *Trigger Name*: Backend trigger
-  	- *Trigger Type*: You can set a trigger to start a build on commits to a particular branch, or on commits that contain a particular tag. Enter `:backend:` // dobbeltsjekk
-  	- *Build Configuration*: Point to the backend Dockerfile in `./backend/Dockerfile`
-  	- *Image name* ...
+    - *Trigger Name*: Backend trigger
+    - *Trigger Type*: You can set a trigger to start a build on commits to a particular branch, or on commits that contain a particular tag. Enter `:backend:` // dobbeltsjekk
+    - *Build Configuration*: Point to the backend Dockerfile in `./backend/Dockerfile`
+    - *Image name* ...
     - Tag....
     - Set branch to `master`
   5. Click *Create*
@@ -175,27 +175,27 @@ Now that our applications are running, we would like to route traffic to them.
   .... Hva med headless service med selector?
 
   2. Create the Services:
-    ```
-    kubectl apply -f ./yaml/backend-service.yaml
-    kubectl apply -f ./yaml/frontend-service.yaml
-    ```
+   ```
+   kubectl apply -f ./yaml/backend-service.yaml
+   kubectl apply -f ./yaml/frontend-service.yaml
+   ```
 
   2. List the created services:
-    ```
-    kubectl get service
-    ```
-
-    As you can see, both services have defined internal IPs. These internal IPs are only available inside the cluster. But we want our frontend application to be available from the internet. In order to do so, we must expose an external IP.
+   ```
+   kubectl get service
+   ```
+   
+   As you can see, both services have defined internal IPs. These internal IPs are only available inside the cluster. But we want our frontend application to be available from the internet. In order to do so, we must expose an external IP.
 
   3. Update the [./yaml/frontend-service.yaml](./yaml/frontend-service.yaml):
-    ```
-    kubectl apply -f ./yaml/frontend-service.yaml
-    ```
+   ```
+   kubectl apply -f ./yaml/frontend-service.yaml
+   ```
 
   4. Check that your service is up
-    ```
-    kubectl get service
-    ```
+   ```
+   kubectl get service
+   ```
 
 ## Exposing your app
 Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.In order to do so, we will now make an ingress.
@@ -205,17 +205,17 @@ An ingress are an Kubernetes resource that will allow traffic from outside the c
   1. Open the file [./yaml/ingress.yaml](./yaml/ingress.yaml) 
      Notice that we have defined that we have configured our ingress to send requests to our `frontend` service on port `8080`.
   2. Create the ingress resource:
-    ```
-    kubectl apply -f ingress.yaml
-    ```
+   ```
+   kubectl apply -f ingress.yaml
+   ```
   3. Wait for an external IP to be configured
-    ```
-    watch kubectl get ingress cv-ingress
-    ```
-    or
-        ```
-    kubectl get ingress cv-ingress -w
-    ```
+   ```
+   watch kubectl get ingress cv-ingress
+   ```
+   or
+   ```
+   kubectl get ingress cv-ingress -w
+   ```
   4. Visit the external IP in your peferred browser to make sure you see your awezome CV online
 
 ## Rolling updates
@@ -227,46 +227,46 @@ As you read earlier, Kubernetes can update your application without down time wi
   4. Navigate to the newly created Docker image and click *Add tag*. Add the tag `2.0`
   5. Update the image specification on the file [./yaml/frontend-deployment.yaml](./yaml/frontend-deployment.yaml) by adding the tag `:2.0`
   6. Open a new terminal window to watch the deletion and creation of Pods:
-    ```
-    watch kubectl get pods
-    ```
+   ```
+   watch kubectl get pods
+   ```
 
-    If you don't have `watch` installed, you can use this command instead:
+   If you don't have `watch` installed, you can use this command instead:
 
-    ```
-    kubectl get pods -w
-    ```
+   ```
+   kubectl get pods -w
+   ```
 
-    Don't close this window.
+   Don't close this window.
 
   7. In the other terminal window, apply the updated Deployment specification
-    ```
-    kubectl apply -f ./yaml/frontend-deployment.yaml
-    ```
+   ```
+   kubectl apply -f ./yaml/frontend-deployment.yaml
+   ```
 
-    and watch how the Pods are terminated and created in the other terminal window. Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.
+   and watch how the Pods are terminated and created in the other terminal window. Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.
 
 ## Inspection and logging
 Ok, everything looks good! But what if you need to inspect the logs and states of your applications? Kubernetes have a built in log feature. Lets take a look at our backend application, and see what information we can retrieve.
 
 1. View the logs of one container
-  - First, list the pod names:
-    ```
-    kubectl get pods -l app=backend
-    ```
-    The flag `l` is used to filter by pods with the label `app=backend`.
+    - First, list the pod names:
+      ```
+      kubectl get pods -l app=backend
+      ```
+      The flag `l` is used to filter by pods with the label `app=backend`.
 
-  - Now, you can view the logs from one pod:
-    ```
-    kubectl logs <INSERT_THE_NAME_OF_A_POD>
-    ```
+    - Now, you can view the logs from one pod:
+      ```
+      kubectl logs <INSERT_THE_NAME_OF_A_POD>
+      ```
 
-  - You can also get all logs filtered by label. 
-    ```
-    kubectl logs -l app=backend
-    ```
+    - You can also get all logs filtered by label. 
+      ```
+      kubectl logs -l app=backend
+      ```
 
-    Notice that this output appends the pods logs one by one, so the time could be a little confusing.
+      Notice that this output appends the pods logs one by one, so the time could be a little confusing.
 
 2. Ok, the logs were fine! Lets look at the environment variables set by Kubernetes in our containers:
   ```
@@ -287,21 +287,19 @@ A cool thing in Kubernetes is the Kubernetes DNS. Inside the cluster, Pods and S
 
 Kubernetes is running on nodes, Virtual Machines. We will now ssh into one of these nodes in order to curl our Kube DNS records.
   1. List nodes:
-    ```
-    kubectl get nodes
-    ```
+   ```
+   kubectl get nodes
+   ```
 
   2. Use `gcloud` to ssh into one of the nodes listed
-    ```
-    gcloud compute ssh <INSERT_NODE_NAME> --zone=europe-west1-b
-    ```
+   ```
+   gcloud compute ssh <INSERT_NODE_NAME> --zone=europe-west1-b
+   ```
 
   3. Try to curl our backend service:
-    ```
-    curl -v backend.default.svc.cluster.local
-    ```
+   ```
+   curl -v backend.default.svc.cluster.local
+   ```
 
-    The HTTP status should be 200 along with the message "Hello, I'm alive"
-
-
+   The HTTP status should be 200 along with the message "Hello, I'm alive"
 
