@@ -20,7 +20,7 @@ We could create the Docker images locally from our computer by building it with 
 5. Now its time to specify the build trigger:
 - *Name*: Backend trigger
 - *Trigger type*: `Tag`
-- *Branch*: Set tag to `:backend:`
+- *Branch*: Set tag to `cv-backend`
 - *Build Configuration*: Dockerfile
 - *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
 - *Dockerfile name*: `Dockerfile`
@@ -29,13 +29,19 @@ We could create the Docker images locally from our computer by building it with 
 
 Now, do the same thing for the frontend application. Name it `Frontend trigger`, and set the directory to be `/frontend/` and set the Docker image to be `gcr.io/$YOUR_PROJECT_ID/frontend:latest`.
 
-This sets up a build trigger that listens to new commits on the master branch of your repository. If the commit is tagged with `:frontend:`, it will use the Dockerfile in the backend directory to create a new Docker image. Click on the small menu on the trigger and select *Run trigger* to test it. Once it is finished building, you can find the image under the Images menu point.
+This sets up a build trigger that listens to new commits on the master branch of your repository. If the commit is tagged with `cv-frontend`, it will use the Dockerfile in the backend directory to create a new Docker image. Click on the small menu on the trigger and select *Run trigger* to test it. Once it is finished building, you can find the image under the Images menu point.
 
 ### Test the build trigger
 1. You tried to run the build trigger manually in the previous step. Now you will test how it works on new commits on your GitHub repository. Open the file [./backend/server.js](./backend/server.js) and edit the JSON responses to your name, workplace and education.
-2. Commit with a message that includes `:backend:`.
-3. Go back to the Build triggers in Cloud Console and click on *Builds* to see whether the backend starts building. Notice that you can follow the build log if you want to see whats going on. 
-4. When it is done, go to the Images in the menu and make sure that you can find your backend image there.
+2. Commit and tag with `cv-backend`. If you commit from the git command line, the command to tag the latest commit is:
+
+```
+git tag -a cv-backend
+git push --tags
+```
+
+3. Go back to the Build triggers in Cloud Console and click on *Build history* to see whether the backend starts building. Notice that you can follow the build log if you want to see whats going on. 
+4. When it is done, go to the *Build Images* in the menu and make sure that you can find your backend image there.
 
 ## Deploy to your Kubernetes Cluster
 It's time to deploy the frontend and backend to your cluster! The preferred way to configure Kubernetes resources is to specify them in YAML files.
