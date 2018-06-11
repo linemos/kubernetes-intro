@@ -2,37 +2,10 @@
 
 This is an introduction to Kubernetes. During this workshop you will learn how to deploy a frontend application and a backend application on a Kubernetes cluster on Google Cloud.
 
-## Sign up
-Create an account on Google Cloud Platform. 
-  1. Go to: https://console.cloud.google.com 
-  2. Sign up. You will have to register a payment method to complete the sign up. The first 12 months are free, as long as you don't use more than the included $300 credits, so you should not be charged anything for this workshop.
-  3. Create a project
-
-## Installation
-In order to explore the Kubernetes cluster on Google Kubernetes Engine you need to install the Google Cloud SDK command line tool.
-  1. Follow the guide [here](https://cloud.google.com/sdk/downloads).
-  2. Do **all steps** in the guide until you have typed:  `gcloud init`.
-    - Authenticate in the browser when you are asked to. 
-    - Choose to create a new project. 
-      You will have to give it a name and it will be given a unique **project ID** that we will use in the rest of the workshop. 
-  3. After the init process is finished
-    - Go back to the [Google Cloud Console](https://console.cloud.google.com/) in your browser and search in the search field for *Google Compute Engine API*.
-    - You will be asked to enable billing at this point. Choose your billing account and click enable for this project.
-    - Click *enable*.
-
-## Create a cluster.
-We need a cluster where we want to run our application.
-
-You can create the cluster both in the Console view in your browser and by the gcloud command line tool. We will use the Console to do it and also look at the equivalent gcloud command. 
-
-  1. Visit [Google Cloud Console](https://console.cloud.google.com/) in your browser. Click on *Kubernetes Engine* in the left side menu. If you are asked to enable the engine, do so. Click on the button *CREATE CLUSTER*
-  2. Name your cluster `cv-cluster`.
-  3. Choose the zone `europe-west1-b`.
-  4. Choose Cluster Version. Set to `1.10.2-gke.3`
-  5. Next you see that you can select what machine type to use. This defines the resources each node in your cluster will have. You don't need to change this.
-  6. You can also select the image for the virtual machines for the nodes. The default Container Optmized OS is good for our use case. The size for the node pool defaults to 3. We will leave that as is. Feel free to explore the other options below, but there are no other changes we need to do before creating our cluster.
-  7. Just below the create button, there are two links to get the command line and REST request. Click on these to see how you can create the same cluster without the GUI.
-  8. Click Create. This will probably take several minutes. In the meantime you can move on to the next section. Notice that you can view the setup progress for your cluster in the top right corner.
+## Kubernetes cluster
+We need a cluster in order to continue with this workshop. There are two alternatives here.
+1. Set up your own cluster on Google Cloud Platform. In order to do this, you need to register your credit card, but you will not be charged anything for this workshop. To do this, follow the steps in [./tasks/gcp-setup.yaml](./tasks/gcp-setup.yaml)
+2. The second alternative is to use a service account to authenticate against a cluster we have already created. To do this, follow the steps in [./tasks/service-account-setup.yaml](./tasks/service-account-setup.yaml) 
 
 ## Install the Kubernetes command-line tool
   1. To operate our cluster, we will use the Kubernetes command line tool, kubectl:
@@ -113,7 +86,7 @@ This sets up a build trigger that listens to new commits on the master branch of
   4. When it is done, go to the Images in the menu and make sure that you can find your backend image there.
 
 ## Deploy to your Kubernetes Cluster
-It's time to deploy the frontend and backend to your cluster!
+It's time to deploy the frontend and backend to your cluster! The preferred way to configure Kubernetes resources is to specify them in YAML files.
 
 In the folder [./yaml](./yaml) you find the YAML files specifying what resources Kubernetes should create. There is two services, one for the backend application and one for the frontend application. Same with deployments.
 
@@ -312,16 +285,22 @@ The first way is with the service type NodePort. If we look at our frontend serv
 
 1. Run
 
-  ```kubectl get service frontend```
+  ```
+  kubectl get service frontend
+  ```
 
   We see that our service doesn't have an external IP. But what it do have is two ports, port 80 and a port in the range 30000-32767. The last port was set by the Kubernetes master when we created our service. This port we will use togheter with an external IP.
 2. The nodes in our cluster all have external IPs per default. Lets use one of those.
 
-  ```kubectl get nodes```
+  ```
+  kubectl get nodes
+  ```
 
 3. Copy one of the external IPs from the output above along with the node port from our service:
 
-  ```curl -v <EXTERNAL_IP>:<NODE_PORT>```
+  ```
+  curl -v <EXTERNAL_IP>:<NODE_PORT>
+  ```
 
   The output should also here be "Hello, I'm alive"
 4. Do the same, but replace the IP with the external IP from one of the other nodes. It should have the same result
