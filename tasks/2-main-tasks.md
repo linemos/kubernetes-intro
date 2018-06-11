@@ -1,37 +1,40 @@
 #Main tasks
 
 ## Fork this repository
+If you did not create your own Google Cloud project, but instead authenticated with an Service Account, jump to the assignments under [Deploy to your Kubernetes Cluster](##Deploy-to-your-Kubernetes-Cluster) 
 In GitHub, fork this project. You need a fork to use build triggers in the next step. You have an account and be logged in to do so.
 
 ## Docker containers
 To create a deployment on Kubernetes, you need to specify at least one container for your application. Kubernetes will on a deploy pull the image specified and create pods with this container. Docker is the most commonly used container in Kubernetes.
 
-    In this repository you will find code for both applications in the backend and frontend directories. Each of these folders also have their own Dockerfile. Take a look at the files
-    [frontend/Dockerfile](./frondend/Dockerfile) and [backend/Dockerfile](./backend/Dockerfile) too see how they are built up. Notice the `.dockerignore` files as well. This file tells the Docker daemon which files and directories to ignore, for example the `node_modules` directory.
+In this repository you will find code for both applications in the backend and frontend directories. Each of these folders also have their own Dockerfile. Take a look at the files
+[frontend/Dockerfile](./frondend/Dockerfile) and [backend/Dockerfile](./backend/Dockerfile) too see how they are built up. Notice the `.dockerignore` files as well. This file tells the Docker daemon which files and directories to ignore, for example the `node_modules` directory.
 
-    We could create the Docker images locally from our computer by building it with the docker deamon, but we are going to explore build triggers in Google Cloud Platform instead.
+We could create the Docker images locally from our computer by building it with the docker deamon, but we are going to explore build triggers in Google Cloud Platform instead.
 
 ### Build triggers
-1. To create a build trigger, go to cloud console and find Container Registry in the left side menu and click *Build triggers*, then *Create trigger*
-2. Choose Github as build source. Click *Continue*
-3. Select your fork as repository and click *Continue*
-4. Now you must specify your build trigger:
-    - *Trigger Name*: Backend trigger
-- *Trigger Type*: You can set a trigger to start a build on commits to a particular branch, or on commits that contain a particular tag. Enter `:backend:` // dobbeltsjekk
-- *Build Configuration*: Point to the backend Dockerfile in `./backend/Dockerfile`
-- *Image name* ...
-- Tag....
-- Set branch to `master`
-5. Click *Create*
+1. To create a build trigger, go to cloud console and find Container Registry in the left side menu and click *Build triggers*. If you are asked to enable the API, do so
+2. Click *Create trigger*
+3. Choose Github as build source. Click *Continue*
+4. Select your fork as the repository and click *Continue*
+5. Now its time to specify the build trigger:
+- *Name*: Backend trigger
+- *Trigger type*: `Tag`
+- *Branch*: Set tag to `:backend:`
+- *Build Configuration*: Dockerfile
+- *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
+- *Dockerfile name*: `Dockerfile`
+- *Image name*: `gcr.io/$PROJECT_ID/backend:latest`
+6. Click *Create*
 
-Now, do the same thing for the frontend application. Use the tag `:frontend:` and set the Docker image to be `gcr.io/[YOUR_PROJECT_ID]/frontend`.
+Now, do the same thing for the frontend application. Name it `Frontend trigger`, and set the directory to be `/frontend/` and set the Docker image to be `gcr.io/$YOUR_PROJECT_ID/frontend:latest`.
 
-    This sets up a build trigger that listens to new commits on the master branch of your repository. If the commit is tagged with `:frontend:`, it will use the Dockerfile in the backend directory to create a new Docker image. Click on the small menu on the trigger and select *Run trigger* to test it. Once it is finished building, you can find the image under the Images menu point.
+This sets up a build trigger that listens to new commits on the master branch of your repository. If the commit is tagged with `:frontend:`, it will use the Dockerfile in the backend directory to create a new Docker image. Click on the small menu on the trigger and select *Run trigger* to test it. Once it is finished building, you can find the image under the Images menu point.
 
 ### Test the build trigger
 1. You tried to run the build trigger manually in the previous step. Now you will test how it works on new commits on your GitHub repository. Open the file [./backend/server.js](./backend/server.js) and edit the JSON responses to your name, workplace and education.
 2. Commit with a message that includes `:backend:`.
-3. Go back to the Build triggers in Cloud Console and click on *Builds* to see whether the backend starts building. Notice that you can follow the build log if you want to see whats going on.
+3. Go back to the Build triggers in Cloud Console and click on *Builds* to see whether the backend starts building. Notice that you can follow the build log if you want to see whats going on. 
 4. When it is done, go to the Images in the menu and make sure that you can find your backend image there.
 
 ## Deploy to your Kubernetes Cluster
@@ -39,24 +42,26 @@ It's time to deploy the frontend and backend to your cluster! The preferred way 
 
 In the folder [./yaml](./yaml) you find the YAML files specifying what resources Kubernetes should create. There is two services, one for the backend application and one for the frontend application. Same with deployments.
 
-    1. Open the file [./yaml/backend-deployment.yaml](./yaml/backend-deployment.yaml) and in the field `spec.template.spec.containers.image` insert your backend Docker image full name. It should be something like `gcr.io/MY_PROJECT_ID/backend:1.0`
+1. Open the file [./yaml/backend-deployment.yaml](./yaml/backend-deployment.yaml) and in the field `spec.template.spec.containers.image` insert your backend Docker image full name. It should be something like `gcr.io/MY_PROJECT_ID/backend:1.0`
+If you did not create build triggers, use the docker image `linemos/cv-backend:1.0` and `linemos/cv-frontend:1.0` instead.
 
 There are a few things to notice here:
-    - The number of replicas is set to 3. This is the number of pods we want running at all times
+- The number of replicas is set to 3. This is the number of pods we want running at all times
 - The container spec has defined port 80, so the Deployment will open this port on the containers
 - The label `app: backend` is defined three places:
-    - `metadata` is used by the service, which we will look at later
-- `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
-- `spec.template.metadata` is the label added to the Pods
+  - `metadata` is used by the service, which we will look at later
+  - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
+  - `spec.template.metadata` is the label added to the Pods
 
 2. Create the resources for the backend and frontend:
-    ```
+  ```
   kubectl apply -f ./yaml/backend-deployment.yaml
   kubectl apply -f ./yaml/frontend-deployment.yaml
   ```
 
 3. Watch the creation of pods:
-    ```
+  
+  ```
   watch kubectl get pods
   ```
 
@@ -67,9 +72,9 @@ If you don't have `watch` installed, you can use this command instead:
 
 When all pods are running, quit by `ctrl + q`.
 
-    Pods are Kubernetes resources that mostly just contains one or more containers, along with some Kubernetes network stuff and specifications on how to run the container(s). Our pods all just contains one container. There are several use cases where you might want to specify several containers in one pod, for example if your application uses a proxy.
+Pods are Kubernetes resources that mostly just contains one or more containers, along with some Kubernetes network stuff and specifications on how to run the container(s). Our pods all just contains one container. There are several use cases where you might want to specify several containers in one pod, for example if your application uses a proxy.
 
-    The Pods were created when you applied the specification of the type `Deployment`, which is a controller resource. The Deployment specification contains a desired state. The Deployment controller changes the state to achieve this. When creating the Deployment, it will create ReplicaSet, which it owns. The ReplicaSet will then create the desired number of pods, and recreate them if the Deployment specification changes, e.g. if you want another number of pods running or if you update the Docker image to use. It will do so in a rolling-update manner, which we will explore soon. Noticed that the pod names were prefixed with the deployment names and two hashes? The first hash is the hash of the ReplicaSet, the second is unique for the Pod.
+The Pods were created when you applied the specification of the type `Deployment`, which is a controller resource. The Deployment specification contains a desired state. The Deployment controller changes the state to achieve this. When creating the Deployment, it will create ReplicaSet, which it owns. The ReplicaSet will then create the desired number of pods, and recreate them if the Deployment specification changes, e.g. if you want another number of pods running or if you update the Docker image to use. It will do so in a rolling-update manner, which we will explore soon. Noticed that the pod names were prefixed with the deployment names and two hashes? The first hash is the hash of the ReplicaSet, the second is unique for the Pod.
 
 4. Explore the Deployments:
     ```
@@ -79,7 +84,7 @@ When all pods are running, quit by `ctrl + q`.
 Here you can see the age of the Deployment and how many Pods that are desired in the configuration specification, the number of running pods, the number of pods that are updated and how many that are available.
 
 5. Explore the ReplicaSets:
-    ```
+  ```
   kubectl get replicaset
   ```
 
@@ -101,26 +106,26 @@ There are a few things to notice:
    ```
 
 2. List the created services:
-    ```
+  ```
    kubectl get service
    ```
 
 As you can see, both services have defined internal IPs. These internal IPs are only available inside the cluster. But we want our frontend application to be available from the internet. In order to do so, we must expose an external IP.
 
 3. Update the [./yaml/frontend-service.yaml](./yaml/frontend-service.yaml):
-```
+  ```
    kubectl apply -f ./yaml/frontend-service.yaml
    ```
 
 4. Check that your service is up
-    ```
-   kubectl get service
-   ```
+  ```
+  kubectl get service
+  ```
 
 ## Exposing your app
 Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.In order to do so, we will now make an ingress.
 
-    An ingress are an Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
+An ingress are an Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
 
 1. Open the file [./yaml/ingress.yaml](./yaml/ingress.yaml)
 Notice that we have defined that we have configured our ingress to send requests to our `frontend` service on port `8080`.

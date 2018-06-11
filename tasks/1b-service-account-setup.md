@@ -1,3 +1,24 @@
 # Setup to use existing cluster
-Follow these steps to authenticate with an existing Google Kubernetes Engine cluster with a service account.
+Follow these steps to authenticate with an existing Google Kubernetes Engine cluster with a service account. You will not be able to do all tasks in the workshop with this setup.
 
+## Install Google Cloud SDK tool
+In order to explore the Kubernetes cluster on Google Kubernetes Engine you need to install the Google Cloud SDK command line tool.
+1. Follow the guide to setup the `gcloud` tool, but stop before the step `gcloud init`. You can find the guide [here](https://cloud.google.com/sdk/docs/downloads-interactive)
+
+## Activate service account
+Email `linemos@gmail.com` with the topic `NDC SA` to create a service account.
+
+When you have received an service account, download the file. We will use it to authenticate with Google Cloud.
+
+1. Open the file and copy the email adress in the field `client_email`
+2. Use this command to authenticate your computer with the cluster:
+
+```
+gcloud auth activate-service-account INSERT_EMAIL_HERE --key-file=PATH_TO_JSON_FILE --project vibrant-grammar-206916
+```
+
+3. Verify that you have successfully authenticated by this command:
+
+```
+gcloud container clusters list
+```

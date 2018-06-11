@@ -1,7 +1,7 @@
 # Installation and setup 
 
 ## Kubernetes cluster
-We need a cluster in order to continue with this workshop. There are two alternatives here.
+We need a cluster in order to continue with this workshop. There are two alternatives here. We recommend the first alternative. With the second you must skip the tasks to create build triggers and apply changes to the application code.
 1. Set up your own cluster on Google Cloud Platform. In order to do this, you need to register your credit card, but you will not be charged anything for this workshop. To do this, follow the steps in [./tasks/gcp-setup.yaml](./tasks/gcp-setup.yaml)
 2. The second alternative is to use a service account to authenticate against a cluster we have already created. To do this, follow the steps in [./tasks/service-account-setup.yaml](./tasks/service-account-setup.yaml)
 
@@ -9,7 +9,7 @@ We need a cluster in order to continue with this workshop. There are two alterna
 1. To operate our cluster, we will use the Kubernetes command line tool, kubectl:
 ```
    gcloud components install kubectl
-   ```
+```
 
 The cloud SDK installs the tool for you. This tool is not Google Cloud specific, but is used to operate Kubernetes clusters regardless of where they are hosted.
 
@@ -27,7 +27,7 @@ If the status of your cluster is `RUNNING`, you are good to go.
 
 What this does is to write credentials to the file `~/.kube/config`. You can take a look at that file too see what is written to it.
 
-    If you want bash autocompletion for kubectl, follow [these steps](https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion).
+If you want bash autocompletion for kubectl, follow [these steps](https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion).
 
 ## Describe components of the cluster
 Now that we are authenticated, we can look at the components in our cluster by using the kubectl command.
@@ -47,4 +47,4 @@ Now that we are authenticated, we can look at the components in our cluster by u
    kubectl get namespace
    ```
 
-This should list three namespaces. `kube-system`, `kube-public` and `default`. The namespace `default`is where we will deploy our applications. `kube-system` is used by Kubernetes
+This should list three namespaces. `kube-system`, `kube-public` and `default`. The namespace `default`is where we will deploy our applications. `kube-system` is used by Kubernetes, `kube-public` is for resources that does not need authentication and `default` is, as the name says, the default namespace for resources. You can create your own namespaces, e.g. for test and prod.

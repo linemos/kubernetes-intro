@@ -9,7 +9,7 @@ Create an account on Google Cloud Platform.
 
 ## Installation
 In order to explore the Kubernetes cluster on Google Kubernetes Engine you need to install the Google Cloud SDK command line tool.
-  1. Follow the guide [here](https://cloud.google.com/sdk/downloads).
+  1. Follow the guide [here](https://cloud.google.com/sdk/docs/downloads-interactive).
   2. Do **all steps** in the guide until you have typed:  `gcloud init`.
     - Authenticate in the browser when you are asked to. 
     - Choose to create a new project. 
