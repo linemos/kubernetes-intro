@@ -10,7 +10,7 @@ Setup of Google Cloud Platform and Kubernetes 😄
 
 ## [Main tasks](tasks/2-main-tasks.md)
 
-Ready to create your own cluster? 1-2-3 GO!🎉
+Ready to create your own cluster? 2 GO!🎉
 
 
 ## [Extra tasks](tasks/3-extra-tasks.md)
