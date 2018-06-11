@@ -14,7 +14,7 @@ const ContactInformation = ({ contactInformation }) => {
                     <p><b>Location: </b>{contactInformation.location}</p>
                 </div>
                 <img
-                    src="https://storage.googleapis.com/vibbio/vibbio_round_logo.png"
+                    src={`${process.env.PUBLIC_URL}/me.jpg`}
                     className="contact-information-image"
                     role="presentation"
                     alt={`Illustration of ${contactInformation.name}`}

@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const express = require('express');
 const httpProxy = require('http-proxy');
 const path = require('path');
@@ -7,7 +5,6 @@ const path = require('path');
 const proxy = httpProxy.createProxyServer();
 const app = express();
 
-// Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'build')));
 
 const config = {
@@ -16,10 +13,6 @@ const config = {
 };
 
 app.route('/api/*').get(function(req, res) {
-    proxy.web(req, res, {target: config.api_uri});
-});
-
-app.route('/api/*').post(function(req, res) {
     proxy.web(req, res, {target: config.api_uri});
 });
 
