@@ -1,19 +1,31 @@
 # Main tasks
 
 ## Fork this repository
-If you did not create your own Google Cloud project, but instead authenticated with an Service Account, jump to the assignments under [Deploy to your Kubernetes Cluster](#Deploy-to-your-Kubernetes-Cluster) 
-In GitHub, fork this project. You need a fork to use build triggers in the next step. You have an account and be logged in to do so.
+If you did not create your own Google Cloud project; jump to the assignments under [Deploy to your Kubernetes Cluster](#Deploy-to-your-Kubernetes-Cluster).
+
+If you *did create* your own Goggle Cloud project and created your own cluster; fork this repo.
+In We need this to use build triggers in the next step. 
 
 ## Docker containers
-To create a deployment on Kubernetes, you need to specify at least one container for your application. Kubernetes will on a deploy pull the image specified and create pods with this container. Docker is the most commonly used container in Kubernetes.
+To create a deployment on Kubernetes, you need to specify at least one container for your application.
+Kubernetes will on a deploy pull the image specified and create pods with this container.
+Docker is the most commonly used container in Kubernetes.
 
-In this repository you will find code for both applications in the backend and frontend directories. Each of these folders also have their own Dockerfile. Take a look at the files
-[frontend/Dockerfile](../frontend/Dockerfile) and [backend/Dockerfile](../backend/Dockerfile) too see how they are built up. Notice the `.dockerignore` files as well. This file tells the Docker daemon which files and directories to ignore, for example the `node_modules` directory.
+In this repository you will find code for both applications in the backend and frontend directories.
+Each of these folders also have their own Dockerfile.
+Take a look at the docker files too see how they are built up:
+  - [frontend/Dockerfile](../frontend/Dockerfile)
+  - [backend/Dockerfile](../backend/Dockerfile)
+  
+Notice the `.dockerignore` files as well.
+This file tells the Docker daemon which files and directories to ignore, for example the `node_modules` directory.
 
-We could create the Docker images locally from our computer by building it with the docker deamon, but we are going to explore build triggers in Google Cloud Platform instead.
+We could create the Docker images locally from our computer by building it with the docker deamon,
+but we are going to explore build triggers in Google Cloud Platform instead.
 
 ### Build triggers
-1. To create a build trigger, go to cloud console and find Container Registry in the left side menu and click *Build triggers*. If you are asked to enable the API, do so
+1. Go to cloud console: find **Container Registry** in the left side menu (under tools) and click *Build triggers*.
+If you are asked to enable the Container Builder API, do so.
 2. Click *Create trigger*
 3. Choose Github as build source. Click *Continue*
 4. Select your fork as the repository and click *Continue*
@@ -25,9 +37,11 @@ We could create the Docker images locally from our computer by building it with 
     - *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
     - *Dockerfile name*: `Dockerfile`
     - *Image name*: `gcr.io/$PROJECT_ID/backend:latest`
-6. Click *Create*
+6. Click *Create trigger*
 
-Now, do the same thing for the frontend application. Name it `Frontend trigger`, and set the directory to be `/frontend/` and set the Docker image to be `gcr.io/$YOUR_PROJECT_ID/frontend:latest`.
+Now, do the same thing for the frontend application.
+Name it `Frontend trigger`, and set the directory to be `/frontend/` and
+set the Docker image to be `gcr.io/$PROJECT_ID/frontend:latest`.
 
 This sets up a build trigger that listens to new commits on the master branch of your repository. If the commit is tagged with `cv-frontend`, it will use the Dockerfile in the backend directory to create a new Docker image. Click on the small menu on the trigger and select *Run trigger* to test it. Once it is finished building, you can find the image under the Images menu point.
 
