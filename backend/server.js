@@ -1,7 +1,7 @@
 const express = require('express');
 const logger = require('winston');
 const app = express();
-const port = 80;
+const port = 5000;
 
 app.get('/', (request, response) => {
 	response.send(`Hello, I'm alive`);
