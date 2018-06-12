@@ -3,6 +3,10 @@ kind: Ingress
 metadata:
   name: cv-ingress
 spec:
-  backend:
-    serviceName: frontend
-    servicePort: 80
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: frontend
+          servicePort: 80
