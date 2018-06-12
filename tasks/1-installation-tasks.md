@@ -1,9 +1,9 @@
-# Installation and setup 
+# Task 1: Installation and setup 
 
 ## Kubernetes cluster
 We need a cluster in order to continue with this workshop. There are two alternatives here. We recommend the first alternative. With the second you must skip the tasks to create build triggers and apply changes to the application code.
-1. Set up your own cluster on Google Cloud Platform. In order to do this, you need to register your credit card, but you will not be charged anything for this workshop. To do this, follow the steps in [./tasks/gcp-setup.yaml](./gcp-setup.yaml)
-2. The second alternative is to use a service account to authenticate against a cluster we have already created. To do this, follow the steps in [./tasks/service-account-setup.yaml](./service-account-setup.yaml)
+1. Set up your own cluster on Google Cloud Platform. In order to do this, you need to register your credit card, but you will not be charged anything for this workshop. To do this, follow the steps in [./gcp-setup.md](./1a-gcp-setup.md)
+2. The second alternative is to use a service account to authenticate against a cluster we have already created. To do this, follow the steps in [./1b-service-account-setup.md](./1b-service-account-setup.md)
 
 ## Install the Kubernetes command-line tool
 1. To operate our cluster, we will use the Kubernetes command line tool, kubectl:
