@@ -198,7 +198,7 @@ An ingress is a Kubernetes resource that will allow traffic from outside the clu
 2. Create the ingress resource:
   
   ```
-  kubectl apply -f ingress.yaml
+  kubectl apply -f ./yaml/ingress.yaml
   ```
 
 3. Wait for an external IP to be configured
@@ -212,8 +212,9 @@ An ingress is a Kubernetes resource that will allow traffic from outside the clu
   ```
   kubectl get ingress cv-ingress -w
   ```
+  It may take a few minutes for Kubernetes Engine to allocate an external IP address and set up forwarding rules until the load balancer is ready to serve your application. In the meanwhile, you may get errors such as HTTP 404 or HTTP 500 until the load balancer configuration is propagated across the globe.
 
-4. Visit the external IP in your peferred browser to make sure you see your awezome CV online
+4. Visit the external IP in your peferred browser to make sure you see your awezome CV online. If you get an error, the ingress and load balacing setup might not be completed.
 
 ## Rolling updates
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. You will now update the background color of the frontend application, see that the build trigger creates a new image and update the deployment to use this.
