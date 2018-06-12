@@ -337,3 +337,8 @@ We will now ssh into one of these nodes in order to curl our Kube DNS records.
 
   The HTTP status should be 200 along with the message "Hello, I'm alive"
 
+## Next
+
+If you have time, we recommend: [Proceed to the extra tasks](./3-extra-tasks.md).
+
+Before you quit: [Delete your cluster and clean up](./4-delete-tasks.md).

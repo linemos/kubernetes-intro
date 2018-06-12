@@ -59,3 +59,8 @@ Lets look at another way. The Service resource can have a different type, it can
 
 #### Notes on exposing your application
 All these methods to expose your application by getting an external IP is dependent on the cloud provider you run on. G
+
+## Next
+
+Clean up all your clusters and accounts to make sure you don't have to pay for any use: 
+ [Delete your cluster and clean up](./4-delete-tasks.md).
