@@ -13,4 +13,4 @@ And that's it! ⎈
 
 ## Any questions?
 
-Contact us on [@linemos](https://twitter.com/linemoseng) or [@ingridguren]https://twitter.com/ingridguren).
+Contact us on [@linemosseng](https://twitter.com/linemoseng) or [@ingridguren](https://twitter.com/ingridguren).
