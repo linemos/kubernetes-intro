@@ -32,7 +32,7 @@ If you are asked to enable the Container Builder API, do so.
 5. Now its time to specify the build trigger:
     - *Name*: Backend trigger
     - *Trigger type*: `Tag`
-    - *Branch*: Set tag to `cv-backend`
+    - *Branch*: Set tag to `cv-backend-*`
     - *Build Configuration*: Dockerfile
     - *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
     - *Dockerfile name*: `Dockerfile`
@@ -43,19 +43,47 @@ Now, do the same thing for the frontend application.
 Name it `Frontend trigger`, and set the directory to be `/frontend/` and
 set the Docker image to be `gcr.io/$PROJECT_ID/frontend:latest`.
 
-This sets up a build trigger that listens to new commits on the master branch of your repository. If the commit is tagged with `cv-frontend`, it will use the Dockerfile in the backend directory to create a new Docker image. Click on the small menu on the trigger and select *Run trigger* to test it. Once it is finished building, you can find the image under the Images menu point.
+This sets up a build trigger that listens to new commits on the master branch of your repository.
+If the commit is tagged with `cv-frontend`, it will use the Dockerfile in the backend directory to create a new Docker image.
+Click on the small menu on the trigger and select *Run trigger* to test it
+Once it is finished building, you can find the image under the *Images* in the menu point.
 
 ### Test the build trigger
-1. You tried to run the build trigger manually in the previous step. Now you will test how it works on new commits on your GitHub repository. Open the file [backend/server.js](../backend/server.js) and edit the JSON responses to your name, workplace and education.
-2. Commit and tag with `cv-backend`. If you commit from the git command line, the command to tag the latest commit is:
+You tried to run the build trigger manually in the previous step.
+Now you will test how it works on new commits on your GitHub repository.
+
+####Change the code
+Open the file [backend/server.js](../backend/server.js) and edit the JSON responses to your name, workplace and education.
+You can either change the code in an editor or in GitHub directly. Commit and push your commit.
+
+####Publish your changes
+We need to add a tag to notify our build triggers that the code has changed and need to rebuild. 
+There are two ways to ad a tag:
+
+**In the terminal**
+
+If you commit from the git command line, the command to tag the latest commit is:
 
   ```
-  git tag -a cv-backend
+  git tag -a cv-backend-2
   git push --tags
   ```
+*NB: Remember to change the latest number in your tag. If cv-backend-2 already is a tag, you should use cv-backend-3* 
 
-3. Go back to the Build triggers in Cloud Console and click on *Build history* to see whether the backend starts building. Notice that you can follow the build log if you want to see whats going on. 
-4. When it is done, go to the *Build Images* in the menu and make sure that you can find your backend image there.
+**In GitHub**
+
+You can add a tag to your directly from GitHub: 
+1. In the repo, Click on *releases*, next to contributors.
+2. Click on *Draft a new release*
+3. Write your new tag, i.e., *cv-backend-2*
+4. Create release title if you want (ex: What have you done?)
+5. Click *Publish release*
+
+**Then**
+
+Go back to the Build triggers in Cloud Console and click on *Build history* to see whether the backend starts building.
+Notice that you can follow the build log if you want to see whats going on. 
+When it is done, go to the *Build Images* in the menu and make sure that you can find your backend image there.
 
 ## Deploy to your Kubernetes Cluster
 It's time to deploy the frontend and backend to your cluster! The preferred way to configure Kubernetes resources is to specify them in YAML files.
