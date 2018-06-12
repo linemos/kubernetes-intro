@@ -44,9 +44,12 @@ Name it `Frontend trigger`, and set the directory to be `/frontend/` and
 set the Docker image to be `gcr.io/$PROJECT_ID/frontend:latest`.
 
 This sets up a build trigger that listens to new commits on the master branch of your repository.
-If the commit is tagged with `cv-frontend`, it will use the Dockerfile in the backend directory to create a new Docker image.
-Click on the small menu on the trigger and select *Run trigger* to test it
-Once it is finished building, you can find the image under the *Images* in the menu point.
+If the commit is tagged with `cv-frontend-1`, it will use the Dockerfile in the frontend directory to create a new Docker image.
+
+7. Click on the small menu on the trigger and select *Run trigger* to test it
+8. Once it is finished building, you can find the image under the *Builder Images* in the menu point.
+9. Click on the `frontend` folder and click on the edit pencil to add a tag to the image
+10. Add the tag `1.0` to the image
 
 ### Test the build trigger
 You tried to run the build trigger manually in the previous step.
@@ -83,7 +86,10 @@ You can add a tag to your directly from GitHub:
 
 Go back to the Build triggers in Cloud Console and click on *Build history* to see whether the backend starts building.
 Notice that you can follow the build log if you want to see whats going on. 
-When it is done, go to the *Build Images* in the menu and make sure that you can find your backend image there.
+
+6. When it is done, go to the *Build Images* in the menu and make sure that you can find your backend image there
+7. Click on the `backend` folder and click on the edit pencil to add a tag to the image
+8. Add the tag `1.0` to the image
 
 ## Deploy to your Kubernetes Cluster
 It's time to deploy the frontend and backend to your cluster!
