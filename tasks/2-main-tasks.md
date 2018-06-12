@@ -18,13 +18,13 @@ We could create the Docker images locally from our computer by building it with 
 3. Choose Github as build source. Click *Continue*
 4. Select your fork as the repository and click *Continue*
 5. Now its time to specify the build trigger:
-- *Name*: Backend trigger
-- *Trigger type*: `Tag`
-- *Branch*: Set tag to `cv-backend`
-- *Build Configuration*: Dockerfile
-- *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
-- *Dockerfile name*: `Dockerfile`
-- *Image name*: `gcr.io/$PROJECT_ID/backend:latest`
+  - *Name*: Backend trigger
+  - *Trigger type*: `Tag`
+  - *Branch*: Set tag to `cv-backend`
+  - *Build Configuration*: Dockerfile
+  - *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
+  - *Dockerfile name*: `Dockerfile`
+  - *Image name*: `gcr.io/$PROJECT_ID/backend:latest`
 6. Click *Create*
 
 Now, do the same thing for the frontend application. Name it `Frontend trigger`, and set the directory to be `/frontend/` and set the Docker image to be `gcr.io/$YOUR_PROJECT_ID/frontend:latest`.
@@ -32,13 +32,13 @@ Now, do the same thing for the frontend application. Name it `Frontend trigger`,
 This sets up a build trigger that listens to new commits on the master branch of your repository. If the commit is tagged with `cv-frontend`, it will use the Dockerfile in the backend directory to create a new Docker image. Click on the small menu on the trigger and select *Run trigger* to test it. Once it is finished building, you can find the image under the Images menu point.
 
 ### Test the build trigger
-1. You tried to run the build trigger manually in the previous step. Now you will test how it works on new commits on your GitHub repository. Open the file [./backend/server.js](../backend/server.js) and edit the JSON responses to your name, workplace and education.
+1. You tried to run the build trigger manually in the previous step. Now you will test how it works on new commits on your GitHub repository. Open the file [backend/server.js](../backend/server.js) and edit the JSON responses to your name, workplace and education.
 2. Commit and tag with `cv-backend`. If you commit from the git command line, the command to tag the latest commit is:
 
-```
-git tag -a cv-backend
-git push --tags
-```
+  ```
+  git tag -a cv-backend
+  git push --tags
+  ```
 
 3. Go back to the Build triggers in Cloud Console and click on *Build history* to see whether the backend starts building. Notice that you can follow the build log if you want to see whats going on. 
 4. When it is done, go to the *Build Images* in the menu and make sure that you can find your backend image there.
@@ -46,20 +46,21 @@ git push --tags
 ## Deploy to your Kubernetes Cluster
 It's time to deploy the frontend and backend to your cluster! The preferred way to configure Kubernetes resources is to specify them in YAML files.
 
-In the folder [./yaml](../yaml) you find the YAML files specifying what resources Kubernetes should create. There is two services, one for the backend application and one for the frontend application. Same with deployments.
+In the folder [yaml/](../yaml) you find the YAML files specifying what resources Kubernetes should create. There is two services, one for the backend application and one for the frontend application. Same with deployments.
 
-1. Open the file [./yaml/backend-deployment.yaml](../yaml/backend-deployment.yaml) and in the field `spec.template.spec.containers.image` insert your backend Docker image full name. It should be something like `gcr.io/MY_PROJECT_ID/backend:1.0`
-If you did not create build triggers, use the docker image `linemos/cv-backend:1.0` and `linemos/cv-frontend:1.0` instead.
+1. Open the file [yaml/backend-deployment.yaml](../yaml/backend-deployment.yaml) and in the field `spec.template.spec.containers.image` insert your backend Docker image full name.  It should be something like `gcr.io/MY_PROJECT_ID/backend:1.0`
+  If you did not create build triggers, use the docker image `linemos/cv-backend:1.0` and `linemos/cv-frontend:1.0` instead.
 
-There are a few things to notice here:
-- The number of replicas is set to 3. This is the number of pods we want running at all times
-- The container spec has defined port 80, so the Deployment will open this port on the containers
-- The label `app: backend` is defined three places:
-  - `metadata` is used by the service, which we will look at later
-  - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
-  - `spec.template.metadata` is the label added to the Pods
+  There are a few things to notice here:
+    - The number of replicas is set to 3. This is the number of pods we want running at all times
+    - The container spec has defined port 80, so the Deployment will open this port on the containers
+    - The label `app: backend` is defined three places:
+      - `metadata` is used by the service, which we will look at later
+      - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
+      - `spec.template.metadata` is the label added to the Pods
 
 2. Create the resources for the backend and frontend:
+  
   ```
   kubectl apply -f ./yaml/backend-deployment.yaml
   kubectl apply -f ./yaml/frontend-deployment.yaml
@@ -71,25 +72,28 @@ There are a few things to notice here:
   watch kubectl get pods
   ```
 
-If you don't have `watch` installed, you can use this command instead:
-    ```
+  If you don't have `watch` installed, you can use this command instead:
+  
+  ```
   kubectl get pods -w
   ```
 
-When all pods are running, quit by `ctrl + q`.
+  When all pods are running, quit by `ctrl + q`.
 
 Pods are Kubernetes resources that mostly just contains one or more containers, along with some Kubernetes network stuff and specifications on how to run the container(s). Our pods all just contains one container. There are several use cases where you might want to specify several containers in one pod, for example if your application uses a proxy.
 
 The Pods were created when you applied the specification of the type `Deployment`, which is a controller resource. The Deployment specification contains a desired state. The Deployment controller changes the state to achieve this. When creating the Deployment, it will create ReplicaSet, which it owns. The ReplicaSet will then create the desired number of pods, and recreate them if the Deployment specification changes, e.g. if you want another number of pods running or if you update the Docker image to use. It will do so in a rolling-update manner, which we will explore soon. Noticed that the pod names were prefixed with the deployment names and two hashes? The first hash is the hash of the ReplicaSet, the second is unique for the Pod.
 
 4. Explore the Deployments:
-    ```
+  
+  ```
   kubectl get deployments
   ```
 
 Here you can see the age of the Deployment and how many Pods that are desired in the configuration specification, the number of running pods, the number of pods that are updated and how many that are available.
 
 5. Explore the ReplicaSets:
+  
   ```
   kubectl get replicaset
   ```
@@ -99,31 +103,35 @@ The statuses are similar to those of the Deployments, exept that the ReplicaSet 
 ## Create services
 Now that our applications are running, we would like to route traffic to them.
 
-1. Open [./yaml/backend-service.yaml](../yaml/backend-service.yaml)
-There are a few things to notice:
+1. Open [yaml/backend-service.yaml](../yaml/backend-service.yaml)
+  There are a few things to notice:
     - The protocol is set to TCP, which means that the Service sends requests to Pods on this protocol. UDP is also supported
-- The spec has defined port 80, so it will listen to traffic on port 80 and sends traffic to the Pods on the same port. We could also define `targetPort` if the port on the Pods are different from the incoming traffic port
-- The label `app: backend` defines that it should route requests to our Deployment with the same label
+    - The spec has defined port 80, so it will listen to traffic on port 80 and sends traffic to the Pods on the same port. We could also define `targetPort` if the port on the Pods are different from the incoming traffic port
+    - The label `app: backend` defines that it should route requests to our Deployment with the same label
 
 2. Create the Services:
-    ```
-   kubectl apply -f ./yaml/backend-service.yaml
-   kubectl apply -f ./yaml/frontend-service.yaml
-   ```
+
+  ```
+  kubectl apply -f ./yaml/backend-service.yaml
+  kubectl apply -f ./yaml/frontend-service.yaml
+  ```
 
 2. List the created services:
+  
   ```
-   kubectl get service
-   ```
+  kubectl get service
+  ```
 
 As you can see, both services have defined internal IPs. These internal IPs are only available inside the cluster. But we want our frontend application to be available from the internet. In order to do so, we must expose an external IP.
 
-3. Update the [./yaml/frontend-service.yaml](../yaml/frontend-service.yaml):
+3. Update the [yaml/frontend-service.yaml](../yaml/frontend-service.yaml):
+  
   ```
-   kubectl apply -f ./yaml/frontend-service.yaml
-   ```
+  kubectl apply -f ./yaml/frontend-service.yaml
+  ```
 
 4. Check that your service is up
+
   ```
   kubectl get service
   ```
@@ -133,47 +141,55 @@ Ok, so now what? With the previous command, we saw that we had two services, one
 
 An ingress are an Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
 
-1. Open the file [./yaml/ingress.yaml](../yaml/ingress.yaml)
+1. Open the file [yaml/ingress.yaml](../yaml/ingress.yaml)
 Notice that we have defined that we have configured our ingress to send requests to our `frontend` service on port `8080`.
 2. Create the ingress resource:
-    ```
-   kubectl apply -f ingress.yaml
-   ```
+  
+  ```
+  kubectl apply -f ingress.yaml
+  ```
+
 3. Wait for an external IP to be configured
-    ```
-   watch kubectl get ingress cv-ingress
-   ```
-or
-    ```
-   kubectl get ingress cv-ingress -w
-   ```
+
+  ```
+  watch kubectl get ingress cv-ingress
+  ```
+  
+  or
+  
+  ```
+  kubectl get ingress cv-ingress -w
+  ```
+
 4. Visit the external IP in your peferred browser to make sure you see your awezome CV online
 
 ## Rolling updates
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. You will now update the background color of the frontend application, see that the build trigger creates a new image and update the deployment to use this.
 
-1. Open the file [./frontend/INSERT_FILE](../frontend/INSERT_FILE) and edit the field `background-color` to your favourite color
+1. Open the file [frontend/INSERT_FILE](../frontend/INSERT_FILE) and edit the field `background-color` to your favourite color
 2. Commit your changes and make sure to include :frontend: in your commit message (and push if you edit from your local computer)
 3. Go back to the cloud console in your browser and make sure that the build trigger finishes successfully
 4. Navigate to the newly created Docker image and click *Add tag*. Add the tag `2.0`
-5. Update the image specification on the file [./yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) by adding the tag `:2.0`
+5. Update the image specification on the file [yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) by adding the tag `:2.0`
 6. Open a new terminal window to watch the deletion and creation of Pods:
-    ```
-   watch kubectl get pods
-   ```
+  
+  ```
+  watch kubectl get pods
+  ```
 
-If you don't have `watch` installed, you can use this command instead:
+  If you don't have `watch` installed, you can use this command instead:
 
-    ```
-   kubectl get pods -w
-   ```
+  ```
+  kubectl get pods -w
+  ```
 
-Don't close this window.
+  Don't close this window.
 
 7. In the other terminal window, apply the updated Deployment specification
-    ```
-   kubectl apply -f ./yaml/frontend-deployment.yaml
-   ```
+  
+  ```
+  kubectl apply -f ./yaml/frontend-deployment.yaml
+  ```
 
 and watch how the Pods are terminated and created in the other terminal window. Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.
 
@@ -181,56 +197,64 @@ and watch how the Pods are terminated and created in the other terminal window. 
 Ok, everything looks good! But what if you need to inspect the logs and states of your applications? Kubernetes have a built in log feature. Lets take a look at our backend application, and see what information we can retrieve.
 
 1. View the logs of one container
-- First, list the pod names:
+  - First, list the pod names:
+    
     ```
-      kubectl get pods -l app=backend
-      ```
-The flag `l` is used to filter by pods with the label `app=backend`.
-
-- Now, you can view the logs from one pod:
+    kubectl get pods -l app=backend
     ```
-      kubectl logs <INSERT_THE_NAME_OF_A_POD>
-      ```
+    
+    The flag `l` is used to filter by pods with the label `app=backend`.
 
-    - You can also get all logs filtered by label.
+  - Now, you can view the logs from one pod:
+    
     ```
-      kubectl logs -l app=backend
-      ```
+    kubectl logs <INSERT_THE_NAME_OF_A_POD>
+    ```
 
-Notice that this output appends the pods logs one by one, so the time could be a little confusing.
+  - You can also get all logs filtered by label.
+      
+    ```
+    kubectl logs -l app=backend
+    ```
 
 2. Ok, the logs were fine! Lets look at the environment variables set by Kubernetes in our containers:
-    ```
+  
+  ```
   kubectl exec -it <INSERT_THE_NAME_OF_A_POD> -- printenv
   ```
 
-Here you can see that we have IP adresses and ports to our frontend service. These IP adresses are internal, not reachable from outside the cluser. You can set your own environment variables in the deployment specification. They will show up in this list as well.
+  Here you can see that we have IP adresses and ports to our frontend service. These IP adresses are internal, not reachable from outside the cluser. You can set your own environment variables in the deployment specification. They will show up in this list as well.
 
 3. We can also describe our deployment, to see its statuses and pod specification:
-    ```
+  
+  ```
   kubectl describe deployment backend
   ```
-Notice that `StrategyType: RollingUpdate` that we saw when we applied an updated frontend is set by default.
+  
+  Notice that `StrategyType: RollingUpdate` that we saw when we applied an updated frontend is set by default.
 
 
 ## DNS
 A cool thing in Kubernetes is the Kubernetes DNS. Inside the cluster, Pods and Services have their own DNS record. For example, our backend service is reachable on the record `backend.default.svc.cluster.local`. We will take a look at this.
 
-    Kubernetes is running on nodes, Virtual Machines. We will now ssh into one of these nodes in order to curl our Kube DNS records.
+Kubernetes is running on nodes, Virtual Machines. We will now ssh into one of these nodes in order to curl our Kube DNS records.
 1. List nodes:
-    ```
-   kubectl get nodes
-   ```
+  
+  ```
+  kubectl get nodes
+  ```
 
 2. Use `gcloud` to ssh into one of the nodes listed
-    ```
-   gcloud compute ssh <INSERT_NODE_NAME> --zone=europe-west2-b
-   ```
+  
+  ```
+  gcloud compute ssh <INSERT_NODE_NAME> --zone=europe-west2-b
+  ```
 
 3. Try to curl our backend service:
-    ```
-   curl -v backend.default.svc.cluster.local
-   ```
+  
+  ```
+  curl -v backend.default.svc.cluster.local
+  ```
 
-The HTTP status should be 200 along with the message "Hello, I'm alive"
+  The HTTP status should be 200 along with the message "Hello, I'm alive"
 
