@@ -53,7 +53,7 @@ Now that we are authenticated, we can look at the components in our cluster by u
 This should list the namespaces `kube-system`, `kube-public` and `default`. The namespace `default`is where we will deploy our applications. `kube-system` is used by Kubernetes, `kube-public` is for resources that does not need authentication and `default` is, as the name says, the default namespace for resources. You can create your own namespaces, e.g. for test and prod.
 
 ## Change namespace  
-** Only if you did step 2. in the first setup task, and did not set up your own Google Cloud project and cluster **
+**Only if you did step 2. in the first setup task, and did not set up your own Google Cloud project and cluster**
 
 *The output from the previous command listed more than the default 3 namespaces. This is because we have created one namespace for each service acccount in this workshop. We have given you read/write rights to your own namespace and read rights to the others. This we have done using RBAC (role-based access control) which is a built in feature in Kubernetes. This is not covered in this workshop, but feel free to ask us about it or explore it on your own.*
 
