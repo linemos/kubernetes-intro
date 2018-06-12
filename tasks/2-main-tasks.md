@@ -201,33 +201,39 @@ Now that our applications are running, we would like to route traffic to them.
 As you can see, both services have defined internal IPs, `CLUSTER-IP`. These internal IPs are only available inside the cluster. But we want our frontend application to be available from the internet. In order to do so, we must expose an external IP.
 
 ## Exposing your app
-Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser. In order to do so, we will now make an ingress.
+Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.
+Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.
 
-An ingress is a Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
+1. Edit the service:
 
-1. Open the file [yaml/ingress.yaml](../yaml/ingress.yaml)
-  Notice that we have defined that we have configured our ingress to send requests to our `frontend` service on port `8080`.
-2. Create the ingress resource:
+  ```
+  kubectl edit service frontend
+  ```
+
+  This will open your default editor.
+
+2. Set `type` to be `LoadBalancer`
+3. Save and run
+
+  ```
+  kubectl apply -f ./yaml/frontend-service.yaml
+  ```
   
-  ```
-  kubectl apply -f ./yaml/ingress.yaml
-  ```
-
-3. Wait for an external IP to be configured
+4. Wait for an external IP:
 
   ```
-  watch kubectl get ingress cv-ingress
+  watch kubectl get service frontend
   ```
-  
+
   or
   
   ```
-  kubectl get ingress cv-ingress -w
+  kubectl get service frontend -w
   ```
-  It may take a few minutes for Kubernetes Engine to allocate an external IP address and set up forwarding rules until the load balancer is ready to serve your application. In the meanwhile, you may get errors such as HTTP 404 or HTTP 500 until the load balancer configuration is propagated across the globe.
 
-4. Visit the external IP in your peferred browser to make sure you see your awezome CV online. If you get an error, the ingress and load balacing setup might not be completed.
+5. Visit the IP in your browser to see you amazing CV online!
 
+ 
 ## Rolling updates
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. 
 You will now update the background color of the frontend application, see that the build trigger creates a new image and

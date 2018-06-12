@@ -6,21 +6,29 @@ Right now we have exposed our frontend service through an ingress. We will now l
 #### Service type NodePort
 The first way is with the service type NodePort. If we look at our frontend service, we can see that it already is defined as this type. So we are good to go then? No, not yet.
 
-1. Run
+1. We will change our frontend service to be a type NodePort instead. Open the file [yaml/frontend-service.yaml](../yaml/frontend-service.yaml)
+2. Set the `type` to be `NodePort` and save
+3. Apply the changes
+
+  ```
+  kubectl apply -f ./yaml/frontend-service.yaml
+  ```
+
+4. Run
 
   ```
   kubectl get service frontend
   ```
 
-We see that our service doesn't have an external IP. But what it do have is two ports, port 80 and a port in the range 30000-32767. The last port was set by the Kubernetes master when we created our service. This port we will use togheter with an external IP.
+  We see that our service doesn't have an external IP. But what it do have is two ports, port 80 and a port in the range 30000-32767. The last port was set by the Kubernetes master when we created our service. This port we will use togheter with an external IP.
 
-2. The nodes in our cluster all have external IPs per default. Lets use one of those.
+5. The nodes in our cluster all have external IPs per default. Lets use one of those.
 
   ```
   kubectl get nodes
   ```
 
-3. Copy one of the external IPs from the output above along with the node port from our service:
+6. Copy one of the external IPs from the output above along with the node port from our service:
 
   ```
   curl -v <EXTERNAL_IP>:<NODE_PORT>
@@ -28,39 +36,41 @@ We see that our service doesn't have an external IP. But what it do have is two 
 
   The output should also here be "Hello, I'm alive"
 
-4. Do the same, but replace the IP with the external IP from one of the other nodes. It should have the same result
+7. Do the same, but replace the IP with the external IP from one of the other nodes. It should have the same result
 
-How does this work? The nodes all have external IPs, so we can curl them. By default, neither services aor pods in the cluster are exposed to the internet, but Kubernetes will open the port of `NodePort` services on all the nodes so that those services are available on <NODE_IP>:<NODE_PORT>.
+How does this work? The nodes all have external IPs, so we can curl them. By default, neither services or pods in the cluster are exposed to the internet, but Kubernetes will open the port of `NodePort` services on all the nodes so that those services are available on <NODE_IP>:<NODE_PORT>.
 
-#### Service type LoadBalancer
-Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.
+#### Create an ingress
+An ingress is a Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
 
-1. Edit the service:
-
+1. Open the file [yaml/ingress.yaml](../yaml/ingress.yaml)
+  Notice that we have defined that we have configured our ingress to send requests to our `frontend` service on port `8080`.
+2. Create the ingress resource:
+  
   ```
-  kubectl edit service frontend
-  ```
-
-  This will open your default editor.
-
-2. Set `type` to be `LoadBalancer`
-3. Save and exit
-4. Wait for an external IP:
-
-  ```
-  watch kubectl get service frontend
+  kubectl apply -f ./yaml/ingress.yaml
   ```
 
-5. Curl to get the "Hello, I'm alive" response:
+3. Wait for an external IP to be configured
 
   ```
-  curl -v <EXTERNAL_IP>
+  watch kubectl get ingress cv-ingress
   ```
+  
+  or
+  
+  ```
+  kubectl get ingress cv-ingress -w
+  ```
+  It may take a few minutes for Kubernetes Engine to allocate an external IP address and set up forwarding rules until the load balancer is ready to serve your application. In the meanwhile, you may get errors such as HTTP 404 or HTTP 500 until the load balancer configuration is propagated across the globe.
+
+4. Visit the external IP in your peferred browser to make sure you see your awezome CV online. If you get an error, the ingress and load balacing setup might not be completed.
 
 #### Notes on exposing your application
-All these methods to expose your application by getting an external IP is dependent on the cloud provider you run on. G
+LoadBalancer type and the Ingress resource is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.
 
 ## Next
 
 Clean up all your clusters and accounts to make sure you don't have to pay for any use: 
  [Delete your cluster and clean up](./4-delete-tasks.md).
+
