@@ -1,7 +1,7 @@
-#Main tasks
+# Main tasks
 
 ## Fork this repository
-If you did not create your own Google Cloud project, but instead authenticated with an Service Account, jump to the assignments under [Deploy to your Kubernetes Cluster](##Deploy-to-your-Kubernetes-Cluster) 
+If you did not create your own Google Cloud project, but instead authenticated with an Service Account, jump to the assignments under [Deploy to your Kubernetes Cluster](#Deploy-to-your-Kubernetes-Cluster) 
 In GitHub, fork this project. You need a fork to use build triggers in the next step. You have an account and be logged in to do so.
 
 ## Docker containers
@@ -224,7 +224,7 @@ A cool thing in Kubernetes is the Kubernetes DNS. Inside the cluster, Pods and S
 
 2. Use `gcloud` to ssh into one of the nodes listed
     ```
-   gcloud compute ssh <INSERT_NODE_NAME> --zone=europe-west1-b
+   gcloud compute ssh <INSERT_NODE_NAME> --zone=europe-west2-b
    ```
 
 3. Try to curl our backend service:
