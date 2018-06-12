@@ -229,10 +229,13 @@ An ingress is a Kubernetes resource that will allow traffic from outside the clu
 4. Visit the external IP in your peferred browser to make sure you see your awezome CV online. If you get an error, the ingress and load balacing setup might not be completed.
 
 ## Rolling updates
-As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. You will now update the background color of the frontend application, see that the build trigger creates a new image and update the deployment to use this.
+As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. 
+You will now update the background color of the frontend application, see that the build trigger creates a new image and
+update the deployment to use this in your web application.
 
-1. Open the file [frontend/INSERT_FILE](../frontend/INSERT_FILE) and edit the field `background-color` to your favourite color
-2. Commit your changes and make sure to include :frontend: in your commit message (and push if you edit from your local computer)
+1. Open the file [frontend/src/index.scss](../frontend/src/index.scss) and edit the field `background-color` to your favourite color
+2. Commit your changes
+3. Create a *cv-frontend-2.0* tag like we did earlier. 
 3. Go back to the cloud console in your browser and make sure that the build trigger finishes successfully
 4. Navigate to the newly created Docker image and click *Add tag*. Add the tag `2.0`
 5. Update the image specification on the file [yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) by adding the tag `:2.0`
@@ -256,10 +259,14 @@ As you read earlier, Kubernetes can update your application without down time wi
   kubectl apply -f ./yaml/frontend-deployment.yaml
   ```
 
-and watch how the Pods are terminated and created in the other terminal window. Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.
+and watch how the Pods are terminated and created in the other terminal window.
+Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.
 
 ## Inspection and logging
-Ok, everything looks good! But what if you need to inspect the logs and states of your applications? Kubernetes have a built in log feature. Lets take a look at our backend application, and see what information we can retrieve.
+Ok, everything looks good!
+But what if you need to inspect the logs and states of your applications?
+Kubernetes have a built in log feature.
+Lets take a look at our backend application, and see what information we can retrieve.
 
 1. View the logs of one container
   - First, list the pod names:
@@ -288,7 +295,10 @@ Ok, everything looks good! But what if you need to inspect the logs and states o
   kubectl exec -it <INSERT_THE_NAME_OF_A_POD> -- printenv
   ```
 
-  Here you can see that we have IP adresses and ports to our frontend service. These IP adresses are internal, not reachable from outside the cluser. You can set your own environment variables in the deployment specification. They will show up in this list as well.
+  Here you can see that we have IP addresses and ports to our frontend service.
+  These IP addresses are internal, not reachable from outside the cluster.
+  You can set your own environment variables in the deployment specification.
+  They will show up in this list as well.
 
 3. We can also describe our deployment, to see its statuses and pod specification:
   
@@ -300,9 +310,13 @@ Ok, everything looks good! But what if you need to inspect the logs and states o
 
 
 ## DNS
-A cool thing in Kubernetes is the Kubernetes DNS. Inside the cluster, Pods and Services have their own DNS record. For example, our backend service is reachable on the record `backend.default.svc.cluster.local`. We will take a look at this.
+A cool thing in Kubernetes is the Kubernetes DNS.
+Inside the cluster, Pods and Services have their own DNS record.
+For example, our backend service is reachable on the record `backend.default.svc.cluster.local`.
+We will take a look at this.
 
-Kubernetes is running on nodes, Virtual Machines. We will now ssh into one of these nodes in order to curl our Kube DNS records.
+Kubernetes is running on nodes, Virtual Machines. 
+We will now ssh into one of these nodes in order to curl our Kube DNS records.
 1. List nodes:
   
   ```
