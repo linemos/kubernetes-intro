@@ -17,14 +17,7 @@ WorkContainer.propTypes = {
     fetchWork: PT.func.isRequired
 };
 
-const mapStateToProps = state => (
-    {
-        work: state.work
-    }
-);
-
-const mapDispatchToProps = {
-    fetchWork
-};
+const mapStateToProps = state => ({ work: state.work });
+const mapDispatchToProps = { fetchWork };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkContainer);

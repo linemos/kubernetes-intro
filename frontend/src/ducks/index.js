@@ -27,7 +27,6 @@ const config = {
     credentials: 'same-origin'
 };
 
-
 export const fetchContactInformation = () =>
     dispatch =>
         fetch('/api/me', config)

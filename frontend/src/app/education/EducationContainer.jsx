@@ -17,14 +17,7 @@ EducationContainer.propTypes = {
     fetchEducation: PT.func.isRequired
 };
 
-const mapStateToProps = state => (
-    {
-        education: state.education
-    }
-);
-
-const mapDispatchToProps = {
-    fetchEducation
-};
+const mapStateToProps = state => ({ education: state.education });
+const mapDispatchToProps = { fetchEducation };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EducationContainer);

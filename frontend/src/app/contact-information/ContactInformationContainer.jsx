@@ -14,14 +14,7 @@ class ContactInformationContainer extends Component {
 
 ContactInformationContainer.propTypes = {};
 
-const mapStateToProps = state => (
-    {
-        contactInformation: state.contactInformation
-    }
-);
-
-const mapDispatchToProps = {
-    fetchContactInformation
-};
+const mapStateToProps = state => ({contactInformation: state.contactInformation });
+const mapDispatchToProps = { fetchContactInformation };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactInformationContainer);
