@@ -1,10 +1,10 @@
 # Main tasks
 
 ## Fork this repository
-If you did not create your own Google Cloud project; jump to the assignments under [Deploy to your Kubernetes Cluster](#Deploy-to-your-Kubernetes-Cluster).
+If you did not create your own Google Cloud project; jump to the assignments under [Deploy to your Kubernetes Cluster](#deploy-to-your-kubernetes-cluster).
 
 If you *did create* your own Goggle Cloud project and created your own cluster; fork this repo.
-In We need this to use build triggers in the next step. 
+We need this to use build triggers in the next step. 
 
 ## Docker containers
 To create a deployment on Kubernetes, you need to specify at least one container for your application.
