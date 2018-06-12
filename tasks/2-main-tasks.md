@@ -18,13 +18,13 @@ We could create the Docker images locally from our computer by building it with 
 3. Choose Github as build source. Click *Continue*
 4. Select your fork as the repository and click *Continue*
 5. Now its time to specify the build trigger:
-  - *Name*: Backend trigger
-  - *Trigger type*: `Tag`
-  - *Branch*: Set tag to `cv-backend`
-  - *Build Configuration*: Dockerfile
-  - *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
-  - *Dockerfile name*: `Dockerfile`
-  - *Image name*: `gcr.io/$PROJECT_ID/backend:latest`
+    - *Name*: Backend trigger
+    - *Trigger type*: `Tag`
+    - *Branch*: Set tag to `cv-backend`
+    - *Build Configuration*: Dockerfile
+    - *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
+    - *Dockerfile name*: `Dockerfile`
+    - *Image name*: `gcr.io/$PROJECT_ID/backend:latest`
 6. Click *Create*
 
 Now, do the same thing for the frontend application. Name it `Frontend trigger`, and set the directory to be `/frontend/` and set the Docker image to be `gcr.io/$YOUR_PROJECT_ID/frontend:latest`.
