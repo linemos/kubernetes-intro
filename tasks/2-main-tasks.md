@@ -55,11 +55,11 @@ If the commit is tagged with `cv-frontend-1`, it will use the Dockerfile in the 
 You tried to run the build trigger manually in the previous step.
 Now you will test how it works on new commits on your GitHub repository.
 
-####Change the code
+#### Change the code
 Open the file [backend/server.js](../backend/server.js) and edit the JSON responses to your name, workplace and education.
 You can either change the code in an editor or in GitHub directly. Commit and push your commit.
 
-####Publish your changes
+#### Publish your changes
 We need to add a tag to notify our build triggers that the code has changed and need to rebuild. 
 There are two ways to ad a tag:
 
