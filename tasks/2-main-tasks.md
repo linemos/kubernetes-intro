@@ -86,20 +86,32 @@ Notice that you can follow the build log if you want to see whats going on.
 When it is done, go to the *Build Images* in the menu and make sure that you can find your backend image there.
 
 ## Deploy to your Kubernetes Cluster
-It's time to deploy the frontend and backend to your cluster! The preferred way to configure Kubernetes resources is to specify them in YAML files.
+It's time to deploy the frontend and backend to your cluster!
+The preferred way to configure Kubernetes resources is to specify them in YAML files.
 
-In the folder [yaml/](../yaml) you find the YAML files specifying what resources Kubernetes should create. There is two services, one for the backend application and one for the frontend application. Same with deployments.
+In the folder [yaml/](../yaml) you find the YAML files specifying what resources Kubernetes should create.
+There is two services, one for the backend application and one for the frontend application.
+Same for the deployments.
 
-1. Open the file [yaml/backend-deployment.yaml](../yaml/backend-deployment.yaml) and in the field `spec.template.spec.containers.image` insert your backend Docker image full name.  It should be something like `gcr.io/MY_PROJECT_ID/backend:1.0`
-  If you did not create build triggers, use the docker image `linemos/cv-backend:1.0` and `linemos/cv-frontend:1.0` instead.
+1. Open the file [yaml/backend-deployment.yaml](../yaml/backend-deployment.yaml) and
+in the field `spec.template.spec.containers.image` insert your backend Docker image full name. 
+It should be something like `gcr.io/MY_PROJECT_ID/backend:1.0`
+ 
+If you did not create build triggers, use the docker image `linemos/cv-backend:1.0`. 
 
-  There are a few things to notice here:
-    - The number of replicas is set to 3. This is the number of pods we want running at all times
-    - The container spec has defined port 80, so the Deployment will open this port on the containers
-    - The label `app: backend` is defined three places:
-      - `metadata` is used by the service, which we will look at later
-      - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
-      - `spec.template.metadata` is the label added to the Pods
+There are a few things to notice in the deployment file:
+- The number of replicas is set to 3. This is the number of pods we want running at all times
+- The container spec has defined port 80, so the Deployment will open this port on the containers
+- The label `app: backend` is defined three places:
+  - `metadata` is used by the service, which we will look at later
+  - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
+  - `spec.template.metadata` is the label added to the Pods
+  
+2. Open the file [yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) and
+in the field `spec.template.spec.containers.image` insert your frontend Docker image full name. 
+It should be something like `gcr.io/MY_PROJECT_ID/frontend:1.0`
+
+ `linemos/cv-frontend:1.0` instead.
 
 2. Create the resources for the backend and frontend:
   
