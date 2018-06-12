@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: linemos/cv-frontend:1.0
+        image: INSERT_PATH_TO_DOCKER_IMAGE
         imagePullPolicy: Always
         ports:
         - containerPort: 80
