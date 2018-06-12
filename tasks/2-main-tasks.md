@@ -8,7 +8,7 @@ In GitHub, fork this project. You need a fork to use build triggers in the next 
 To create a deployment on Kubernetes, you need to specify at least one container for your application. Kubernetes will on a deploy pull the image specified and create pods with this container. Docker is the most commonly used container in Kubernetes.
 
 In this repository you will find code for both applications in the backend and frontend directories. Each of these folders also have their own Dockerfile. Take a look at the files
-[frontend/Dockerfile](../frondend/Dockerfile) and [backend/Dockerfile](../backend/Dockerfile) too see how they are built up. Notice the `.dockerignore` files as well. This file tells the Docker daemon which files and directories to ignore, for example the `node_modules` directory.
+[frontend/Dockerfile](../frontend/Dockerfile) and [backend/Dockerfile](../backend/Dockerfile) too see how they are built up. Notice the `.dockerignore` files as well. This file tells the Docker daemon which files and directories to ignore, for example the `node_modules` directory.
 
 We could create the Docker images locally from our computer by building it with the docker deamon, but we are going to explore build triggers in Google Cloud Platform instead.
 
