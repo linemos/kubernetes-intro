@@ -13,19 +13,19 @@ When you have received an service account, download the file. We will use it to 
 1. Open the file and copy the email adress in the field `client_email`
 2. Use this command to authenticate your computer with the cluster:
 
-```
-gcloud auth activate-service-account INSERT_CLIENT_EMAIL_HERE --key-file=PATH_TO_JSON_FILE --project vibrant-grammar-206916
-```
+	```
+	gcloud auth activate-service-account INSERT_CLIENT_EMAIL_HERE --key-file=PATH_TO_JSON_FILE --project vibrant-grammar-206916	
+	```
 
 3. Verify that you have successfully authenticated by this command:
 
-```
-gcloud container clusters list
-```
+	```
+	gcloud container clusters list
+	```
 
-The result should be similar to this:
+	The result should be similar to this:
 
-```
-NAME        LOCATION        MASTER_VERSION  MASTER_IP       MACHINE_TYPE   NODE_VERSION  NUM_NODES  STATUS
-cv-cluster  europe-west2-b  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10.2-gke.3  6          RUNNING
-```
+	```
+	NAME        LOCATION        MASTER_VERSION  MASTER_IP       MACHINE_TYPE   NODE_VERSION  NUM_NODES  STATUS	
+	cv-cluster  europe-west2-b  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10.2-gke.3  6          RUNNING
+	```

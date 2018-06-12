@@ -7,9 +7,9 @@ We need a cluster in order to continue with this workshop. There are two alterna
 
 ## Install the Kubernetes command-line tool
 1. To operate our cluster, we will use the Kubernetes command line tool, kubectl:
-```
+  ```
    gcloud components install kubectl
-```
+  ```
 
 The cloud SDK installs the tool for you. This tool is not Google Cloud specific, but is used to operate Kubernetes clusters regardless of where they are hosted.
 
@@ -59,10 +59,10 @@ This should list the namespaces `kube-system`, `kube-public` and `default`. The 
 
 1. Change namespace to the namespace provided in the email you got:
 
-```
-kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
-# Validate it
-kubectl config view | grep namespace: 
-```
+  ```
+  kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+  # Validate it
+  kubectl config view | grep namespace: 
+  ```
 
-The second line should output your namespace.
+  The second line should output your namespace.
