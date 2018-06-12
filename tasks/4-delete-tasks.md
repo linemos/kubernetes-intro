@@ -9,4 +9,8 @@ gcloud projects delete $(!!)
 
 And your are done and your credit card will not be charged.
 
-And thats it! ⎈
+And that's it! ⎈
+
+## Any questions?
+
+Contact us on [@linemos](https://twitter.com/linemoseng) or [@ingridguren]https://twitter.com/ingridguren).
