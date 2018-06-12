@@ -8,7 +8,7 @@ In GitHub, fork this project. You need a fork to use build triggers in the next 
 To create a deployment on Kubernetes, you need to specify at least one container for your application. Kubernetes will on a deploy pull the image specified and create pods with this container. Docker is the most commonly used container in Kubernetes.
 
 In this repository you will find code for both applications in the backend and frontend directories. Each of these folders also have their own Dockerfile. Take a look at the files
-[frontend/Dockerfile](./frondend/Dockerfile) and [backend/Dockerfile](./backend/Dockerfile) too see how they are built up. Notice the `.dockerignore` files as well. This file tells the Docker daemon which files and directories to ignore, for example the `node_modules` directory.
+[frontend/Dockerfile](../frondend/Dockerfile) and [backend/Dockerfile](../backend/Dockerfile) too see how they are built up. Notice the `.dockerignore` files as well. This file tells the Docker daemon which files and directories to ignore, for example the `node_modules` directory.
 
 We could create the Docker images locally from our computer by building it with the docker deamon, but we are going to explore build triggers in Google Cloud Platform instead.
 
@@ -32,7 +32,7 @@ Now, do the same thing for the frontend application. Name it `Frontend trigger`,
 This sets up a build trigger that listens to new commits on the master branch of your repository. If the commit is tagged with `cv-frontend`, it will use the Dockerfile in the backend directory to create a new Docker image. Click on the small menu on the trigger and select *Run trigger* to test it. Once it is finished building, you can find the image under the Images menu point.
 
 ### Test the build trigger
-1. You tried to run the build trigger manually in the previous step. Now you will test how it works on new commits on your GitHub repository. Open the file [./backend/server.js](./backend/server.js) and edit the JSON responses to your name, workplace and education.
+1. You tried to run the build trigger manually in the previous step. Now you will test how it works on new commits on your GitHub repository. Open the file [./backend/server.js](../backend/server.js) and edit the JSON responses to your name, workplace and education.
 2. Commit and tag with `cv-backend`. If you commit from the git command line, the command to tag the latest commit is:
 
 ```
@@ -46,9 +46,9 @@ git push --tags
 ## Deploy to your Kubernetes Cluster
 It's time to deploy the frontend and backend to your cluster! The preferred way to configure Kubernetes resources is to specify them in YAML files.
 
-In the folder [./yaml](./yaml) you find the YAML files specifying what resources Kubernetes should create. There is two services, one for the backend application and one for the frontend application. Same with deployments.
+In the folder [./yaml](../yaml) you find the YAML files specifying what resources Kubernetes should create. There is two services, one for the backend application and one for the frontend application. Same with deployments.
 
-1. Open the file [./yaml/backend-deployment.yaml](./yaml/backend-deployment.yaml) and in the field `spec.template.spec.containers.image` insert your backend Docker image full name. It should be something like `gcr.io/MY_PROJECT_ID/backend:1.0`
+1. Open the file [./yaml/backend-deployment.yaml](../yaml/backend-deployment.yaml) and in the field `spec.template.spec.containers.image` insert your backend Docker image full name. It should be something like `gcr.io/MY_PROJECT_ID/backend:1.0`
 If you did not create build triggers, use the docker image `linemos/cv-backend:1.0` and `linemos/cv-frontend:1.0` instead.
 
 There are a few things to notice here:
@@ -99,7 +99,7 @@ The statuses are similar to those of the Deployments, exept that the ReplicaSet 
 ## Create services
 Now that our applications are running, we would like to route traffic to them.
 
-1. Open [./yaml/backend-service.yaml](./yaml/backend-service.yaml)
+1. Open [./yaml/backend-service.yaml](../yaml/backend-service.yaml)
 There are a few things to notice:
     - The protocol is set to TCP, which means that the Service sends requests to Pods on this protocol. UDP is also supported
 - The spec has defined port 80, so it will listen to traffic on port 80 and sends traffic to the Pods on the same port. We could also define `targetPort` if the port on the Pods are different from the incoming traffic port
@@ -118,7 +118,7 @@ There are a few things to notice:
 
 As you can see, both services have defined internal IPs. These internal IPs are only available inside the cluster. But we want our frontend application to be available from the internet. In order to do so, we must expose an external IP.
 
-3. Update the [./yaml/frontend-service.yaml](./yaml/frontend-service.yaml):
+3. Update the [./yaml/frontend-service.yaml](../yaml/frontend-service.yaml):
   ```
    kubectl apply -f ./yaml/frontend-service.yaml
    ```
@@ -133,7 +133,7 @@ Ok, so now what? With the previous command, we saw that we had two services, one
 
 An ingress are an Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
 
-1. Open the file [./yaml/ingress.yaml](./yaml/ingress.yaml)
+1. Open the file [./yaml/ingress.yaml](../yaml/ingress.yaml)
 Notice that we have defined that we have configured our ingress to send requests to our `frontend` service on port `8080`.
 2. Create the ingress resource:
     ```
@@ -152,11 +152,11 @@ or
 ## Rolling updates
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. You will now update the background color of the frontend application, see that the build trigger creates a new image and update the deployment to use this.
 
-1. Open the file [./frontend/INSERT_FILE](./frontend/INSERT_FILE) and edit the field `background-color` to your favourite color
+1. Open the file [./frontend/INSERT_FILE](../frontend/INSERT_FILE) and edit the field `background-color` to your favourite color
 2. Commit your changes and make sure to include :frontend: in your commit message (and push if you edit from your local computer)
 3. Go back to the cloud console in your browser and make sure that the build trigger finishes successfully
 4. Navigate to the newly created Docker image and click *Add tag*. Add the tag `2.0`
-5. Update the image specification on the file [./yaml/frontend-deployment.yaml](./yaml/frontend-deployment.yaml) by adding the tag `:2.0`
+5. Update the image specification on the file [./yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) by adding the tag `:2.0`
 6. Open a new terminal window to watch the deletion and creation of Pods:
     ```
    watch kubectl get pods
