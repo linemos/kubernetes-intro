@@ -6,7 +6,7 @@ We need a cluster in order to continue with this workshop. There are two alterna
 2. The second alternative is to use a service account to authenticate against a cluster we have already created. To do this, follow the steps in [./1b-service-account-setup.md](./1b-service-account-setup.md)
 
 ## Install the Kubernetes command-line tool
-1. To operate our cluster, we will use the Kubernetes command line tool, kubectl:
+1. To operate our cluster, we will use the Kubernetes command line tool, *kubectl*:
   ```
    gcloud components install kubectl
   ```
@@ -20,14 +20,21 @@ The cloud SDK installs the tool for you. This tool is not Google Cloud specific,
 
 If the status of your cluster is `RUNNING`, you are good to go.
 
-3. The next step is to make sure that the Kubernetes command line tool is authenticated against our new cluster. This is easily done by this neat gcloud command:
+3. We want to set the default zone of our application, this tells google cloud where to look for the cluster.
+We created our cluster in *europe-west2-b* and will set our default zone to this. 
+
+    ```
+    gcloud config set compute/zone europe-west2-b
+    ``` 
+
+4. The next step is to make sure that the Kubernetes command line tool is authenticated against our new cluster. This is easily done by this neat gcloud command:
     ```
    gcloud container clusters get-credentials cv-cluster
    ```
 
 What this does is to write credentials to the file `~/.kube/config`. You can take a look at that file too see what is written to it.
 
-If you want bash autocompletion for kubectl, follow [these steps](https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion).
+**Extra task:** If you want bash autocompletion for kubectl, follow [these steps](https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion).
 
 ## Describe components of the cluster
 Now that we are authenticated, we can look at the components in our cluster by using the kubectl command.
@@ -66,3 +73,7 @@ This should list the namespaces `kube-system`, `kube-public` and `default`. The 
   ```
 
   The second line should output your namespace.
+
+## Next
+
+[Proceed to the main tasks](./2-main-tasks.md).
