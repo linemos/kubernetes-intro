@@ -111,9 +111,7 @@ There are a few things to notice in the deployment file:
   
 2. Open the file [yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) and
 in the field `spec.template.spec.containers.image` insert your frontend Docker image full name. 
-It should be something like `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`
-
- `linemos/cv-frontend:1.0` instead.
+It should be something like `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`. If you did not create build triggers, use `linemos/cv-frontend:1.0` instead.
 
 2. Create the resources for the backend and frontend (from root folder in the project):
   
