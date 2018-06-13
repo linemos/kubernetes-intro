@@ -97,7 +97,7 @@ Same for the deployments.
 
 1. Open the file [yaml/backend-deployment.yaml](../yaml/backend-deployment.yaml) and
 in the field `spec.template.spec.containers.image` insert your backend Docker image full name. 
-It should be something like `gcr.io/MY_PROJECT_ID/backend:1.0`
+It should be something like `gcr.io/MY_PROJECT_ID/backend:TAG_NAME`, example: `gcr.io/kubernetes-workshop-NDC/backend:cv-backend-1`.
  
 If you did not create build triggers, use the docker image `linemos/cv-backend:1.0`. 
 
@@ -111,7 +111,7 @@ There are a few things to notice in the deployment file:
   
 2. Open the file [yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) and
 in the field `spec.template.spec.containers.image` insert your frontend Docker image full name. 
-It should be something like `gcr.io/MY_PROJECT_ID/frontend:1.0`
+It should be something like `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`
 
  `linemos/cv-frontend:1.0` instead.
 
@@ -237,9 +237,8 @@ update the deployment to use this in your web application.
 2. Commit your changes
 3. Create a *cv-frontend-2.0* tag like we did earlier. 
 3. Go back to the cloud console in your browser and make sure that the build trigger finishes successfully
-4. Navigate to the newly created Docker image and click *Add tag*. Add the tag `2.0`
-5. Update the image specification on the file [yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) by adding the tag `:2.0`
-6. Open a new terminal window to watch the deletion and creation of Pods:
+4. Update the image specification on the file [yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) by adding the tag `:2.0`
+5. Open a new terminal window to watch the deletion and creation of Pods:
   
   ```
   watch kubectl get pods
