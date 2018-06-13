@@ -18,8 +18,22 @@ The cloud SDK installs the tool for you. This tool is not Google Cloud specific,
    gcloud container clusters list
    ```
 
-If the status of your cluster is `RUNNING`, you are good to go.
-
+If the status of your cluster is `RUNNING`, you are good to go. If there is no output, you might have the wrong project set in your config file. Do this to set the correct project:
+  
+  - Go back to your browser and click on the dropdown next to `Google Cloud Platform`. This should open a modal where at least one project is listed.
+  - Copy the ID of the active project
+  - Type this in your terminal:
+  
+    ```
+    gcloud config project set INSERT_PROJECT_ID
+    ```
+    
+  - Run:
+    
+    ```
+    gcloud container clusters list
+    ```
+    
 3. We want to set the default zone of our application, this tells google cloud where to look for the cluster.
 We created our cluster in *europe-west2-b* and will set our default zone to this. 
 
