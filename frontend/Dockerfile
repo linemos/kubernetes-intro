@@ -11,7 +11,6 @@ COPY server.js /app
 RUN npm install
 
 # Bundle app source
-COPY .env /app
 COPY src/. /app/src
 COPY public/. /app/public
 
