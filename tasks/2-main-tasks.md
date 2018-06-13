@@ -318,7 +318,7 @@ Lets take a look at our backend application, and see what information we can ret
 ## DNS
 A cool thing in Kubernetes is the Kubernetes DNS.
 Inside the cluster, Pods and Services have their own DNS record.
-For example, our backend service is reachable on `backend.<NAMESPACE_NAME>.svc.cluster.local`. If you are sending the request from the same namespace, you can also reach it on `backend`.
+For example, our backend service is reachable on `backend.<NAMESPACE>.svc.cluster.local`. If you are sending the request from the same namespace, you can also reach it on `backend`.
 We will take a look at this.
 
 1. Get your current namespace
@@ -333,21 +333,21 @@ We will take a look at this.
   kubectl get pods frontend
   ```
 
-2. We will run `curl` from one of our frontend containers to see that we can reach our backend internally on `http://backend.<NAMESPACE_NAME>.svc.cluster.local:5000`
+2. We will run `curl` from one of our frontend containers to see that we can reach our backend internally on `http://backend.<NAMESPACE>.svc.cluster.local:5000`
+
+  ```
+  kubectl exec -it INSERT_FRONTEND_POD_NAME -- curl -v http://backend.<NAMESPACE>.svc.cluster.local:5000
+  ```
+
+  The HTTP status should be 200 along with the message "Hello, I'm alive"
+
+3. Run `curl` from the same container to see that we can reach our backend internally on the shortname `http://backend:5000` as well
 
   ```
   kubectl exec -it INSERT_FRONTEND_POD_NAME -- curl -v http://backend:5000
   ```
 
-  The HTTP status should be 200 along with the message "Hello, I'm alive"
-
-3. We will run `curl` from one of our frontend containers to see that we can reach our backend internally on `http://backend:5000`
-
-  ```
-  kubectl exec -it INSERT_FRONTEND_POD_NAME -- curl -v http://backend:5000
-  ```
-
-  The HTTP status should be 200 along with the message "Hello, I'm alive"
+  The output should be the same as above.  
 
 ## Next
 
