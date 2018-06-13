@@ -313,10 +313,12 @@ We will take a look at this.
   kubectl config view | grep namespace: 
   ```
 
+  If there is no output, your namespace is `default`.
+
 2. List pods to copy a pod name
 
   ```
-  kubectl get pods frontend
+  kubectl get pods -l app=frontend
   ```
 
 2. We will run `curl` from one of our frontend containers to see that we can reach our backend internally on `http://backend.<NAMESPACE>.svc.cluster.local:5000`
