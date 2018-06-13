@@ -103,7 +103,7 @@ If you did not create build triggers, use the docker image `linemos/cv-backend:1
 
 There are a few things to notice in the deployment file:
 - The number of replicas is set to 3. This is the number of pods we want running at all times
-- The container spec has defined port 80, so the Deployment will open this port on the containers
+- The container spec has defined port 5000, so the Deployment will open this port on the containers
 - The label `app: backend` is defined three places:
   - `metadata` is used by the service, which we will look at later
   - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
