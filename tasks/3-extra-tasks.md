@@ -25,7 +25,7 @@ The first way is with the service type NodePort. If we look at our frontend serv
 5. The nodes in our cluster all have external IPs per default. Lets use one of those.
 
   ```
-  kubectl get nodes
+  kubectl get nodes -o wide
   ```
 
 6. Copy one of the external IPs from the output above along with the node port from our service:
