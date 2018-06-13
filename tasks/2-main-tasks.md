@@ -198,14 +198,7 @@ As you can see, both services have defined internal IPs, `CLUSTER-IP`. These int
 Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.
 Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.
 
-1. Edit the service:
-
-  ```
-  kubectl edit service frontend
-  ```
-
-  This will open your default editor.
-
+1. Open the frontend service file again
 2. Set `type` to be `LoadBalancer`
 3. Save and run
 
