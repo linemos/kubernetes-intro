@@ -226,7 +226,7 @@ As you read earlier, Kubernetes can update your application without down time wi
 You will now update the background color of the frontend application, see that the build trigger creates a new image and
 update the deployment to use this in your web application.
 
-1. Open the file [frontend/src/index.scss](../frontend/src/index.css) and edit the field `background-color` to your favourite color
+1. Open the file [frontend/src/index.css](../frontend/src/index.css) and edit the field `background-color` to your favourite color
 2. Commit your changes
 3. Create a *cv-frontend-2.0* tag like we did earlier. 
 3. Go back to the cloud console in your browser and make sure that the build trigger finishes successfully
