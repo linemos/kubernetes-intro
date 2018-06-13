@@ -132,7 +132,7 @@ It should be something like `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`. If you did
   kubectl get pods -w
   ```
 
-  When all pods are running, quit by `ctrl + q`.
+  When all pods are running, quit by `ctrl + q` (or `ctrl + c` when on Windows).
 
 Pods are Kubernetes resources that mostly just contains one or more containers,
 along with some Kubernetes network stuff and specifications on how to run the container(s).
