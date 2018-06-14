@@ -33,10 +33,19 @@ The first way is with the service type NodePort. If we look at our frontend serv
   ```
   curl -v <EXTERNAL_IP>:<NODE_PORT>
   ```
+  
+  This will output `Connection failed`. This is because we haven't opened up requests on this port. Lets create a firewall rule that allows traffic on this port:
+  
+7. Create a firewall rule. Switch `NODE_PORT` with the node port of your service:
+  
+  ```
+  gcloud compute firewall-rules create cv-frontend --allow tcp:NODE_PORT
+  ```
+  
+8. Try the curl command from `6` again.  
+   The output should also here be "Hello, I'm alive"
 
-  The output should also here be "Hello, I'm alive"
-
-7. Do the same, but replace the IP with the external IP from one of the other nodes. It should have the same result
+9. Do the same, but replace the IP with the external IP from one of the other nodes. It should have the same result
 
 How does this work? The nodes all have external IPs, so we can curl them. By default, neither services or pods in the cluster are exposed to the internet, but Kubernetes will open the port of `NodePort` services on all the nodes so that those services are available on <NODE_IP>:<NODE_PORT>.
 
