@@ -1,6 +1,6 @@
 # Clean up
 
-If you have created your own Google Cloud Platform project, run this command to delete your project:
+The cluster you have created will charge your credit card after some time if you keep it running. You can use the [Google Cloud Prie Calculator](https://cloud.google.com/products/calculator/) to find out how much it will cost you. If you keep it running, it will cost you money then the price is more than $300 (which is the included credits in the Free Tier)
 
 **Close your billing account**
 
