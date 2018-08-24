@@ -78,6 +78,48 @@ An ingress is a Kubernetes resource that will allow traffic from outside the clu
 #### Notes on exposing your application
 LoadBalancer type and the Ingress resource is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.
 
+
+## Health checks
+
+Kubernetes uses health checks and readiness checks to figure out the state of the pods. If you don't define any health check, Kubernetes assumes it is <INSERT>. You can define your own.
+If the health check responds with an error status code, Kubernetes will asume the container is unhealthy and kill the pod. Simliary, if the readiness check is unsuccessful, Kubernetes will asume it is not ready, and wait for it.
+
+
+### Endpoint
+
+The first way to define a health check is to define which endpoint the check should use. Our backend application contains the endpoint `/healthz`. Go ahead and define this as the health-endpoint in the backend deployment file, under the container spec:
+
+```
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+    httpHeaders:
+    - name: X-Custom-Header
+      value: Awesome
+  initialDelaySeconds: 3
+  periodSeconds: 3
+```
+
+### Command
+
+We can also specify a command to execute in the container. Lets do this for the frontend application:
+
+```
+livenessProbe:
+  exec:
+    command:
+    - cat
+    - /log/log.log <--- TODO FIX
+  initialDelaySeconds: 5
+  periodSeconds: 5  
+```
+
+*Hmm.... Kanskje fila ikke skal finnes ved første deploy, og heller endre til en fil som vi vet vi har (eks !error.log) på andre deploy.*
+
+
+The command can be any command available in the container. E.g. if your container has `curl` installed, we could define that the probe is to curl the `/healtz` endpoint from the container. This wouldn't make much sence, though...
+
 ## Next
 
 Clean up all your clusters and accounts to make sure you don't have to pay for any use: 
