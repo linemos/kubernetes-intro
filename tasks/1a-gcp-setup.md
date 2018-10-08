@@ -19,7 +19,7 @@ We need a cluster where we want to run our application.
 
 You can create the cluster both in the Console view in your browser and by the gcloud command line tool. We will use the Console to do it and also look at the equivalent gcloud command. 
 
-  1. Visit [Google Cloud Console](https://console.cloud.google.com/) in your browser. Click on *Kubernetes Engine* in the left side menu. If you are asked to enable the engine, do so. Click on the button *CREATE CLUSTER*
+  1. Visit [Google Cloud Console](https://console.cloud.google.com/) in your browser. *Make sure that the selected project on the blue hader on top of the page is the same as you created in the previous step*. Click on *Kubernetes Engine* in the left side menu. If you are asked to enable the engine, do so. Click on the button *CREATE CLUSTER*
   2. Name your cluster `cv-cluster`.
   3. Choose the zone `europe-west2-b`.
   4. Choose Cluster Version. Set to `1.10.2-gke.3`
