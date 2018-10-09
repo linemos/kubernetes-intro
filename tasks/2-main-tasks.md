@@ -26,7 +26,7 @@ We could create the Docker images locally from our computer by building it with 
 but we are going to explore build triggers in Google Cloud Platform instead.
 
 ### Build triggers
-1. Go to cloud console: find **Container Registry** in the left side menu (under tools) and click *Build triggers*.
+1. Go to cloud console: find **Cloud Build** in the left side menu (under tools).
 If you are asked to enable the Container Builder API, do so.
 2. Click *Create trigger*
 3. Choose Github as build source. Click *Continue*
