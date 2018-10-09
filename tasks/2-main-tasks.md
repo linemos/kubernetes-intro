@@ -34,7 +34,7 @@ If you are asked to enable the Container Builder API, do so.
 5. Now its time to specify the build trigger:
     - *Name*: Backend trigger
     - *Trigger type*: `Tag`
-    -  Set tag to `cv-backend-*`
+    -  Set tag to `cv-backend-.*`
     - *Build Configuration*: Dockerfile
     - *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
     - *Dockerfile name*: `Dockerfile`
