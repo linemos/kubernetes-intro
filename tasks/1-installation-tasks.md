@@ -40,8 +40,14 @@ We created our cluster in *europe-north1-a* and will set our default zone to thi
     ```
     gcloud config set compute/zone europe-north1-a
     ``` 
+    
+4. Create cluster in GKE
+```
+gcloud container clusters create CLUSTER_NAME
+```
 
-4. The next step is to make sure that the Kubernetes command line tool is authenticated against our new cluster. This is easily done by this neat gcloud command:
+
+5. The next step is to make sure that the Kubernetes command line tool is authenticated against our new cluster. This is easily done by this neat gcloud command:
     ```
    gcloud container clusters get-credentials cv-cluster
    ```
