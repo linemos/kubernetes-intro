@@ -6,7 +6,7 @@ In order to explore the Kubernetes cluster on Google Kubernetes Engine you need 
 1. Follow the guide to setup the `gcloud` tool, but stop before the step `gcloud init`. You can find the guide [here](https://cloud.google.com/sdk/docs/downloads-interactive)
 
 ## Activate service account
-Email `linemos@gmail.com` with the topic `NDC SA` to create a service account.
+Email `linemos@gmail.com` with the topic `Kubernetes intro SA` to create a service account.
 
 When you have received an service account, download the file. We will use it to authenticate with Google Cloud.
 
@@ -14,7 +14,7 @@ When you have received an service account, download the file. We will use it to 
 2. Use this command to authenticate your computer with the cluster:
 
 	```
-	gcloud auth activate-service-account INSERT_CLIENT_EMAIL_HERE --key-file=PATH_TO_JSON_FILE --project vibrant-grammar-206916	
+	gcloud auth activate-service-account INSERT_CLIENT_EMAIL_HERE --key-file=PATH_TO_JSON_FILE --project kube-intro-oslo	
 	```
 
 3. Verify that you have successfully authenticated by this command:
@@ -26,6 +26,6 @@ When you have received an service account, download the file. We will use it to 
 	The result should be similar to this:
 
 	```
-	NAME        LOCATION        MASTER_VERSION  MASTER_IP       MACHINE_TYPE   NODE_VERSION  NUM_NODES  STATUS	
-	cv-cluster  europe-west2-b  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10.2-gke.3  6          RUNNING
+	NAME        LOCATION         MASTER_VERSION  MASTER_IP       MACHINE_TYPE   NODE_VERSION  NUM_NODES  STATUS	
+	cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10.2-gke.3  6          RUNNING
 	```
