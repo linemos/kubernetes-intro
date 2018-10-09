@@ -35,10 +35,10 @@ If the status of your cluster is `RUNNING`, you are good to go. If there is no o
     ```
     
 3. We want to set the default zone of our application, this tells google cloud where to look for the cluster.
-We created our cluster in *europe-west2-b* and will set our default zone to this. 
+We created our cluster in *europe-north1-a* and will set our default zone to this. 
 
     ```
-    gcloud config set compute/zone europe-west2-b
+    gcloud config set compute/zone europe-north1-a
     ``` 
 
 4. The next step is to make sure that the Kubernetes command line tool is authenticated against our new cluster. This is easily done by this neat gcloud command:
