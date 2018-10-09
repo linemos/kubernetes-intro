@@ -25,7 +25,7 @@ If the status of your cluster is `RUNNING`, you are good to go. If there is no o
   - Type this in your terminal:
   
     ```
-    gcloud config project set INSERT_PROJECT_ID
+    gcloud config set project INSERT_PROJECT_ID
     ```
     
   - Run:
