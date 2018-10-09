@@ -97,7 +97,7 @@ Same for the deployments.
 
 1. Open the file [yaml/backend-deployment.yaml](../yaml/backend-deployment.yaml) and
 in the field `spec.template.spec.containers.image` insert your backend Docker image full name. 
-It should be something like `gcr.io/MY_PROJECT_ID/backend:TAG_NAME`, example: `gcr.io/kubernetes-workshop-NDC/backend:cv-backend-1`.
+It should be something like `gcr.io/MY_PROJECT_ID/backend:TAG_NAME`, example: `gcr.io/my-kubernetes-project-1234/backend:cv-backend-1`.
  
 If you did not create build triggers, use the docker image `linemos/cv-backend:1.0`. 
 
