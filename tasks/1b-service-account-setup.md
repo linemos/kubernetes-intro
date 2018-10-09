@@ -29,3 +29,7 @@ When you have received an service account, download the file. We will use it to 
 	NAME        LOCATION         MASTER_VERSION  MASTER_IP       MACHINE_TYPE   NODE_VERSION  NUM_NODES  STATUS	
 	cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10.2-gke.3  6          RUNNING
 	```
+
+## Next
+
+[Go back to complete the installation and setup](./1-installation-tasks.md).
