@@ -10,3 +10,7 @@ spec:
         backend:
           serviceName: frontend
           servicePort: 80
+      - path: /static
+        backend:
+          serviceName: frontend
+          servicePort: 80
