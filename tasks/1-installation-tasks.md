@@ -23,25 +23,26 @@ Complete the steps in [./1b-service-account-setup.md](./1b-service-account-setup
 The cloud SDK installs the tool for you. This tool is not Google Cloud specific, but is used to operate Kubernetes clusters regardless of where they are hosted.
 
 2. You can see if your cluster is created by this command:
-    ```
+   
+   ```
    gcloud container clusters list
    ```
 
-If the status of your cluster is `RUNNING`, you are good to go. If there is no output, you might have the wrong project set in your config file. Do this to set the correct project:
+    If the status of your cluster is `RUNNING`, move on to the step 3. If there is no output, you might have the wrong project set in your config file. Do this to set the correct project:
   
-  - Go back to your browser and click on the dropdown next to `Google Cloud Platform`. This should open a modal where at least one project is listed.
-  - Copy the ID of the active project
-  - Type this in your terminal:
+    - Go back to your browser and click on the dropdown next to `Google Cloud Platform`. This should open a modal where at least one project is listed.
+    - Copy the ID of the active project
+    - Type this in your terminal:
   
-    ```
-    gcloud config set project INSERT_PROJECT_ID
-    ```
+        ```
+        gcloud config set project INSERT_PROJECT_ID
+        ```
     
-  - Run:
+    - Run:
     
-    ```
-    gcloud container clusters list
-    ```
+        ```
+        gcloud container clusters list
+        ```
     
 3. We want to set the default zone of our application, this tells google cloud where to look for the cluster.
 We created our cluster in *europe-north1-a* and will set our default zone to this. 
