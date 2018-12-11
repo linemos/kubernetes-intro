@@ -40,4 +40,4 @@ We will use the Console to do it and also look at the equivalent gcloud command.
 
 ## Next
 
-[Continue to the rest of the installation and setup](./1-installation-tasks.md).
+[Continue to the rest of the installation and setup](./1-installation-tasks.md#install-the-kubernetes-command-line-tool).
