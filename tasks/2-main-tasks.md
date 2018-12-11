@@ -337,6 +337,6 @@ We will take a look at this.
 
 ## Next
 
-If you have time, we recommend: [Proceed to the extra tasks](./3-extra-tasks.md).
+Continue with the [extra tasks](./3-extra-tasks.md).
 
 Before you quit: [Delete your cluster and clean up](./4-delete-tasks.md).
