@@ -16,6 +16,8 @@ In order to explore the Kubernetes cluster on Google Kubernetes Engine you need 
         Pick cloud project to use:
          [1] arched-media-225216
          [2] Create a new project
+       Please enter numeric choice or text value (must exactly match list
+       item):  1
      ``` 
 
 ## Create a cluster.
