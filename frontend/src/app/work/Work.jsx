@@ -25,7 +25,9 @@ const Work = ({ work }) => {
                         <th>Comment</th>
                     </tr>
                 </thead>
-                {workRows}
+                <tbody>
+                    {workRows}
+                </tbody>
             </table>
         </div>
     );

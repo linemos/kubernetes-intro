@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "http-proxy": "^1.17.0",
     "path": "^0.12.7",
-    "prop-types": "^15.6.1",
-    "react": "^16.4.0",
-    "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.4.0",
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
-    "whatwg-fetch": "^2.0.4"
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "^16.6.3",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "custom-react-scripts": "^0.2.2",

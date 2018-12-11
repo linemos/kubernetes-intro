@@ -5,8 +5,8 @@ import { EDUCATION_DATA_SUCCESS } from '../actions';
 const dataSetsInitialState = {
     isFetching: false,
     contactInformation: {},
-    work: {},
-    education: {}
+    work: [],
+    education: []
 };
 
 export default (state = dataSetsInitialState, action) => {
@@ -77,6 +77,6 @@ export const fetchEducation = () =>
                 dispatch({
                     type: EDUCATION_DATA_SUCCESS,
                     result: json
-                }),
+                })
             )
             .catch(error => console.log(error));
