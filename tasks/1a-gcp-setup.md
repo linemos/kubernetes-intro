@@ -10,17 +10,21 @@ Create an account on Google Cloud Platform.
 In order to explore the Kubernetes cluster on Google Kubernetes Engine you need to install the Google Cloud SDK command line tool.
   1. Follow the guide [here](https://cloud.google.com/sdk/docs/downloads-interactive).
   2. Do **all steps** in the guide until you have typed:  `gcloud init`.
-        - Authenticate in the browser when you are asked to. 
-        - Choose to create a new project. 
-      You will have to give it a name and it will be given a unique **project ID** that we will use in the rest of the workshop. 
+        - Authenticate in the browser when you are asked to.
+        - Pick an existing project as your default for now (*option 1*):
+        ```
+        Pick cloud project to use:
+         [1] arched-media-225216
+         [2] Create a new project
+     ``` 
 
 ## Create a cluster.
 We need a cluster where we want to run our application.
 
-You can create the cluster both in the Console view in your browser and by the gcloud command line tool. We will use the Console to do it and also look at the equivalent gcloud command. 
+You can create the cluster both in the Console view in your browser and by the gcloud command line tool.
+We will use the Console to do it and also look at the equivalent gcloud command. 
 
   1. Visit [Google Cloud Console](https://console.cloud.google.com/) in your browser.
-     *Make sure that the selected project on the blue header on top of the page is the same as you created in the previous step*.
      Click on *Kubernetes Engine* in the left side menu. If you are asked to enable the engine, do so. Read [this](https://cloud.google.com/kubernetes-engine/kubernetes-comic/) cartoon while you wait for it to get ready.
   2. Click on the button *CREATE CLUSTER*
   3. Name your cluster `cv-cluster`.
