@@ -3,7 +3,7 @@
 ## Fork this repository
 You have to fork this repository on GitHub and clone/download it. 
 
-**If you did not create your own Google Cloud project**; jump to the assignments under [Deploy to your Kubernetes Cluster](#deploy-to-your-kubernetes-cluster).
+**If you did NOT create your own Google Cloud project**; jump to the assignments under [Deploy to your Kubernetes Cluster](#deploy-to-your-kubernetes-cluster).
 
 **If you *did create* your own Goggle Cloud project and created your own cluster**; fork this repo.
 We need this to use build triggers in the next step. 

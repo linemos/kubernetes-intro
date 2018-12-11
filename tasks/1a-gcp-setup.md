@@ -8,19 +8,41 @@ Create an account on Google Cloud Platform.
 
 ## Installation
 In order to explore the Kubernetes cluster on Google Kubernetes Engine you need to install the Google Cloud SDK command line tool.
-  1. Follow the guide [here](https://cloud.google.com/sdk/docs/downloads-interactive).
-  2. Do **all steps** in the guide until you have typed:  `gcloud init`.
-        - Authenticate in the browser when you are asked to.
-        - Pick an existing project as your default for now (*option 1*):
-        ```
-        Pick cloud project to use:
-         [1] arched-media-225216
-         [2] Create a new project
-       Please enter numeric choice or text value (must exactly match list
-       item):  1
-     ``` 
 
-## Create a cluster.
+
+### Download the Google Cloud SDK 
+  
+  **Linux/Mac:** 
+  
+  1. Enter the following at a command prompt: `curl https://sdk.cloud.google.com | bash`
+  2. Restart your shell: `exec -l $SHELL`
+  3. Run gcloud init to initialize the gcloud environment: `gcloud init` 
+  
+  **Windows:**
+  
+  1. Download the [Cloud SDK installer](https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe).
+  2. Launch the installer and follow the prompts.
+  Cloud SDK requires Python 2 with a release version of Python 2.7.9 or later.
+  3. After installation has completed, accept the following options:
+        - Start Cloud SDK Shell
+        - Run `gcloud init`
+  The installer starts a terminal window and runs the `gcloud init` command.
+  The default installation does not include the App Engine extensions required to deploy an application using gcloud commands.
+    
+    
+### Initialize gcloud
+
+Do **all steps** in the guide until you have typed:  `gcloud init`.
+    - Authenticate in the browser when you are asked to.
+    - Pick an existing project as your default for now (*option 1*):
+    
+    Pick cloud project to use:
+     [1] arched-media-225216
+     [2] Create a new project
+    Please enter numeric choice or text value (must exactly match list
+    item):  1
+
+## Create a cluster
 We need a cluster where we want to run our application.
 
 You can create the cluster both in the Console view in your browser and by the gcloud command line tool.
