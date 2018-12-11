@@ -54,7 +54,7 @@ We will use the Console to do it and also look at the equivalent gcloud command.
   3. Choose *Standard cluster*
   3. Give the cluster the name `cv-cluster`.
   4. Choose the zone `europe-north1-a` (which is in Finland).
-  5. Choose Cluster Version: Set it to the newest available version.
+  5. Choose Master Version: Set it to the newest available version.
   6. Next you see that you can select what machine type to use. This defines the resources each node in your cluster will have. You don't need to change this.
   7. Just below the create button, there are two links to get the command line and REST request. Click on these to see how you can create the same cluster without the GUI.
   8. Click Create. This will probably take several minutes. In the meantime you can move on to the next section. Notice that you can view the setup progress for your cluster in the top right corner.
