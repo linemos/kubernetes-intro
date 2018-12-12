@@ -14,7 +14,7 @@ When you have received an service account, download the file. We will use it to 
 2. Use this command to authenticate your computer with the cluster:
 
 	```
-	gcloud auth activate-service-account INSERT_CLIENT_EMAIL_HERE --key-file=PATH_TO_JSON_FILE --project kube-intro-oslo	
+	gcloud auth activate-service-account INSERT_CLIENT_EMAIL_HERE --key-file=PATH_TO_JSON_FILE --project INSERT_PROJECT_NAME	
 	```
 
 3. Verify that you have successfully authenticated by this command:
