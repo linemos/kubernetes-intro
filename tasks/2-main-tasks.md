@@ -44,7 +44,7 @@ If you are asked to enable the Container Build API, do so.
 6. Click *Create trigger*
 
 Now, do the same thing for the frontend application.
-Name it `Frontend trigger`, and set the directory to be `/frontend/` and
+Name it `Frontend trigger`, set tag to `cv-frontend-.*`, set the directory to be `/frontend/` and
 set the Docker image to be `gcr.io/$PROJECT_ID/frontend:$TAG_NAME`.
 
 This sets up a build trigger that listens to new commits on the master branch of your repository.
