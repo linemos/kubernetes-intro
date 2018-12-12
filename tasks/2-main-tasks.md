@@ -2,7 +2,7 @@
 
 ## Fork this repository
 
-**If you *did create* your own Goggle Cloud project and cluster**; fork this repo and clone it on your laptop.
+**If you *did create* your own Google Cloud project and cluster**; fork this repo and clone it on your laptop.
 We need this to use build triggers in the next step. 
 
 **If you *did NOT* create your own Google Cloud project**; clone this repository and jump to the assignments under [Deploy to your Kubernetes Cluster](#deploy-to-your-kubernetes-cluster).
