@@ -27,7 +27,7 @@ but we are going to explore build triggers in Google Cloud Platform instead.
 
 ### Build triggers
 1. Go to cloud console: find **Cloud Build** in the left side menu (under tools).
-If you are asked to enable the Container Builder API, do so.
+If you are asked to enable the Container Build API, do so.
 2. Click *Create trigger*
 3. Choose Github as build source. Click *Continue*
 4. Select your fork as the repository and click *Continue*
@@ -35,10 +35,12 @@ If you are asked to enable the Container Builder API, do so.
     - *Name*: Backend trigger
     - *Trigger type*: `Tag`
     -  Set tag to `cv-backend-.*`
+    - Leave *Included files filter (glob)* and *Ignored files filter (glob)* empty
     - *Build Configuration*: Dockerfile
     - *Dockerfile directory*: Point to the backend Dockerfile in `backend/`
     - *Dockerfile name*: `Dockerfile`
     - *Image name*: `gcr.io/$PROJECT_ID/backend:$TAG_NAME`
+   
 6. Click *Create trigger*
 
 Now, do the same thing for the frontend application.
@@ -92,7 +94,7 @@ It's time to deploy the frontend and backend to your cluster!
 The preferred way to configure Kubernetes resources is to specify them in YAML files.
 
 In the folder [yaml/](../yaml) you find the YAML files specifying what resources Kubernetes should create.
-There is two services, one for the backend application and one for the frontend application.
+There are two services, one for the backend application and one for the frontend application.
 Same for the deployments.
 
 1. Open the file [yaml/backend-deployment.yaml](../yaml/backend-deployment.yaml) and
@@ -216,7 +218,7 @@ Lets look at another way. The Service resource can have a different type, it can
   kubectl get service frontend -w
   ```
 
-5. Visit the IP in your browser to see you amazing CV online!
+5. Visit the IP in your browser to see your amazing CV online!
 
  
 ## Rolling updates

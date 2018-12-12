@@ -101,25 +101,6 @@ livenessProbe:
   periodSeconds: 3
 ```
 
-### Command
-
-We can also specify a command to execute in the container. Lets do this for the frontend application:
-
-```
-livenessProbe:
-  exec:
-    command:
-    - cat
-    - /log/log.log <--- TODO FIX
-  initialDelaySeconds: 5
-  periodSeconds: 5  
-```
-
-*Hmm.... Kanskje fila ikke skal finnes ved første deploy, og heller endre til en fil som vi vet vi har (eks !error.log) på andre deploy.*
-
-
-The command can be any command available in the container. E.g. if your container has `curl` installed, we could define that the probe is to curl the `/healtz` endpoint from the container. This wouldn't make much sence, though...
-
 ## Next
 
 Clean up all your clusters and accounts to make sure you don't have to pay for any use: 
