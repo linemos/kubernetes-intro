@@ -101,7 +101,7 @@ Same for the deployments.
 in the field `spec.template.spec.containers.image` insert your backend Docker image full name. 
 It should be something like `gcr.io/MY_PROJECT_ID/backend:TAG_NAME`, example: `gcr.io/my-kubernetes-project-1234/backend:cv-backend-1`.
  
-If you did not create build triggers, use the docker image `linemos/cv-backend:1.0`. 
+If you did not create build triggers, use the docker image `gcr.io/arched-media-225216/backend:cv-backend-3`. 
 
 There are a few things to notice in the deployment file:
 - The number of replicas is set to 3. This is the number of pods we want running at all times
@@ -113,7 +113,7 @@ There are a few things to notice in the deployment file:
   
 2. Open the file [yaml/frontend-deployment.yaml](../yaml/frontend-deployment.yaml) and
 in the field `spec.template.spec.containers.image` insert your frontend Docker image full name. 
-It should be something like `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`. If you did not create build triggers, use `linemos/cv-frontend:1.0` instead.
+It should be something like `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`. If you did not create build triggers, use `gcr.io/arched-media-225216/frontend:cv-frontend-3` instead.
 
 2. Create the resources for the backend and frontend (from root folder in the project):
   
