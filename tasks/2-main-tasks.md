@@ -2,7 +2,7 @@
 
 ## Fork this repository
 
-**If you *did create* your own Goggle Cloud project and cluster**; fork this repo and clone it on your laptop.
+**If you *did create* your own Google Cloud project and cluster**; fork this repo and clone it on your laptop.
 We need this to use build triggers in the next step. 
 
 **If you *did NOT* create your own Google Cloud project**; clone this repository and jump to the assignments under [Deploy to your Kubernetes Cluster](#deploy-to-your-kubernetes-cluster).
@@ -44,7 +44,7 @@ If you are asked to enable the Container Build API, do so.
 6. Click *Create trigger*
 
 Now, do the same thing for the frontend application.
-Name it `Frontend trigger`, and set the directory to be `/frontend/` and
+Name it `Frontend trigger`, set tag to `cv-frontend-.*`, set the directory to be `/frontend/` and
 set the Docker image to be `gcr.io/$PROJECT_ID/frontend:$TAG_NAME`.
 
 This sets up a build trigger that listens to new commits on the master branch of your repository.
