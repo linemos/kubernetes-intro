@@ -1,0 +1,18 @@
+{
+  "environment": "web",
+  "source": "introduction-to-kubernetes-namespace.md",
+  "format": "html",
+  "prefix": "../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-01-28T19:25:10+01:00",
+  "id": "lidev-introduction-to-kubernetes-namespace",
+  "duration": 0,
+  "title": "1. Introduction to Kubernetes with Namespaces",
+  "author": "Line Moseng and Ingrid Guren",
+  "summary": "",
+  "theme": "",
+  "status": null,
+  "category": null,
+  "tags": [],
+  "url": "lidev-introduction-to-kubernetes-namespace"
+}
