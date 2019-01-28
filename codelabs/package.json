@@ -13,7 +13,7 @@
     "create:namespace-doc": "node ./node_modules/markdown-pp-js/markdownpp introduction-to-kubernetes-namespace.mdpp -o introduction-to-kubernetes-namespace.md",
     "build:cluster-doc": "npm run clean:cluster-doc && npm run create:cluster-doc",
     "build:namespace-doc": "npm run clean:namespace-doc && npm run create:namespace-doc",
-    "build": "npm run build:cluster-doc && npm run build:namespace-doc && npm run print:doc",
+    "build": "npm run build:cluster-doc",
     "claat:cluster-doc": "claat export --prefix \"../\" -o docs introduction-to-kubernetes-cluster.md",
     "print:claat-cluster-doc": "echo claat export --prefix \"../\" -o docs introduction-to-kubernetes-cluster.md",
     "print:claat-namespace-doc": "echo claat export --prefix \"../\" -o docs introduction-to-kubernetes-namespace.md",
