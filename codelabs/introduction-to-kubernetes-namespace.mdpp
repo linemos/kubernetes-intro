@@ -7,6 +7,6 @@ id: lidev-introduction-to-kubernetes-namespace
 !INCLUDE "sections/2b-fork.mdpp"
 !INCLUDE "sections/5b-deploy.md"
 !INCLUDE "sections/6-services.md"
-!INCLUDE "sections/7-rolling-updates.md"
+!INCLUDE "sections/7b-rolling-updates.md"
 !INCLUDE "sections/3-extra-tasks.mdpp"
 !INCLUDE "sections/4-delete-tasks.mdpp"
