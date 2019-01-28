@@ -1,6 +1,6 @@
-# Introduction to Kubernets in Google Cloud Platform 
+# Introduction to Kubernetes in Google Cloud Platform 
 
-This is an introduction to Kubernetes.
+This is an introduction to Kubernetes
 During this workshop you will learn how to deploy a frontend application and a backend application on a Kubernetes cluster on Google Cloud.
 
 
