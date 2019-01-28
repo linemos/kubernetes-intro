@@ -7,13 +7,11 @@ We recommend the first alternative.
 With the second you must skip the tasks to create build triggers and apply changes to the application code.
 
 ### Choose between one of these setups: 
-1. **Set up your own cluster on Google Cloud Platform**.
+1. [**Set up your own cluster on Google Cloud Platform**](https://linemos.github.io/kubernetes-intro/lidev-introduction-to-kubernetes-cluster).
 You will have to register your credit card, but you will not be charged anything for this workshop.
-Complete the steps in [./gcp-setup.md](1a-gcp-setup.mdpp)
 
-2. **Use a service account to authenticate** against a cluster we have already created.
-Complete the steps in [./1b-service-account-setup.md](1b-service-account-setup.mdpp)
+2. [**Authenticate with a service accounte**](https://linemos.github.io/kubernetes-intro/lidev-introduction-to-kubernetes-namespace).
+You will use a service account to against a cluster we have already created.
 
 
-1. [Kafka clients introduction tutorial](https://navikt.github.io/codelabs/lidev-introduction-to-kubernetes-cluster)
-2. [Kubernetes + NAIS tutorial](https://navikt.github.io/codelabs/k8s-nais-tutorial) 
+Happy coding! 🎉
