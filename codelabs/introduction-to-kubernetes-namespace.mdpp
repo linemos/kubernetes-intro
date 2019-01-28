@@ -4,6 +4,7 @@ id: lidev-introduction-to-kubernetes-namespace
 # Introduction to Kubernetes with Namespaces
 
 !INCLUDE "sections/1b-service-account-setup.mdpp"
+!INCLUDE "sections/2a.fork.mdpp"
 !INCLUDE "sections/2-main-tasks.mdpp"
 !INCLUDE "sections/3-extra-tasks.mdpp"
 !INCLUDE "sections/4-delete-tasks.mdpp"
