@@ -1,29 +1,16 @@
 # Introduction to Kubernetes in Google Cloud Platform 
 
-This is an introduction to Kubernetes
+This is an introduction to Kubernetes on Google Cloud Platform.
 During this workshop you will learn how to deploy a frontend application and a backend application on a Kubernetes cluster on Google Cloud.
 
 
-## [Installation and setup](tasks/1-installation-tasks.md)
+## Content of the repository
+ - [Tasks and documentation](https://linemos.github.io/kubernetes-intro/)
+ - [Code for frontend application](frontend/)
+ - [Code for backend application](backend/)
+ - [Kubernetes deployment files](yaml/)
 
-Setup of Google Cloud Platform and Kubernetes 😄
-
-## [Main tasks](tasks/2-main-tasks.md)
-
-Ready to create your own cluster? 3-2-1 GO!🎉
-
-
-## [Extra tasks](tasks/3-extra-tasks.md)
-
-Do you want do more tasks? This section is for you 😎🙌
-
-## [Clean up](tasks/4-delete-tasks.md)
-
-Delete and clean up your cluster so you don't have to pay for Google Cloud Platform 💸
-
-
-
-#### Any questions?
+#### Any questions? Let us know 🎉
 
 🤓 - Line Moseng: linemos@gmail.com (💻 - linemos)
 
