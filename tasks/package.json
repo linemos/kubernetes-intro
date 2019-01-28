@@ -1,0 +1,22 @@
+{
+  "name": "tasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "clean:cluster-doc": "rm -rf introduction-to-kubernetes-cluster.md",
+    "create:cluster-doc": "node ./node_modules/markdown-pp-js/markdownpp introduction-to-kubernetes-cluster.mdpp -o introduction-to-kubernetes-cluster-2.md",
+    "build:cluster-doc": "npm run clean:cluster-doc && npm run create:cluster-doc",
+    "build": "rm -rf dist && mkdir dist && npm run build:cluster-doc",
+    "claat:cluster-doc": "claat export --prefix \"../\" -o docs introduction-to-kubernetes-cluster.md",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "markdown-pp-js": "^1.0.0"
+  }
+}

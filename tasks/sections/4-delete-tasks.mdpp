@@ -1,4 +1,4 @@
-# Clean up
+## Clean up
 
 The cluster you have created will charge your credit card after some time if you keep it running. You can use the [Google Cloud Price Calculator](https://cloud.google.com/products/calculator/) to find out how much it will cost you. If you keep it running, it will cost you money then the price is more than $300 (which is the included credits in the Free Tier).
 
@@ -20,6 +20,6 @@ And your are done and your credit card will not be charged.
 
 And that's it! ⎈
 
-## Any questions?
+### Any questions?
 
 Contact us on [@linemoseng](https://twitter.com/linemoseng) or [@ingridguren](https://twitter.com/ingridguren).
