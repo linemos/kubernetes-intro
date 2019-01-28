@@ -1,9 +1,0 @@
-author: Line Moseng and Ingrid Guren
-id: lidev-introduction-to-kubernetes-cluster
-
-# Kubernetes on Google Cloud Platform 
-
-!INCLUDE "sections/1a-gcp-setup.mdpp"
-!INCLUDE "sections/2-main-tasks.mdpp"
-!INCLUDE "sections/3-extra-tasks.mdpp"
-!INCLUDE "sections/4-delete-tasks.mdpp"
