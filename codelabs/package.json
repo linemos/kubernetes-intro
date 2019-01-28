@@ -17,7 +17,7 @@
     "claat:cluster-doc": "claat export --prefix \"../\" -o docs introduction-to-kubernetes-cluster.md",
     "print:claat-cluster-doc": "echo claat export --prefix \"../\" -o docs introduction-to-kubernetes-cluster.md",
     "print:claat-namespace-doc": "echo claat export --prefix \"../\" -o docs introduction-to-kubernetes-namespace.md",
-    "print:doc": "npm run print:claat-cluster-doc && npm run print-claat-namespace-doc",
+    "print:doc": "npm run print:claat-cluster-doc && npm run print:claat-namespace-doc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
