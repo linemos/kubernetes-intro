@@ -53,53 +53,9 @@ When you have received an service account, download the file. We will use it to 
 
 
 
-<a name="maintasks"></a>
-
-## 4\. Main tasks
-
-
-
-
-<a name="rollingupdates"></a>
-
-### 1\. Rolling updates
-As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. 
-You will now update the background color of the frontend application, see that the build trigger creates a new image and
-update the deployment to use this in your web application.
-
-1. Open the file [frontend/src/index.css](../../frontend/src/index.css) and edit the field `background-color` to your favourite color
-2. Commit your changes
-3. Create a *cv-frontend-2.0* tag like we did earlier. 
-3. Go back to the cloud console in your browser and make sure that the build trigger finishes successfully
-4. Update the image specification on the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) by adding the tag `:2.0`
-5. Open a new terminal window to watch the deletion and creation of Pods:
-  
-  ```
-  watch kubectl get pods
-  ```
-
-  If you don't have `watch` installed, you can use this command instead:
-
-  ```
-  kubectl get pods -w
-  ```
-
-  Don't close this window.
-
-7. In the other terminal window, apply the updated Deployment specification
-  
-  ```
-  kubectl apply -f ./yaml/frontend-deployment.yaml
-  ```
-
-and watch how the Pods are terminated and created in the other terminal window.
-Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.
-
-
-
 <a name="deploytoyourkubernetescluster"></a>
 
-## 5\. Deploy to your Kubernetes Cluster
+## 4\. Deploy to your Kubernetes Cluster
 
 It's time to deploy the frontend and backend to your cluster!
 The preferred way to configure Kubernetes resources is to specify them in YAML files.
@@ -247,19 +203,15 @@ Lets look at another way. The Service resource can have a different type, it can
 
  
 
-<a name="rollingupdates-1"></a>
+<a name="rollingupdates"></a>
 
-## 6\. Rolling updates
+## 5\. Rolling updates
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. 
 You will now update the background color of the frontend application, see that the build trigger creates a new image and
 update the deployment to use this in your web application.
-
-1. Open the file [frontend/src/index.css](../../frontend/src/index.css) and edit the field `background-color` to your favourite color
-2. Commit your changes
-3. Create a *cv-frontend-2.0* tag like we did earlier. 
-3. Go back to the cloud console in your browser and make sure that the build trigger finishes successfully
-4. Update the image specification on the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) by adding the tag `:2.0`
-5. Open a new terminal window to watch the deletion and creation of Pods:
+ 
+1. Update the image specification on the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) by adding the tag `:2`
+2. Open a new terminal window to watch the deletion and creation of Pods:
   
   ```
   watch kubectl get pods
@@ -283,9 +235,10 @@ and watch how the Pods are terminated and created in the other terminal window.
 Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.
 
 
+
 <a name="extratasks"></a>
 
-## 7\. Extra tasks
+## 6\. Extra tasks
 
 <a name="differentmethodstoexposeaservice"></a>
 
@@ -402,34 +355,4 @@ livenessProbe:
 
 
 
-
-<a name="cleanup"></a>
-
-## 8\. Clean up
-
-The cluster you have created will charge your credit card after some time if you keep it running. You can use the [Google Cloud Price Calculator](https://cloud.google.com/products/calculator/) to find out how much it will cost you. If you keep it running, it will cost you money then the price is more than $300 (which is the included credits in the Free Tier).
-
-**Close your billing account**
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Select **Billing** in the main menu
-3. Select **My billing accounts**
-4. Click on the menu on your billing account and click *close*
-
-**Delete your project** 
-
-```
-gcloud config get-value project
-gcloud projects delete $(!!)
-```
-
-And your are done and your credit card will not be charged.
-
-And that's it! ⎈
-
-<a name="anyquestions?"></a>
-
-### 1\. Any questions?
-
-Contact us on [@linemoseng](https://twitter.com/linemoseng) or [@ingridguren](https://twitter.com/ingridguren).
 

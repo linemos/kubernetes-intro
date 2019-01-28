@@ -60,34 +60,7 @@ cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10
 
       </google-codelab-step>
     
-      <google-codelab-step label="4. Main tasks" duration="0">
-        <h2>1. Rolling updates</h2>
-<p>As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy.<br>You will now update the background color of the frontend application, see that the build trigger creates a new image and<br>update the deployment to use this in your web application.</p>
-<ol type="1">
-<li>Open the file <a href="../../frontend/src/index.css" target="_blank">frontend/src/index.css</a> and edit the field <code>background-color</code> to your favourite color</li>
-<li>Commit your changes</li>
-<li>Create a <em>cv-frontend-2.0</em> tag like we did earlier.</li>
-<li>Go back to the cloud console in your browser and make sure that the build trigger finishes successfully</li>
-<li>Update the image specification on the file <a href="../../yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> by adding the tag <code>:2.0</code></li>
-<li>Open a new terminal window to watch the deletion and creation of Pods:<pre><code>watch kubectl get pods
-</code></pre>
-</li>
-</ol>
-<p>If you don&#39;t have <code>watch</code> installed, you can use this command instead:</p>
-<pre><code>  kubectl get pods -w
-</code></pre>
-<p>Don&#39;t close this window.</p>
-<ol type="1">
-<li>In the other terminal window, apply the updated Deployment specification<pre><code>kubectl apply -f ./yaml/frontend-deployment.yaml
-</code></pre>
-</li>
-</ol>
-<p>and watch how the Pods are terminated and created in the other terminal window.<br>Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="5. Deploy to your Kubernetes Cluster" duration="0">
+      <google-codelab-step label="4. Deploy to your Kubernetes Cluster" duration="0">
         <p>It&#39;s time to deploy the frontend and backend to your cluster!<br>The preferred way to configure Kubernetes resources is to specify them in YAML files.</p>
 <p>In the folder <a href="../../yaml" target="_blank">yaml/</a> you find the YAML files specifying what resources Kubernetes should create.<br>There are two services, one for the backend application and one for the frontend application.<br>Same for the deployments.</p>
 <ol type="1">
@@ -176,14 +149,10 @@ By doing this, the Deployment will create a new ReplicaSet which will again crea
 
       </google-codelab-step>
     
-      <google-codelab-step label="6. Rolling updates" duration="0">
+      <google-codelab-step label="5. Rolling updates" duration="0">
         <p>As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy.<br>You will now update the background color of the frontend application, see that the build trigger creates a new image and<br>update the deployment to use this in your web application.</p>
 <ol type="1">
-<li>Open the file <a href="../../frontend/src/index.css" target="_blank">frontend/src/index.css</a> and edit the field <code>background-color</code> to your favourite color</li>
-<li>Commit your changes</li>
-<li>Create a <em>cv-frontend-2.0</em> tag like we did earlier.</li>
-<li>Go back to the cloud console in your browser and make sure that the build trigger finishes successfully</li>
-<li>Update the image specification on the file <a href="../../yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> by adding the tag <code>:2.0</code></li>
+<li>Update the image specification on the file <a href="../../yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> by adding the tag <code>:2</code></li>
 <li>Open a new terminal window to watch the deletion and creation of Pods:<pre><code>watch kubectl get pods
 </code></pre>
 </li>
@@ -202,7 +171,7 @@ By doing this, the Deployment will create a new ReplicaSet which will again crea
 
       </google-codelab-step>
     
-      <google-codelab-step label="7. Extra tasks" duration="0">
+      <google-codelab-step label="6. Extra tasks" duration="0">
         <h2>1. Different methods to expose a service</h2>
 <p>Right now we have exposed our frontend service through an ingress. We will now look into two other ways.</p>
 <h3>1. Service type NodePort</h3>
@@ -269,27 +238,6 @@ By doing this, the Deployment will create a new ReplicaSet which will again crea
   initialDelaySeconds: 3
   periodSeconds: 3
 </code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="8. Clean up" duration="0">
-        <p>The cluster you have created will charge your credit card after some time if you keep it running. You can use the <a href="https://cloud.google.com/products/calculator/" target="_blank">Google Cloud Price Calculator</a> to find out how much it will cost you. If you keep it running, it will cost you money then the price is more than $300 (which is the included credits in the Free Tier).</p>
-<p><strong>Close your billing account</strong></p>
-<ol type="1">
-<li>Go to <a href="https://console.cloud.google.com" target="_blank">Google Cloud Console</a></li>
-<li>Select <strong>Billing</strong> in the main menu</li>
-<li>Select <strong>My billing accounts</strong></li>
-<li>Click on the menu on your billing account and click <em>close</em></li>
-</ol>
-<p><strong>Delete your project</strong></p>
-<pre><code>gcloud config get-value project
-gcloud projects delete $(!!)
-</code></pre>
-<p>And your are done and your credit card will not be charged.</p>
-<p>And that&#39;s it! ⎈</p>
-<h2>1. Any questions?</h2>
-<p>Contact us on <a href="https://twitter.com/linemoseng" target="_blank">@linemoseng</a> or <a href="https://twitter.com/ingridguren" target="_blank">@ingridguren</a>.</p>
 
 
       </google-codelab-step>
