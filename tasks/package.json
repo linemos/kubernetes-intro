@@ -8,9 +8,12 @@
   },
   "scripts": {
     "clean:cluster-doc": "rm -rf introduction-to-kubernetes-cluster.md",
+    "clean:namespace-doc": "rm -rf introduction-to-kubernetes-namespace.md",
     "create:cluster-doc": "node ./node_modules/markdown-pp-js/markdownpp introduction-to-kubernetes-cluster.mdpp -o introduction-to-kubernetes-cluster-2.md",
+    "create:namespace-doc": "node ./node_modules/markdown-pp-js/markdownpp introduction-to-kubernetes-namespace.mdpp -o introduction-to-kubernetes-namespace.md",
     "build:cluster-doc": "npm run clean:cluster-doc && npm run create:cluster-doc",
-    "build": "rm -rf dist && mkdir dist && npm run build:cluster-doc",
+    "build:namespace-doc": "npm run clean:namespace-doc && npm run create:namespace-doc",
+    "build": "npm run build:cluster-doc && npm run build:namespace-doc",
     "claat:cluster-doc": "claat export --prefix \"../\" -o docs introduction-to-kubernetes-cluster.md",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
