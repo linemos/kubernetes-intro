@@ -8,9 +8,8 @@ There are two services, one for the backend application and one for the frontend
 Same for the deployments.
 
 1. Open the file [yaml/backend-deployment.yaml](../../yaml/backend-deployment.yaml) and
-in the field `spec.template.spec.containers.image` insert your backend Docker image full name. 
-It should be something like `gcr.io/MY_PROJECT_ID/backend:TAG_NAME`, example: `gcr.io/my-kubernetes-project-1234/backend:cv-backend-1`.
- 
+in the field `spec.template.spec.containers.image` insert the path to the Docker image we have created for the backend: `gcr.io/ndc-london-kubernetes/backend:1`. 
+
 There are a few things to notice in the deployment file:
 - The number of replicas is set to 3. This is the number of pods we want running at all times
 - The container spec has defined port 5000, so the Deployment will open this port on the containers
@@ -20,8 +19,7 @@ There are a few things to notice in the deployment file:
   - `spec.template.metadata` is the label added to the Pods
   
 2. Open the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) and
-in the field `spec.template.spec.containers.image` insert your frontend Docker image full name. 
-It should be something like `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`.
+in the field `spec.template.spec.containers.image` insert your `gcr.io/ndc-london-kubernetes/frontend:1`.
 
 2. Create the resources for the backend and frontend (from root folder in the project):
   
@@ -77,4 +75,3 @@ the number of running pods, the number of pods that are updated and how many tha
 The statuses are similar to those of the Deployments, except that the ReplicaSet have no concept of updates.
 If you run an update to a Deployment, it will create a new ReplicaSet with the updated specification and
 tell the old ReplicaSet to scale number of pods down to zero.
-
