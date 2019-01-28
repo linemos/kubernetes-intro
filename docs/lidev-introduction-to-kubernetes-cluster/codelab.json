@@ -1,10 +1,10 @@
 {
   "environment": "web",
-  "source": "introduction-to-kubernetes-cluster-2.md",
+  "source": "introduction-to-kubernetes-cluster.md",
   "format": "html",
   "prefix": "../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-01-28T19:25:09+01:00",
+  "updated": "2019-01-28T21:19:10+01:00",
   "id": "lidev-introduction-to-kubernetes-cluster",
   "duration": 0,
   "title": "1. Kubernetes on Google Cloud Platform",
