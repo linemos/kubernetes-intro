@@ -1,9 +1,4 @@
-## Main tasks
-
-
-
-
-### Rolling updates
+## Rolling updates
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. 
 You will now update the background color of the frontend application, see that the build trigger creates a new image and
 update the deployment to use this in your web application.
@@ -35,4 +30,3 @@ update the deployment to use this in your web application.
 
 and watch how the Pods are terminated and created in the other terminal window.
 Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.
-

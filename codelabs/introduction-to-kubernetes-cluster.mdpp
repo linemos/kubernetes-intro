@@ -4,7 +4,11 @@ id: lidev-introduction-to-kubernetes-cluster
 # Kubernetes on Google Cloud Platform 
 
 !INCLUDE "sections/1a-gcp-setup.mdpp"
-!INCLUDE "sections/2a.fork.mdpp"
-!INCLUDE "sections/2-main-tasks.mdpp"
+!INCLUDE "sections/2-fork.mdpp"
+!INCLUDE "sections/3-docker.mdpp"
+!INCLUDE "sections/4-change-code.mdpp"
+!INCLUDE "sections/5-deploy.mdpp"
+!INCLUDE "sections/6-rolling-updates.mdpp"
+!INCLUDE "sections/7-logs-dns.mdpp"
 !INCLUDE "sections/3-extra-tasks.mdpp"
 !INCLUDE "sections/4-delete-tasks.mdpp"
