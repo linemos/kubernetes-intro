@@ -8,7 +8,7 @@ There are two services, one for the backend application and one for the frontend
 Same for the deployments.
 
 1. Open the file [yaml/backend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-deployment.yaml) and
-in the field `spec.template.spec.containers.image` insert the path to the Docker image we have created for the backend: `gcr.io/ndc-london-kubernetes/backend:1`. 
+in the field `spec.template.spec.containers.image` insert the path to the Docker image we have created for the backend: `us.gcr.io/ndc-london-kubernetes/backend:1`. 
 
 There are a few things to notice in the deployment file:
 - The number of replicas is set to 3. This is the number of pods we want running at all times
@@ -19,7 +19,7 @@ There are a few things to notice in the deployment file:
   - `spec.template.metadata` is the label added to the Pods
   
 2. Open the file [yaml/frontend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml) and
-in the field `spec.template.spec.containers.image` insert `gcr.io/ndc-london-kubernetes/frontend:1`, which is a Docker image we have created for the frontend application.
+in the field `spec.template.spec.containers.image` insert `us.gcr.io/ndc-london-kubernetes/frontend:1`, which is a Docker image we have created for the frontend application.
 
 2. Create the resources for the backend and frontend (from root folder in the project):
   
