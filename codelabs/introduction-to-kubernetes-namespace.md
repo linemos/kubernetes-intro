@@ -78,11 +78,11 @@ Now that we are authenticated, we can look at the components in our cluster by u
 It's time to deploy the frontend and backend to your cluster!
 The preferred way to configure Kubernetes resources is to specify them in YAML files.
 
-In the folder [yaml/](../../yaml) you find the YAML files specifying what resources Kubernetes should create.
+In the folder [yaml/](https://github.com/linemos/kubernetes-intro/blob/master/yaml/) you find the YAML files specifying what resources Kubernetes should create.
 There are two services, one for the backend application and one for the frontend application.
 Same for the deployments.
 
-1. Open the file [yaml/backend-deployment.yaml](../../yaml/backend-deployment.yaml) and
+1. Open the file [yaml/backend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-deployment.yaml) and
 in the field `spec.template.spec.containers.image` insert the path to the Docker image we have created for the backend: `gcr.io/ndc-london-kubernetes/backend:1`. 
 
 There are a few things to notice in the deployment file:
@@ -93,7 +93,7 @@ There are a few things to notice in the deployment file:
   - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
   - `spec.template.metadata` is the label added to the Pods
   
-2. Open the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) and
+2. Open the file [yaml/frontend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml) and
 in the field `spec.template.spec.containers.image` insert `gcr.io/ndc-london-kubernetes/frontend:1`, which is a Docker image we have created for the frontend application.
 
 2. Create the resources for the backend and frontend (from root folder in the project):
@@ -122,13 +122,17 @@ along with some Kubernetes network stuff and specifications on how to run the co
 All of our pods contains only one container. There are several use cases where you might want to specify several
 containers in one pod, for instance if you need a proxy in front of your application.
 
-The Pods were created when you applied the specification of the type `Deployment`,
-which is a controller resource. 
+The Pods were created when you applied the specification of the type `Deployment`, which is a controller resource. 
 The Deployment specification contains a desired state and the Deployment controller changes the state to achieve this.
 When creating the Deployment, it will create ReplicaSet, which it owns.
+
 The ReplicaSet will then create the desired number of pods, and recreate them if the Deployment specification changes,
 e.g. if you want another number of pods running or if you update the Docker image to use.
-It will do so in a rolling-update manner, which we will explore soon.
+It will do so in a rolling-update manner, which we will explore soon. The Pods are running on the cluster nodes. 
+
+![Illustration of deployments, replicasets, pods and nodes.](https://storage.googleapis.com/cdn.thenewstack.io/media/2017/11/07751442-deployment.png)
+
+
 
 *Did you noticed that the pod names were prefixed with the deployment names and two hashes?* - The first hash is the hash of the ReplicaSet, the second is unique for the Pod.
 
@@ -153,23 +157,23 @@ tell the old ReplicaSet to scale number of pods down to zero.
 
 <a name="createservices"></a>
 
-### 1\. Create services
+## 5\. Create services
 Now that our applications are running, we would like to route traffic to them.
 
-1. Open [yaml/backend-service.yaml](../../yaml/backend-service.yaml)
+* Open [yaml/backend-service.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-service.yaml)
   There are a few things to notice:
     - The protocol is set to TCP, which means that the Service sends requests to Pods on this protocol. UDP is also supported
     - The spec has defined port 80, so it will listen to traffic on port 80 and sends traffic to the Pods on the same port. We could also define `targetPort` if the port on the Pods are different from the incoming traffic port
     - The label `app: backend` defines that it should route requests to our Deployment with the same label
 
-2. Create the Services:
+* Create the Services:
 
   ```
   kubectl apply -f ./yaml/backend-service.yaml
   kubectl apply -f ./yaml/frontend-service.yaml
   ```
 
-2. List the created services:
+* List the created services:
   
   ```
   kubectl get service
@@ -179,19 +183,19 @@ As you can see, both services have defined internal IPs, `CLUSTER-IP`. These int
 
 <a name="exposingyourapp"></a>
 
-### 2\. Exposing your app
+### 1\. Exposing your app
 Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.
 Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.
 
-1. Open the frontend service file again
-2. Set `type` to be `LoadBalancer`
-3. Save and run
+* Open the frontend service file again
+* Set `type` to be `LoadBalancer`
+* Save and run
 
   ```
   kubectl apply -f ./yaml/frontend-service.yaml
   ```
   
-4. Wait for an external IP:
+* Wait for an external IP:
 
   ```
   watch kubectl get service frontend
@@ -203,14 +207,14 @@ Lets look at another way. The Service resource can have a different type, it can
   kubectl get service frontend -w
   ```
 
-5. Visit the IP in your browser to see your amazing CV online. But something is off!
+* Visit the IP in your browser to see your amazing CV online. But something is off!
     There is no data, and if you inspect the network traffic in the browser console log, you can see that the requests to the api is responding with an error code.
 
     This is because the frontend application is expecting the IP of the backend Service to be set at the point of deployment.
-    But since we deployed the frontend application before creating the Service objects,
+    But we deployed the frontend application before creating the Service objects,
     meaning there was not any IP to give the frontend container on creation time.
     
-6. To fix this, we can delete the ReplicaSet for the frontend application:
+* To fix this, we can delete the ReplicaSet for the frontend application:
 
    ```
    kubectl delete replicaset -l app=frontend
@@ -223,13 +227,12 @@ Lets look at another way. The Service resource can have a different type, it can
 
 <a name="rollingupdates"></a>
 
-## 5\. Rolling updates
+## 6\. Rolling updates
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. 
-You will now update the background color of the frontend application, see that the build trigger creates a new image and
-update the deployment to use this in your web application.
+It is time to update to the newest version of the frontend application. This version has an updated background color.
  
-1. Update the image specification on the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) by adding the tag `:2`
-2. Open a new terminal window to watch the deletion and creation of Pods:
+* Update the image specification on the file [yaml/frontend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml) by adding the tag `:2`
+* Open a new terminal window to watch the deletion and creation of Pods:
   
   ```
   watch kubectl get pods
@@ -243,20 +246,113 @@ update the deployment to use this in your web application.
 
   Don't close this window.
 
-7. In the other terminal window, apply the updated Deployment specification
+* In the other terminal window, apply the updated Deployment specification
   
   ```
   kubectl apply -f ./yaml/frontend-deployment.yaml
   ```
 
 and watch how the Pods are terminated and created in the other terminal window.
+
 Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.
+
+
+
+<a name="inspectionandlogging"></a>
+
+## 7\. Inspection and logging
+Ok, everything looks good!
+But what if you need to inspect the logs and states of your applications?
+Kubernetes have a built in log feature.
+
+Lets take a look at our backend application, and see what information we can retrieve.
+
+* View the logs of one container
+  - First, list the pod names:
+    
+    ```
+    kubectl get pods -l app=backend
+    ```
+    
+    The flag `l` is used to filter by pods with the label `app=backend`.
+
+  - Now, you can view the logs from one pod:
+    
+    ```
+    kubectl logs <INSERT_THE_NAME_OF_A_POD>
+    ```
+
+  - You can also get all logs filtered by label.
+      
+    ```
+    kubectl logs -l app=backend
+    ```
+
+* Ok, the logs were fine! Lets look at the environment variables set by Kubernetes in our containers:
+  
+  ```
+  kubectl exec -it <INSERT_THE_NAME_OF_A_POD> -- printenv
+  ```
+
+  Here you can see that we have IP addresses and ports to our frontend service.
+  These IP addresses are internal, not reachable from outside the cluster.
+  You can set your own environment variables in the deployment specification.
+  They will show up in this list as well.
+
+* We can also describe our deployment, to see its statuses and pod specification:
+  
+  ```
+  kubectl describe deployment backend
+  ```
+  
+  Notice that `StrategyType: RollingUpdate` that we saw when we applied an updated frontend is set by default.
+
+
+<a name="dns"></a>
+
+### 1\. DNS
+A cool thing in Kubernetes is the Kubernetes DNS.
+Inside the cluster, Pods and Services have their own DNS record.
+For example, our backend service is reachable on `backend.<NAMESPACE>.svc.cluster.local`. If you are sending the request from the same namespace, you can also reach it on `backend`.
+We will take a look at this.
+
+* Get your current namespace
+
+  ```
+  kubectl config view | grep namespace: 
+  ```
+
+  If there is no output, your namespace is `default`.
+
+* List pods to copy a pod name
+
+  ```
+  kubectl get pods -l app=frontend
+  ```
+
+* We will run `curl` from one of our frontend containers to see that we can reach our backend internally on `http://backend.<NAMESPACE>.svc.cluster.local:5000`
+
+  ```
+  kubectl exec -it INSERT_FRONTEND_POD_NAME -- curl -v http://backend.<NAMESPACE>.svc.cluster.local:5000
+  ```
+
+  The HTTP status should be 200 along with the message "Hello, I'm alive"
+
+* Run `curl` from the same container to see that we can reach our backend internally on the shortname `http://backend:5000` as well
+
+  ```
+  kubectl exec -it INSERT_FRONTEND_POD_NAME -- curl -v http://backend:5000
+  ```
+
+  The output should be the same as above. 
+  
+* To fix the issue where we had to delete the frontend ReplicaSet to get the internal IP for the backend Service could be avoided if we used the DNS instead. 
 
 
 
 <a name="extratasks"></a>
 
-## 6\. Extra tasks
+## 8\. Extra tasks
 
 <a name="differentmethodstoexposeaservice"></a>
 
@@ -268,15 +364,15 @@ Right now we have exposed our frontend service through an ingress. We will now l
 #### 1\. Service type NodePort
 The first way is with the service type NodePort. If we look at our frontend service, we can see that it already is defined as this type. So we are good to go then? No, not yet.
 
-1. We will change our frontend service to be a type NodePort instead. Open the file [yaml/frontend-service.yaml](../../yaml/frontend-service.yaml)
-2. Set the `type` to be `NodePort` and save
-3. Apply the changes
+* We will change our frontend service to be a type NodePort instead. Open the file [yaml/frontend-service.yaml](.https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-service.yaml)
+* Set the `type` to be `NodePort` and save
+* Apply the changes
 
   ```
   kubectl apply -f ./yaml/frontend-service.yaml
   ```
 
-4. Run
+* Run
 
   ```
   kubectl get service frontend
@@ -284,13 +380,13 @@ The first way is with the service type NodePort. If we look at our frontend serv
 
   We see that our service doesn't have an external IP. But what it do have is two ports, port 80 and a port in the range 30000-32767. The last port was set by the Kubernetes master when we created our service. This port we will use togheter with an external IP.
 
-5. The nodes in our cluster all have external IPs per default. Lets use one of those.
+* The nodes in our cluster all have external IPs per default. Lets use one of those.
 
   ```
   kubectl get nodes -o wide
   ```
 
-6. Copy one of the external IPs from the output above along with the node port from our service:
+* Copy one of the external IPs from the output above along with the node port from our service:
 
   ```
   curl -v <EXTERNAL_IP>:<NODE_PORT>
@@ -298,16 +394,16 @@ The first way is with the service type NodePort. If we look at our frontend serv
   
   This will output `Connection failed`. This is because we haven't opened up requests on this port. Lets create a firewall rule that allows traffic on this port:
   
-7. Create a firewall rule. Switch `NODE_PORT` with the node port of your service:
+* Create a firewall rule. Switch `NODE_PORT` with the node port of your service:
   
   ```
   gcloud compute firewall-rules create cv-frontend --allow tcp:NODE_PORT
   ```
   
-8. Try the curl command from `6` again.  
+* Try the curl command from `6` again.  
    The output should also here be "Hello, I'm alive"
 
-9. Do the same, but replace the IP with the external IP from one of the other nodes. It should have the same result
+* Do the same, but replace the IP with the external IP from one of the other nodes. It should have the same result
 
 How does this work? The nodes all have external IPs, so we can curl them. By default, neither services or pods in the cluster are exposed to the internet, but Kubernetes will open the port of `NodePort` services on all the nodes so that those services are available on <NODE_IP>:<NODE_PORT>.
 
@@ -316,15 +412,15 @@ How does this work? The nodes all have external IPs, so we can curl them. By def
 #### 2\. Create an ingress
 An ingress is a Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
 
-1. Open the file [yaml/ingress.yaml](../../yaml/ingress.yaml)
+* Open the file [yaml/ingress.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/ingress.yaml)
   Notice that we have defined that we have configured our ingress to send requests to our `frontend` service on port `8080`.
-2. Create the ingress resource:
+* Create the ingress resource:
   
   ```
   kubectl apply -f ./yaml/ingress.yaml
   ```
 
-3. Wait for an external IP to be configured
+* Wait for an external IP to be configured
 
   ```
   watch kubectl get ingress cv-ingress
@@ -337,7 +433,7 @@ An ingress is a Kubernetes resource that will allow traffic from outside the clu
   ```
   It may take a few minutes for Kubernetes Engine to allocate an external IP address and set up forwarding rules until the load balancer is ready to serve your application. In the meanwhile, you may get errors such as HTTP 404 or HTTP 500 until the load balancer configuration is propagated across the globe.
 
-4. Visit the external IP in your peferred browser to make sure you see your awezome CV online. If you get an error, the ingress and load balacing setup might not be completed.
+* Visit the external IP in your peferred browser to make sure you see your awezome CV online. If you get an error, the ingress and load balacing setup might not be completed.
 
 <a name="notesonexposingyourapplication"></a>
 
