@@ -543,12 +543,50 @@ We will take a look at this.
 <a name="differentmethodstoexposeaservice"></a>
 
 ###Different methods to expose a service
-Right now we have exposed our frontend service through an ingress. We will now look into two other ways.
+Right now we have exposed our frontend service by setting the service type to `LoadBalancer`.
+
+<a name="createaningress"></a>
+
+####Create an ingress
+Another option would be to use an ingress.
+
+An ingress is a resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and to allow requests to our frontend service.
+
+* Open the file [yaml/ingress.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/ingress.yaml)
+  Notice that we have defined that we have configured our ingress to send requests to our `frontend` service on port `8080`.
+* Create the ingress resource:
+  
+  ```
+  kubectl apply -f ./yaml/ingress.yaml
+  ```
+
+* Wait for an external IP to be configured
+
+  ```
+  watch kubectl get ingress cv-ingress
+  ```
+  
+  or
+  
+  ```
+  kubectl get ingress cv-ingress -w
+  ```
+  
+  It may take a few minutes for Kubernetes Engine to allocate an external IP address and set up forwarding rules until the load balancer is ready to serve your application. In the meanwhile, you may get errors such as HTTP 404 or HTTP 500 until the load balancer configuration is propagated across the globe.
+
+* Visit the external IP in your preferred browser to make sure that your awesome CV is available online. If you get an error, the ingress and load balancing setup might not be completed.
+
+<a name="notesonexposingyourapplication"></a>
+
+####Notes on exposing your application
+The LoadBalancer type is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.
+
+
 
 <a name="servicetypenodeport"></a>
 
 ####Service type NodePort
-The first way is with the service type NodePort. If we look at our frontend service, we can see that it already is defined as this type. So we are good to go then? No, not yet.
+Another way to expose our app is with the service type `NodePort`. If we look at our frontend service, we can see that it already is defined as this type. So we are good to go then? No, not yet.
 
 * We will change our frontend service to be a type NodePort instead. Open the file [yaml/frontend-service.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-service.yaml)
 * Set the `type` to be `NodePort` and save
@@ -593,53 +631,26 @@ The first way is with the service type NodePort. If we look at our frontend serv
 
 How does this work? The nodes all have external IPs, so we can curl them. By default, neither services or pods in the cluster are exposed to the internet, but Kubernetes will open the port of `NodePort` services on all the nodes so that those services are available on <NODE_IP>:<NODE_PORT>.
 
-<a name="createaningress"></a>
-
-####Create an ingress
-An ingress is a Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
-
-* Open the file [yaml/ingress.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/ingress.yaml)
-  Notice that we have defined that we have configured our ingress to send requests to our `frontend` service on port `8080`.
-* Create the ingress resource:
-  
-  ```
-  kubectl apply -f ./yaml/ingress.yaml
-  ```
-
-* Wait for an external IP to be configured
-
-  ```
-  watch kubectl get ingress cv-ingress
-  ```
-  
-  or
-  
-  ```
-  kubectl get ingress cv-ingress -w
-  ```
-  It may take a few minutes for Kubernetes Engine to allocate an external IP address and set up forwarding rules until the load balancer is ready to serve your application. In the meanwhile, you may get errors such as HTTP 404 or HTTP 500 until the load balancer configuration is propagated across the globe.
-
-* Visit the external IP in your peferred browser to make sure you see your awezome CV online. If you get an error, the ingress and load balacing setup might not be completed.
-
-<a name="notesonexposingyourapplication"></a>
+<a name="notesonexposingyourapplication-1"></a>
 
 ####Notes on exposing your application
-LoadBalancer type and the Ingress resource is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.
+The Ingress resource is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.
+
 
 
 <a name="healthchecks"></a>
 
 ###Health checks
 
-Kubernetes uses health checks and readiness checks to figure out the state of the pods. If you don't define any health check, Kubernetes assumes it is <INSERT>. You can define your own.
+Kubernetes is using health checks and readiness checks to figure out the state of the pods.
 If the health check responds with an error status code, Kubernetes will asume the container is unhealthy and kill the pod. Simliary, if the readiness check is unsuccessful, Kubernetes will asume it is not ready, and wait for it.
-
+You can define your own.
 
 <a name="endpoint"></a>
 
 ###Endpoint
 
-The first way to define a health check is to define which endpoint the check should use. Our backend application contains the endpoint `/healthz`. Go ahead and define this as the health-endpoint in the backend deployment file, under the container spec:
+The first way to define a health check is to define which endpoint the check should use. Our backend application contains the endpoint `/healthz`. Go ahead and define this as the health-endpoint in the backend deployment file, under backend container in the list `spec.containers`:
 
 ```
 livenessProbe:
@@ -653,6 +664,27 @@ livenessProbe:
   periodSeconds: 3
 ```
 
+When applying the new deployment file, run `kubectl get pods` to see that that the deployment has created a new Pod. Describe it to see the new specification.
+
+<a name="command"></a>
+
+###Command
+
+We can also specify a command to execute in the container. Lets do this for the frontend application:
+
+```
+livenessProbe:
+  exec:
+    command:
+    - ls
+    - /
+  initialDelaySeconds: 5
+  periodSeconds: 5  
+```
+
+
+The command can be any command available in the container. The commands available in your container depends on the base image and how you build your image.
+E.g. if your container has `curl` installed, we could define that the probe is to curl the `/healtz` endpoint from the container. This wouldn't make much sence, though...
 
 
 

@@ -75,7 +75,7 @@ cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10
         <p>It&#39;s time to deploy the frontend and backend to your cluster!<br>The preferred way to configure Kubernetes resources is to specify them in YAML files.</p>
 <p>In the folder <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/" target="_blank">yaml/</a> you find the YAML files specifying what resources Kubernetes should create.<br>There are two services, one for the backend application and one for the frontend application.<br>Same for the deployments.</p>
 <ol type="1">
-<li>Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-deployment.yaml" target="_blank">yaml/backend-deployment.yaml</a> and<br>in the field <code>spec.template.spec.containers.image</code> insert the path to the Docker image we have created for the backend: <code>gcr.io/ndc-london-kubernetes/backend:1</code>.</li>
+<li>Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-deployment.yaml" target="_blank">yaml/backend-deployment.yaml</a> and<br>in the field <code>spec.template.spec.containers.image</code> insert the path to the Docker image we have created for the backend: <code>us.gcr.io/ndc-london-kubernetes/backend:1</code>.</li>
 </ol>
 <p>There are a few things to notice in the deployment file:</p>
 <ul>
@@ -89,7 +89,7 @@ cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10
 </li>
 </ul>
 <ol type="1">
-<li>Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> and<br>in the field <code>spec.template.spec.containers.image</code> insert <code>gcr.io/ndc-london-kubernetes/frontend:1</code>, which is a Docker image we have created for the frontend application.</li>
+<li>Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> and<br>in the field <code>spec.template.spec.containers.image</code> insert <code>us.gcr.io/ndc-london-kubernetes/frontend:1</code>, which is a Docker image we have created for the frontend application.</li>
 <li>Create the resources for the backend and frontend (from root folder in the project):<pre><code>kubectl apply -f ./yaml/backend-deployment.yaml
 kubectl apply -f ./yaml/frontend-deployment.yaml
 </code></pre>
@@ -250,39 +250,10 @@ The flag <code>l</code> is used to filter by pods with the label <code>app=backe
     
       <google-codelab-step label="Extra tasks" duration="0">
         <h2>Different methods to expose a service</h2>
-<p>Right now we have exposed our frontend service through an ingress. We will now look into two other ways.</p>
-<h3>Service type NodePort</h3>
-<p>The first way is with the service type NodePort. If we look at our frontend service, we can see that it already is defined as this type. So we are good to go then? No, not yet.</p>
-<ul>
-<li>We will change our frontend service to be a type NodePort instead. Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-service.yaml" target="_blank">yaml/frontend-service.yaml</a></li>
-<li>Set the <code>type</code> to be <code>NodePort</code> and save</li>
-<li>Apply the changes<pre><code>kubectl apply -f ./yaml/frontend-service.yaml
-</code></pre>
-</li>
-<li>Run<pre><code>kubectl get service frontend
-</code></pre>
-</li>
-</ul>
-<p>We see that our service doesn&#39;t have an external IP. But what it do have is two ports, port 80 and a port in the range 30000-32767. The last port was set by the Kubernetes master when we created our service. This port we will use togheter with an external IP.</p>
-<ul>
-<li>The nodes in our cluster all have external IPs per default. Lets use one of those.<pre><code>kubectl get nodes -o wide
-</code></pre>
-</li>
-<li>Copy one of the external IPs from the output above along with the node port from our service:<pre><code>curl -v &lt;EXTERNAL_IP&gt;:&lt;NODE_PORT&gt;
-</code></pre>
-</li>
-</ul>
-<p>This will output <code>Connection failed</code>. This is because we haven&#39;t opened up requests on this port. Lets create a firewall rule that allows traffic on this port:</p>
-<ul>
-<li>Create a firewall rule. Switch <code>NODE_PORT</code> with the node port of your service:<pre><code>gcloud compute firewall-rules create cv-frontend --allow tcp:NODE_PORT
-</code></pre>
-</li>
-<li>Try the curl command from <code>6</code> again.<br><br>The output should also here be &#34;Hello, I&#39;m alive&#34;</li>
-<li>Do the same, but replace the IP with the external IP from one of the other nodes. It should have the same result</li>
-</ul>
-<p>How does this work? The nodes all have external IPs, so we can curl them. By default, neither services or pods in the cluster are exposed to the internet, but Kubernetes will open the port of <code>NodePort</code> services on all the nodes so that those services are available on :.</p>
+<p>Right now we have exposed our frontend service by setting the service type to <code>LoadBalancer</code>.</p>
 <h3>Create an ingress</h3>
-<p>An ingress is a Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.</p>
+<p>Another option would be to use an ingress.</p>
+<p>An ingress is a resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and to allow requests to our frontend service.</p>
 <ul>
 <li>Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/ingress.yaml" target="_blank">yaml/ingress.yaml</a><br>Notice that we have defined that we have configured our ingress to send requests to our <code>frontend</code> service on port <code>8080</code>.</li>
 <li>Create the ingress resource:<pre><code>kubectl apply -f ./yaml/ingress.yaml
@@ -297,14 +268,14 @@ The flag <code>l</code> is used to filter by pods with the label <code>app=backe
 </code></pre>
 <p>It may take a few minutes for Kubernetes Engine to allocate an external IP address and set up forwarding rules until the load balancer is ready to serve your application. In the meanwhile, you may get errors such as HTTP 404 or HTTP 500 until the load balancer configuration is propagated across the globe.</p>
 <ul>
-<li>Visit the external IP in your peferred browser to make sure you see your awezome CV online. If you get an error, the ingress and load balacing setup might not be completed.</li>
+<li>Visit the external IP in your preferred browser to make sure that your awesome CV is available online. If you get an error, the ingress and load balancing setup might not be completed.</li>
 </ul>
 <h3>Notes on exposing your application</h3>
-<p>LoadBalancer type and the Ingress resource is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.</p>
+<p>The LoadBalancer type is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.</p>
 <h2>Health checks</h2>
-<p>Kubernetes uses health checks and readiness checks to figure out the state of the pods. If you don&#39;t define any health check, Kubernetes assumes it is . You can define your own.<br>If the health check responds with an error status code, Kubernetes will asume the container is unhealthy and kill the pod. Simliary, if the readiness check is unsuccessful, Kubernetes will asume it is not ready, and wait for it.</p>
+<p>Kubernetes is using health checks and readiness checks to figure out the state of the pods.<br>If the health check responds with an error status code, Kubernetes will asume the container is unhealthy and kill the pod. Simliary, if the readiness check is unsuccessful, Kubernetes will asume it is not ready, and wait for it.<br>You can define your own.</p>
 <h2>Endpoint</h2>
-<p>The first way to define a health check is to define which endpoint the check should use. Our backend application contains the endpoint <code>/healthz</code>. Go ahead and define this as the health-endpoint in the backend deployment file, under the container spec:</p>
+<p>The first way to define a health check is to define which endpoint the check should use. Our backend application contains the endpoint <code>/healthz</code>. Go ahead and define this as the health-endpoint in the backend deployment file, under backend container in the list <code>spec.containers</code>:</p>
 <pre><code>livenessProbe:
   httpGet:
     path: /healthz
@@ -315,6 +286,18 @@ The flag <code>l</code> is used to filter by pods with the label <code>app=backe
   initialDelaySeconds: 3
   periodSeconds: 3
 </code></pre>
+<p>When applying the new deployment file, run <code>kubectl get pods</code> to see that that the deployment has created a new Pod. Describe it to see the new specification.</p>
+<h2>Command</h2>
+<p>We can also specify a command to execute in the container. Lets do this for the frontend application:</p>
+<pre><code>livenessProbe:
+  exec:
+    command:
+    - ls
+    - /
+  initialDelaySeconds: 5
+  periodSeconds: 5  
+</code></pre>
+<p>The command can be any command available in the container. The commands available in your container depends on the base image and how you build your image.<br>E.g. if your container has <code>curl</code> installed, we could define that the probe is to curl the <code>/healtz</code> endpoint from the container. This wouldn&#39;t make much sence, though...</p>
 
 
       </google-codelab-step>
