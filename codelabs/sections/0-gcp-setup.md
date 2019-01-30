@@ -42,7 +42,7 @@ Pick an existing project as your default for now (*option 1*). Example on the ou
 We need a cluster where we want to run our application.
 
 You can create the cluster both in the Console view in your browser and by the gcloud command line tool.
-We will use the Console to do it and also look at the equivalent gcloud command. 
+We will use the Console to do it and also look at the equivalent gcloud command provided by the Google Console. 
 
   1. Visit [Google Cloud Console](https://console.cloud.google.com/) in your browser.
      Click on *Kubernetes Engine* in the left side menu. If you are asked to enable the engine, do so. Read [this](https://cloud.google.com/kubernetes-engine/kubernetes-comic/) cartoon while you wait for it to get ready.
