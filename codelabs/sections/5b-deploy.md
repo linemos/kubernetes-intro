@@ -47,13 +47,17 @@ along with some Kubernetes network stuff and specifications on how to run the co
 All of our pods contains only one container. There are several use cases where you might want to specify several
 containers in one pod, for instance if you need a proxy in front of your application.
 
-The Pods were created when you applied the specification of the type `Deployment`,
-which is a controller resource. 
+The Pods were created when you applied the specification of the type `Deployment`, which is a controller resource. 
 The Deployment specification contains a desired state and the Deployment controller changes the state to achieve this.
 When creating the Deployment, it will create ReplicaSet, which it owns.
+
 The ReplicaSet will then create the desired number of pods, and recreate them if the Deployment specification changes,
 e.g. if you want another number of pods running or if you update the Docker image to use.
-It will do so in a rolling-update manner, which we will explore soon.
+It will do so in a rolling-update manner, which we will explore soon. The Pods are running on the cluster nodes. 
+
+![Illustration of deployments, replicasets, pods and nodes.](https://storage.googleapis.com/cdn.thenewstack.io/media/2017/11/07751442-deployment.png)
+
+
 
 *Did you noticed that the pod names were prefixed with the deployment names and two hashes?* - The first hash is the hash of the ReplicaSet, the second is unique for the Pod.
 
