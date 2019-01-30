@@ -2,6 +2,7 @@
 Ok, everything looks good!
 But what if you need to inspect the logs and states of your applications?
 Kubernetes have a built in log feature.
+
 Lets take a look at our backend application, and see what information we can retrieve.
 
 1. View the logs of one container
