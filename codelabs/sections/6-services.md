@@ -26,15 +26,15 @@ As you can see, both services have defined internal IPs, `CLUSTER-IP`. These int
 Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.
 Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.
 
-1. Open the frontend service file again
-2. Set `type` to be `LoadBalancer`
-3. Save and run
+* Open the frontend service file again
+* Set `type` to be `LoadBalancer`
+* Save and run
 
   ```
   kubectl apply -f ./yaml/frontend-service.yaml
   ```
   
-4. Wait for an external IP:
+* Wait for an external IP:
 
   ```
   watch kubectl get service frontend
@@ -46,14 +46,14 @@ Lets look at another way. The Service resource can have a different type, it can
   kubectl get service frontend -w
   ```
 
-5. Visit the IP in your browser to see your amazing CV online. But something is off!
+* Visit the IP in your browser to see your amazing CV online. But something is off!
     There is no data, and if you inspect the network traffic in the browser console log, you can see that the requests to the api is responding with an error code.
 
     This is because the frontend application is expecting the IP of the backend Service to be set at the point of deployment.
-    But since we deployed the frontend application before creating the Service objects,
+    But we deployed the frontend application before creating the Service objects,
     meaning there was not any IP to give the frontend container on creation time.
     
-6. To fix this, we can delete the ReplicaSet for the frontend application:
+* To fix this, we can delete the ReplicaSet for the frontend application:
 
    ```
    kubectl delete replicaset -l app=frontend
