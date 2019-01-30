@@ -1,0 +1,62 @@
+{
+  "_from": "markdown-pp-js",
+  "_id": "markdown-pp-js@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-nJaGsDLsvgnAQAQRkJ/wLZ9szKQ=",
+  "_location": "/markdown-pp-js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "markdown-pp-js",
+    "name": "markdown-pp-js",
+    "escapedName": "markdown-pp-js",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/markdown-pp-js/-/markdown-pp-js-1.0.0.tgz",
+  "_shasum": "9c9686b032ecbe09c0400411909ff02d9f6ccca4",
+  "_spec": "markdown-pp-js",
+  "_where": "/Users/n640538/workshops/kubernetes-intro/tasks",
+  "author": {
+    "name": "Mike Ralphson"
+  },
+  "bugs": {
+    "url": "https://github.com/MikeRalphson/markdown-pp-js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "yargs": "^5.0.0"
+  },
+  "deprecated": false,
+  "description": "Markdown pre-processor in Javascript",
+  "directories": {
+    "test": "test"
+  },
+  "homepage": "https://github.com/MikeRalphson/markdown-pp-js#readme",
+  "keywords": [
+    "markdown",
+    "md",
+    "preprocessor",
+    "pre-processor",
+    "markdownpp",
+    "markdown-pp"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "markdown-pp-js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikeRalphson/markdown-pp-js.git"
+  },
+  "scripts": {
+    "test": "chmod a+x ./compare && ./compare",
+    "testbb": "busybox sh -c ./compare"
+  },
+  "version": "1.0.0"
+}

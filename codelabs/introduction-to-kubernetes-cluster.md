@@ -3,24 +3,24 @@ id: lidev-introduction-to-kubernetes-cluster
 
 <a name="kubernetesongooglecloudplatform"></a>
 
-# 1\. Kubernetes on Google Cloud Platform
+#Kubernetes on Google Cloud Platform
 
 <a name="signup"></a>
 
-## 1\. Sign up
+##Sign up
 Create an account on Google Cloud Platform. 
   1. Go to: https://console.cloud.google.com 
   2. Sign up. You will have to register a payment method to complete the sign up. The first 12 months are free, as long as you don't use more than the included $300 credits, so you should not be charged anything for this workshop.
 
 <a name="installation"></a>
 
-### 1\. Installation
+###Installation
 In order to explore the Kubernetes cluster on Google Kubernetes Engine you need to install the Google Cloud SDK command line tool.
 
 
 <a name="downloadthegooglecloudsdk"></a>
 
-### 2\. Download the Google Cloud SDK
+###Download the Google Cloud SDK
   
   **Linux/Mac:** 
   
@@ -42,7 +42,7 @@ In order to explore the Kubernetes cluster on Google Kubernetes Engine you need 
     
 <a name="initializegcloud"></a>
 
-### 3\. Initialize gcloud
+###Initialize gcloud
 
 Authenticate in the browser when you are asked to with the `gcloud init` command. 
 Pick an existing project as your default for now (*option 1*). Example on the output in your terminal:
@@ -55,7 +55,7 @@ Pick an existing project as your default for now (*option 1*). Example on the ou
 
 <a name="createacluster"></a>
 
-## 2\. Create a cluster
+##Create a cluster
 We need a cluster where we want to run our application.
 
 You can create the cluster both in the Console view in your browser and by the gcloud command line tool.
@@ -75,11 +75,11 @@ We will use the Console to do it and also look at the equivalent gcloud command 
 
 <a name="installation-1"></a>
 
-## 3\. Installation
+##Installation
 
 <a name="installthekubernetescommand-linetool"></a>
 
-### 1\. Install the Kubernetes command-line tool
+###Install the Kubernetes command-line tool
 1. To operate our cluster, we will use the Kubernetes command line tool, *kubectl*:
   ```
    gcloud components install kubectl
@@ -127,7 +127,7 @@ What this does is to write credentials to the file `~/.kube/config`. You can tak
 
 <a name="describecomponentsofthecluster"></a>
 
-### 2\. Describe components of the cluster
+###Describe components of the cluster
 Now that we are authenticated, we can look at the components in our cluster by using the kubectl command.
 
 1. Remember how Kubernetes consists of nodes? List them by this command:
@@ -146,7 +146,7 @@ Now that we are authenticated, we can look at the components in our cluster by u
 
 <a name="forkthisrepository"></a>
 
-## 4\. Fork this repository
+##Fork this repository
 
 1. Visit [this](https://github.com/linemos/kubernetes-intro) repository and fork it to your own Github account
 
@@ -158,7 +158,7 @@ You need your own fork of the repository to create build triggers that will list
 
 <a name="dockercontainers"></a>
 
-## 5\. Docker containers
+##Docker containers
 To create a deployment on Kubernetes, you need to specify at least one container for your application.
 Kubernetes will on a deploy pull the image specified and create pods with this container.
 Docker is the most commonly used container service in Kubernetes.
@@ -176,7 +176,7 @@ One way to create Docker images is to manually create ands build images on your 
 
 <a name="buildtriggers"></a>
 
-### 1\. Build triggers
+###Build triggers
 1. Go to cloud console: find **Cloud Build** in the left side menu (under tools). 
 If you are asked to enable the Container Build API, do so.
 _Tips: If you have problems finding the Google Cloud functionality you are looking for, try searching for it instead_ 😊
@@ -209,19 +209,19 @@ If the commit is tagged with `cv-frontend-1`, it will use the Dockerfile in the 
 
 <a name="testthebuildtrigger"></a>
 
-### 2\. Test the build trigger
+###Test the build trigger
 You tried to run the build trigger manually in the previous step.
 Now you will test how it works on new commits on your GitHub repository.
 
 <a name="changethecode"></a>
 
-## 6\. Change the code
-Open the file [backend/server.js](../../backend/server.js) and edit the JSON responses to your name, workplace and education.
+##Change the code
+Open the file [backend/server.js](https://github.com/linemos/kubernetes-intro/blob/master/backend/server.js) and edit the JSON responses to your name, workplace and education.
 You can either change the code in an editor or in GitHub directly. Commit and push your commit.
 
 <a name="publishyourchanges"></a>
 
-### 1\. Publish your changes
+###Publish your changes
 We need to add a tag to notify our build triggers that the code has changed and need to rebuild. 
 There are two ways to ad a tag:
 
@@ -240,18 +240,18 @@ If you commit from the git command line, the command to tag the latest commit is
 You can add a tag to your directly from GitHub: 
 1. In the repo, Click on *releases*, next to contributors.
 2. Click on *Draft a new release*
-3. Write your new tag, i.e., *cv-backend-2*
-4. Create release title if you want (ex: What have you done?)
+3. Write your new tag (ex: *cv-backend-2*)
+4. Create release title if you want (ex: *What have you done?*)
 5. Click *Publish release*
 
 **Then**
 
 Go back to the Build triggers in Cloud Console and click on *Build history* to see whether the backend starts building.
-Notice that you can follow the build log if you want to see whats going on. 
+Notice that you can follow the build log if you want to see whats going on during the building of the image.
 
 <a name="deploytoyourkubernetescluster"></a>
 
-## 7\. Deploy to your Kubernetes Cluster
+##Deploy to your Kubernetes Cluster
 
 It's time to deploy the frontend and backend to your cluster!
 The preferred way to configure Kubernetes resources is to specify them in YAML files.
@@ -341,7 +341,7 @@ tell the old ReplicaSet to scale number of pods down to zero.
 
 <a name="createservices"></a>
 
-## 8\. Create services
+##Create services
 Now that our applications are running, we would like to route traffic to them.
 
 * Open [yaml/backend-service.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-service.yaml)
@@ -367,7 +367,7 @@ As you can see, both services have defined internal IPs, `CLUSTER-IP`. These int
 
 <a name="exposingyourapp"></a>
 
-### 1\. Exposing your app
+###Exposing your app
 Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.
 Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.
 
@@ -411,7 +411,7 @@ Lets look at another way. The Service resource can have a different type, it can
 
 <a name="rollingupdates"></a>
 
-## 9\. Rolling updates
+##Rolling updates
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. 
 You will now update the background color of the frontend application, see that the build trigger creates a new image and
 update the deployment to use this in your web application.
@@ -447,7 +447,7 @@ Notice that there are always at least one Pod running and that the last of the o
 
 <a name="inspectionandlogging"></a>
 
-## 10\. Inspection and logging
+##Inspection and logging
 Ok, everything looks good!
 But what if you need to inspect the logs and states of your applications?
 Kubernetes have a built in log feature.
@@ -497,7 +497,7 @@ Lets take a look at our backend application, and see what information we can ret
 
 <a name="dns"></a>
 
-### 1\. DNS
+###DNS
 A cool thing in Kubernetes is the Kubernetes DNS.
 Inside the cluster, Pods and Services have their own DNS record.
 For example, our backend service is reachable on `backend.<NAMESPACE>.svc.cluster.local`. If you are sending the request from the same namespace, you can also reach it on `backend`.
@@ -539,16 +539,16 @@ We will take a look at this.
 
 <a name="extratasks"></a>
 
-## 11\. Extra tasks
+##Extra tasks
 
 <a name="differentmethodstoexposeaservice"></a>
 
-### 1\. Different methods to expose a service
+###Different methods to expose a service
 Right now we have exposed our frontend service through an ingress. We will now look into two other ways.
 
 <a name="servicetypenodeport"></a>
 
-#### 1\. Service type NodePort
+####Service type NodePort
 The first way is with the service type NodePort. If we look at our frontend service, we can see that it already is defined as this type. So we are good to go then? No, not yet.
 
 * We will change our frontend service to be a type NodePort instead. Open the file [yaml/frontend-service.yaml](.https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-service.yaml)
@@ -596,7 +596,7 @@ How does this work? The nodes all have external IPs, so we can curl them. By def
 
 <a name="createaningress"></a>
 
-#### 2\. Create an ingress
+####Create an ingress
 An ingress is a Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
 
 * Open the file [yaml/ingress.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/ingress.yaml)
@@ -624,13 +624,13 @@ An ingress is a Kubernetes resource that will allow traffic from outside the clu
 
 <a name="notesonexposingyourapplication"></a>
 
-#### 3\. Notes on exposing your application
+####Notes on exposing your application
 LoadBalancer type and the Ingress resource is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.
 
 
 <a name="healthchecks"></a>
 
-### 2\. Health checks
+###Health checks
 
 Kubernetes uses health checks and readiness checks to figure out the state of the pods. If you don't define any health check, Kubernetes assumes it is <INSERT>. You can define your own.
 If the health check responds with an error status code, Kubernetes will asume the container is unhealthy and kill the pod. Simliary, if the readiness check is unsuccessful, Kubernetes will asume it is not ready, and wait for it.
@@ -638,7 +638,7 @@ If the health check responds with an error status code, Kubernetes will asume th
 
 <a name="endpoint"></a>
 
-### 3\. Endpoint
+###Endpoint
 
 The first way to define a health check is to define which endpoint the check should use. Our backend application contains the endpoint `/healthz`. Go ahead and define this as the health-endpoint in the backend deployment file, under the container spec:
 
@@ -659,7 +659,7 @@ livenessProbe:
 
 <a name="cleanup"></a>
 
-## 12\. Clean up
+##Clean up
 
 The cluster you have created will charge your credit card after some time if you keep it running. You can use the [Google Cloud Price Calculator](https://cloud.google.com/products/calculator/) to find out how much it will cost you. If you keep it running, it will cost you money then the price is more than $300 (which is the included credits in the Free Tier).
 
@@ -683,7 +683,7 @@ And that's it! ⎈
 
 <a name="anyquestions?"></a>
 
-### 1\. Any questions?
+###Any questions?
 
 Contact us on [@linemoseng](https://twitter.com/linemoseng) or [@ingridguren](https://twitter.com/ingridguren).
 

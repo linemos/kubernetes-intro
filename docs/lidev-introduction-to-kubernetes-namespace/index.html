@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>1. Introduction to Kubernetes with Namespaces</title>
+  <title>Introduction to Kubernetes with Namespaces</title>
   <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
@@ -20,11 +20,11 @@
 </head>
 <body unresolved class="fullbleed">
 
-  <google-codelab title="1. Introduction to Kubernetes with Namespaces"
+  <google-codelab title="Introduction to Kubernetes with Namespaces"
                   environment="web"
                   feedback-link="">
     
-      <google-codelab-step label="1. Install Google Cloud SDK tool" duration="0">
+      <google-codelab-step label="Install Google Cloud SDK tool" duration="0">
         <p>In order to explore the Kubernetes cluster on Google Kubernetes Engine you need to install the Google Cloud SDK command line tool.</p>
 <ol type="1">
 <li>Follow the guide to setup the <code>gcloud</code> tool, but stop before the step <code>gcloud init</code>. You can find the guide <a href="https://cloud.google.com/sdk/docs/downloads-interactive" target="_blank">here</a></li>
@@ -33,7 +33,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="2. Activate service account" duration="0">
+      <google-codelab-step label="Activate service account" duration="0">
         <p>Email <code>linemos@gmail.com</code> with the topic <code>Kubernetes intro SA</code> to create a service account.</p>
 <p>When you have received an service account, download the file. We will use it to authenticate with Google Cloud.</p>
 <ol type="1">
@@ -48,7 +48,7 @@ cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10
 </code></pre>
 </li>
 </ol>
-<h2>1. Describe components of the cluster</h2>
+<h2>Describe components of the cluster</h2>
 <p>Now that we are authenticated, we can look at the components in our cluster by using the kubectl command.</p>
 <ol type="1">
 <li>Remember how Kubernetes consists of nodes? List them by this command:<pre><code>kubectl get nodes
@@ -63,7 +63,7 @@ cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10
 
       </google-codelab-step>
     
-      <google-codelab-step label="3. Clone this repository" duration="0">
+      <google-codelab-step label="Clone this repository" duration="0">
         <ol type="1">
 <li>Clone <a href="https://github.com/linemos/kubernetes-intro" target="_blank">this</a> repository to your laptop.</li>
 </ol>
@@ -71,7 +71,7 @@ cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10
 
       </google-codelab-step>
     
-      <google-codelab-step label="4. Deploy to your Kubernetes Cluster" duration="0">
+      <google-codelab-step label="Deploy to your Kubernetes Cluster" duration="0">
         <p>It&#39;s time to deploy the frontend and backend to your cluster!<br>The preferred way to configure Kubernetes resources is to specify them in YAML files.</p>
 <p>In the folder <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/" target="_blank">yaml/</a> you find the YAML files specifying what resources Kubernetes should create.<br>There are two services, one for the backend application and one for the frontend application.<br>Same for the deployments.</p>
 <ol type="1">
@@ -123,7 +123,7 @@ kubectl apply -f ./yaml/frontend-deployment.yaml
 
       </google-codelab-step>
     
-      <google-codelab-step label="5. Create services" duration="0">
+      <google-codelab-step label="Create services" duration="0">
         <p>Now that our applications are running, we would like to route traffic to them.</p>
 <ul>
 <li>Open <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-service.yaml" target="_blank">yaml/backend-service.yaml</a><br>There are a few things to notice:<ul>
@@ -141,7 +141,7 @@ kubectl apply -f ./yaml/frontend-service.yaml
 </li>
 </ul>
 <p>As you can see, both services have defined internal IPs, <code>CLUSTER-IP</code>. These internal IPs are only available inside the cluster. But we want our frontend application to be available from the internet. In order to do so, we must expose an external IP.</p>
-<h2>1. Exposing your app</h2>
+<h2>Exposing your app</h2>
 <p>Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.<br>Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.</p>
 <ul>
 <li>Open the frontend service file again</li>
@@ -166,7 +166,7 @@ By doing this, the Deployment will create a new ReplicaSet which will again crea
 
       </google-codelab-step>
     
-      <google-codelab-step label="6. Rolling updates" duration="0">
+      <google-codelab-step label="Rolling updates" duration="0">
         <p>As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy.<br>It is time to update to the newest version of the frontend application. This version has an updated background color.</p>
 <ul>
 <li>Update the image specification on the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> by adding the tag <code>:2</code></li>
@@ -189,7 +189,7 @@ By doing this, the Deployment will create a new ReplicaSet which will again crea
 
       </google-codelab-step>
     
-      <google-codelab-step label="7. Inspection and logging" duration="0">
+      <google-codelab-step label="Inspection and logging" duration="0">
         <p>Ok, everything looks good!<br>But what if you need to inspect the logs and states of your applications?<br>Kubernetes have a built in log feature.</p>
 <p>Lets take a look at our backend application, and see what information we can retrieve.</p>
 <ul>
@@ -218,7 +218,7 @@ The flag <code>l</code> is used to filter by pods with the label <code>app=backe
 </li>
 </ul>
 <p>Notice that <code>StrategyType: RollingUpdate</code> that we saw when we applied an updated frontend is set by default.</p>
-<h2>1. DNS</h2>
+<h2>DNS</h2>
 <p>A cool thing in Kubernetes is the Kubernetes DNS.<br>Inside the cluster, Pods and Services have their own DNS record.<br>For example, our backend service is reachable on <code>backend.&lt;NAMESPACE&gt;.svc.cluster.local</code>. If you are sending the request from the same namespace, you can also reach it on <code>backend</code>.<br>We will take a look at this.</p>
 <ul>
 <li>Get your current namespace<pre><code>kubectl config view | grep namespace: 
@@ -248,10 +248,10 @@ The flag <code>l</code> is used to filter by pods with the label <code>app=backe
 
       </google-codelab-step>
     
-      <google-codelab-step label="8. Extra tasks" duration="0">
-        <h2>1. Different methods to expose a service</h2>
+      <google-codelab-step label="Extra tasks" duration="0">
+        <h2>Different methods to expose a service</h2>
 <p>Right now we have exposed our frontend service through an ingress. We will now look into two other ways.</p>
-<h3>1. Service type NodePort</h3>
+<h3>Service type NodePort</h3>
 <p>The first way is with the service type NodePort. If we look at our frontend service, we can see that it already is defined as this type. So we are good to go then? No, not yet.</p>
 <ul>
 <li>We will change our frontend service to be a type NodePort instead. Open the file <a href=".https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-service.yaml" target="_blank">yaml/frontend-service.yaml</a></li>
@@ -281,7 +281,7 @@ The flag <code>l</code> is used to filter by pods with the label <code>app=backe
 <li>Do the same, but replace the IP with the external IP from one of the other nodes. It should have the same result</li>
 </ul>
 <p>How does this work? The nodes all have external IPs, so we can curl them. By default, neither services or pods in the cluster are exposed to the internet, but Kubernetes will open the port of <code>NodePort</code> services on all the nodes so that those services are available on :.</p>
-<h3>2. Create an ingress</h3>
+<h3>Create an ingress</h3>
 <p>An ingress is a Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.</p>
 <ul>
 <li>Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/ingress.yaml" target="_blank">yaml/ingress.yaml</a><br>Notice that we have defined that we have configured our ingress to send requests to our <code>frontend</code> service on port <code>8080</code>.</li>
@@ -299,11 +299,11 @@ The flag <code>l</code> is used to filter by pods with the label <code>app=backe
 <ul>
 <li>Visit the external IP in your peferred browser to make sure you see your awezome CV online. If you get an error, the ingress and load balacing setup might not be completed.</li>
 </ul>
-<h3>3. Notes on exposing your application</h3>
+<h3>Notes on exposing your application</h3>
 <p>LoadBalancer type and the Ingress resource is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.</p>
-<h2>2. Health checks</h2>
+<h2>Health checks</h2>
 <p>Kubernetes uses health checks and readiness checks to figure out the state of the pods. If you don&#39;t define any health check, Kubernetes assumes it is . You can define your own.<br>If the health check responds with an error status code, Kubernetes will asume the container is unhealthy and kill the pod. Simliary, if the readiness check is unsuccessful, Kubernetes will asume it is not ready, and wait for it.</p>
-<h2>3. Endpoint</h2>
+<h2>Endpoint</h2>
 <p>The first way to define a health check is to define which endpoint the check should use. Our backend application contains the endpoint <code>/healthz</code>. Go ahead and define this as the health-endpoint in the backend deployment file, under the container spec:</p>
 <pre><code>livenessProbe:
   httpGet:

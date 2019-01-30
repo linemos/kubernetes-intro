@@ -1,0 +1,23 @@
+#!/bin/sh
+node markdownpp readme.mdpp -o compare.md
+rsha1=`cat readme.md | sha1sum`
+csha1=`cat compare.md | sha1sum`
+if [ "$rsha1" = "$csha1" ] ; then
+  echo readme.md matches
+else
+  echo readme.md differs $rsha1 $csha1
+  exit 1
+fi
+cd test
+node ../markdownpp datafiles/test_script.mdpp -o datafiles/test_script.md
+cd datafiles
+isha1=`cat test_script.txt | sha1sum`
+osha1=`cat test_script.md | sha1sum`
+if [ "$isha1" = "$osha1" ] ; then
+  echo test_script.md matches
+else
+  echo test_script.md differs $isha1 $osha1
+  exit 1
+fi
+
+exit 0

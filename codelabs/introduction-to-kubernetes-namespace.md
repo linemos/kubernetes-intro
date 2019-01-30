@@ -3,22 +3,22 @@ id: lidev-introduction-to-kubernetes-namespace
 
 <a name="introductiontokuberneteswithnamespaces"></a>
 
-# 1\. Introduction to Kubernetes with Namespaces
+#Introduction to Kubernetes with Namespaces
 
 <a name="setuptouseexistingcluster"></a>
 
-# 2\. Setup to use existing cluster
+#Setup to use existing cluster
 Follow these steps to authenticate with an existing Google Kubernetes Engine cluster with a service account. You will not be able to do all tasks in the workshop with this setup.
 
 <a name="installgooglecloudsdktool"></a>
 
-## 1\. Install Google Cloud SDK tool
+##Install Google Cloud SDK tool
 In order to explore the Kubernetes cluster on Google Kubernetes Engine you need to install the Google Cloud SDK command line tool.
 1. Follow the guide to setup the `gcloud` tool, but stop before the step `gcloud init`. You can find the guide [here](https://cloud.google.com/sdk/docs/downloads-interactive)
 
 <a name="activateserviceaccount"></a>
 
-## 2\. Activate service account
+##Activate service account
 Email `linemos@gmail.com` with the topic `Kubernetes intro SA` to create a service account.
 
 When you have received an service account, download the file. We will use it to authenticate with Google Cloud.
@@ -46,7 +46,7 @@ When you have received an service account, download the file. We will use it to 
 
 <a name="describecomponentsofthecluster"></a>
 
-### 1\. Describe components of the cluster
+###Describe components of the cluster
 Now that we are authenticated, we can look at the components in our cluster by using the kubectl command.
 
 1. Remember how Kubernetes consists of nodes? List them by this command:
@@ -65,7 +65,7 @@ Now that we are authenticated, we can look at the components in our cluster by u
 
 <a name="clonethisrepository"></a>
 
-## 3\. Clone this repository
+##Clone this repository
 
 1. Clone [this](https://github.com/linemos/kubernetes-intro) repository to your laptop.
 
@@ -73,7 +73,7 @@ Now that we are authenticated, we can look at the components in our cluster by u
 
 <a name="deploytoyourkubernetescluster"></a>
 
-## 4\. Deploy to your Kubernetes Cluster
+##Deploy to your Kubernetes Cluster
 
 It's time to deploy the frontend and backend to your cluster!
 The preferred way to configure Kubernetes resources is to specify them in YAML files.
@@ -157,7 +157,7 @@ tell the old ReplicaSet to scale number of pods down to zero.
 
 <a name="createservices"></a>
 
-## 5\. Create services
+##Create services
 Now that our applications are running, we would like to route traffic to them.
 
 * Open [yaml/backend-service.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-service.yaml)
@@ -183,7 +183,7 @@ As you can see, both services have defined internal IPs, `CLUSTER-IP`. These int
 
 <a name="exposingyourapp"></a>
 
-### 1\. Exposing your app
+###Exposing your app
 Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.
 Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.
 
@@ -227,7 +227,7 @@ Lets look at another way. The Service resource can have a different type, it can
 
 <a name="rollingupdates"></a>
 
-## 6\. Rolling updates
+##Rolling updates
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. 
 It is time to update to the newest version of the frontend application. This version has an updated background color.
  
@@ -260,7 +260,7 @@ Notice that there are always at least one Pod running and that the last of the o
 
 <a name="inspectionandlogging"></a>
 
-## 7\. Inspection and logging
+##Inspection and logging
 Ok, everything looks good!
 But what if you need to inspect the logs and states of your applications?
 Kubernetes have a built in log feature.
@@ -310,7 +310,7 @@ Lets take a look at our backend application, and see what information we can ret
 
 <a name="dns"></a>
 
-### 1\. DNS
+###DNS
 A cool thing in Kubernetes is the Kubernetes DNS.
 Inside the cluster, Pods and Services have their own DNS record.
 For example, our backend service is reachable on `backend.<NAMESPACE>.svc.cluster.local`. If you are sending the request from the same namespace, you can also reach it on `backend`.
@@ -352,16 +352,16 @@ We will take a look at this.
 
 <a name="extratasks"></a>
 
-## 8\. Extra tasks
+##Extra tasks
 
 <a name="differentmethodstoexposeaservice"></a>
 
-### 1\. Different methods to expose a service
+###Different methods to expose a service
 Right now we have exposed our frontend service through an ingress. We will now look into two other ways.
 
 <a name="servicetypenodeport"></a>
 
-#### 1\. Service type NodePort
+####Service type NodePort
 The first way is with the service type NodePort. If we look at our frontend service, we can see that it already is defined as this type. So we are good to go then? No, not yet.
 
 * We will change our frontend service to be a type NodePort instead. Open the file [yaml/frontend-service.yaml](.https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-service.yaml)
@@ -409,7 +409,7 @@ How does this work? The nodes all have external IPs, so we can curl them. By def
 
 <a name="createaningress"></a>
 
-#### 2\. Create an ingress
+####Create an ingress
 An ingress is a Kubernetes resource that will allow traffic from outside the cluster to your services. We will now create such a resource to get an external IP and allow requests to our frontend service.
 
 * Open the file [yaml/ingress.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/ingress.yaml)
@@ -437,13 +437,13 @@ An ingress is a Kubernetes resource that will allow traffic from outside the clu
 
 <a name="notesonexposingyourapplication"></a>
 
-#### 3\. Notes on exposing your application
+####Notes on exposing your application
 LoadBalancer type and the Ingress resource is dependent on your cloud provider. Google Cloud Platform supports these features, but other providers might not.
 
 
 <a name="healthchecks"></a>
 
-### 2\. Health checks
+###Health checks
 
 Kubernetes uses health checks and readiness checks to figure out the state of the pods. If you don't define any health check, Kubernetes assumes it is <INSERT>. You can define your own.
 If the health check responds with an error status code, Kubernetes will asume the container is unhealthy and kill the pod. Simliary, if the readiness check is unsuccessful, Kubernetes will asume it is not ready, and wait for it.
@@ -451,7 +451,7 @@ If the health check responds with an error status code, Kubernetes will asume th
 
 <a name="endpoint"></a>
 
-### 3\. Endpoint
+###Endpoint
 
 The first way to define a health check is to define which endpoint the check should use. Our backend application contains the endpoint `/healthz`. Go ahead and define this as the health-endpoint in the backend deployment file, under the container spec:
 

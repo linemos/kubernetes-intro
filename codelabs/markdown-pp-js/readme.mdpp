@@ -1,0 +1,179 @@
+
+Markdown Preprocessor (MarkdownPP)
+==================================
+
+The Markdown Preprocessor is a JavaScript rewrite of John Reese's
+[Python module](https://github.com/jreese/markdown-pp), designed to add extended features
+on top of the excellent Markdown syntax defined by John Gruber.  These additions
+are mainly focused on creating larger technical documents without needing to use
+something as heavy and syntactically complex as Docbook.
+
+MarkdownPP uses a set of selectable modules to apply a series of transforms to
+the original document, with the end goal of generating a new Markdown document
+that contains sections or features that would be laborious to generate or
+maintain by hand.
+
+Documents designed to be preprocessed by MarkdownPP should try to follow the
+convention of naming files with a .mdpp extension, so that MarkdownPP can
+generate a document with the same name, but with the standard .md extension.
+As an example, this document in raw format is named "readme.mdpp", and the
+generated document from MarkdownPP is named "readme.md" so that GitHub can find
+and process that document when viewing the repository.
+
+[![Build Status](https://travis-ci.org/MikeRalphson/markdown-pp-js.svg?branch=master)](https://travis-ci.org/MikeRalphson/markdown-pp-js)
+
+!TOC
+
+!INCLUDE "usage.mdpp"
+
+Modules
+--------
+
+### Includes
+
+In order to facilitate large documentation projects, MarkdownPP has an Include
+module that will replace a line of the form `!INCLUDE "path/to/filename"` with
+the contents of that file, recursively including other files as needed.
+
+File `foo.mdpp`:
+
+	Hello
+
+File `bar.mdpp`:
+
+	World!
+
+File `index.mdpp`:
+
+	!INCLUDE "foo.mdpp"
+	!INCLUDE "bar.mdpp"
+
+Compiling `index.mdpp` with the Include module will produce the following:
+
+	Hello
+	World!
+
+Furthermore, the Include module supports the shifting of headers in the
+file to be included. For example,
+
+File `foo.mdpp`:
+
+    # Foo
+    ## Bar
+
+File `index.mdpp`:
+
+    # Title
+    ## Subtitle
+    !INCLUDE "foo.mdpp", 2
+
+Compiling `index.mdpp` with the Include module and using `2` as shift
+parameter will yield:
+
+    # Title
+    ## Subtitle
+    ### Foo
+    #### Bar
+
+### IncludeURLs
+
+!INCLUDEURL "https://gist.githubusercontent.com/MikeRalphson/a37efaa827657dffa96ed5c34f644f53/raw/9dd5e8218e920d6dcfa8d4c7da5ecb5c68677aa0/markdown-pp-js-includeurls.md"
+
+### Table of Contents
+
+The biggest feature provided by MarkdownPP is the generation of a table of
+contents for a document, with each item linked to the appropriate section of the
+markup.  The table is inserted into the document wherever the preprocessor finds
+`!TOC` at the beginning of a line.  Named `<a>` tags are inserted above each
+Markdown header, and the headings are numbered hierarchically based on the
+heading tag that Markdown would generate.
+
+### Reference
+
+Similarly, MarkdownPP can generate a list of references that follow Markdown's
+alternate link syntax, eg `[name]: <url> "Title"`.  A list of links will be
+inserted wherever the preprocessor finds a line beginning with `!REF`.  The
+generated reference list follows the same alternate linking method to ensure
+consistency in your document, but the link need not be referenced anywhere in
+the document to be included in the list.
+
+### LaTeX Rendering
+
+Lines and blocks of lines beginning and ending with $ are rendered as LaTeX,
+using Google's charting engine.
+
+For example,
+
+	$\displaystyle \int x^2 = \frac{x^3}{3} + C$
+
+becomes
+
+$\displaystyle \int x^2 = \frac{x^3}{3} + C$
+
+### YouTube Embeds
+
+As GitHub-flavored Markdown does not allow embed tags, each line of the form
+`!VIDEO "[youtube url]"` is converted into a screenshot that links to the video,
+roughly simulating the look of an embedded video player.
+
+For example,
+
+    !VIDEO "http://www.youtube.com/embed/7aEYoP5-duY"
+
+becomes
+
+!VIDEO "http://www.youtube.com/embed/7aEYoP5-duY"
+
+
+Examples
+--------
+
+Example file.mdpp:
+
+	# Document Title
+
+	!TOC
+
+	## Header 1
+	### Header 1.a
+	## Header 2
+
+	!REF
+
+	[github]: http://github.com "GitHub"
+
+The preprocessor would generate the following Markdown-ready document file.md:
+
+	# Document Title
+
+	1\. [Header 1](#header1)
+	1.1\. [Header 1.a](#header1a)
+	2\. [Header 2](#header2)
+
+	<a name="header1"></a>
+	## Header 1
+	<a name="header1a"></a>
+	### Header 1.a
+	<a name="header2"></a>
+	## Header 2
+
+	*	[GitHub][github]
+
+	[github]: http://github.com "GitHub"
+
+
+Support
+-------
+
+If you find any problems with MarkdownPP, or have any feature requests, please
+report them to [GitHub][repo], and I will respond when possible.  Code
+contributions are *always* welcome, and ideas for new modules, or additions to
+existing modules, are also appreciated.
+
+
+References
+----------
+
+!REF
+
+[repo]: http://github.com/MikeRalphson/markdown-pp-js "Markdown Preprocessor on GitHub"

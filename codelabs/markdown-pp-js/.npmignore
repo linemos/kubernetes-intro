@@ -1,0 +1,6 @@
+node_modules
+npm_debug
+*.json
+*.zip
+compare.md
+test/datafiles/test_script.md
