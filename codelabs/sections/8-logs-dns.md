@@ -5,7 +5,7 @@ Kubernetes have a built in log feature.
 
 Lets take a look at our backend application, and see what information we can retrieve.
 
-1. View the logs of one container
+* View the logs of one container
   - First, list the pod names:
     
     ```
@@ -26,7 +26,7 @@ Lets take a look at our backend application, and see what information we can ret
     kubectl logs -l app=backend
     ```
 
-2. Ok, the logs were fine! Lets look at the environment variables set by Kubernetes in our containers:
+* Ok, the logs were fine! Lets look at the environment variables set by Kubernetes in our containers:
   
   ```
   kubectl exec -it <INSERT_THE_NAME_OF_A_POD> -- printenv
@@ -37,7 +37,7 @@ Lets take a look at our backend application, and see what information we can ret
   You can set your own environment variables in the deployment specification.
   They will show up in this list as well.
 
-3. We can also describe our deployment, to see its statuses and pod specification:
+* We can also describe our deployment, to see its statuses and pod specification:
   
   ```
   kubectl describe deployment backend
@@ -52,7 +52,7 @@ Inside the cluster, Pods and Services have their own DNS record.
 For example, our backend service is reachable on `backend.<NAMESPACE>.svc.cluster.local`. If you are sending the request from the same namespace, you can also reach it on `backend`.
 We will take a look at this.
 
-1. Get your current namespace
+* Get your current namespace
 
   ```
   kubectl config view | grep namespace: 
@@ -60,13 +60,13 @@ We will take a look at this.
 
   If there is no output, your namespace is `default`.
 
-2. List pods to copy a pod name
+* List pods to copy a pod name
 
   ```
   kubectl get pods -l app=frontend
   ```
 
-2. We will run `curl` from one of our frontend containers to see that we can reach our backend internally on `http://backend.<NAMESPACE>.svc.cluster.local:5000`
+* We will run `curl` from one of our frontend containers to see that we can reach our backend internally on `http://backend.<NAMESPACE>.svc.cluster.local:5000`
 
   ```
   kubectl exec -it INSERT_FRONTEND_POD_NAME -- curl -v http://backend.<NAMESPACE>.svc.cluster.local:5000
@@ -74,7 +74,7 @@ We will take a look at this.
 
   The HTTP status should be 200 along with the message "Hello, I'm alive"
 
-3. Run `curl` from the same container to see that we can reach our backend internally on the shortname `http://backend:5000` as well
+* Run `curl` from the same container to see that we can reach our backend internally on the shortname `http://backend:5000` as well
 
   ```
   kubectl exec -it INSERT_FRONTEND_POD_NAME -- curl -v http://backend:5000
@@ -82,5 +82,5 @@ We will take a look at this.
 
   The output should be the same as above. 
   
-4. To fix the issue where we had to delete the frontend ReplicaSet to get the internal IP for the backend Service could be avoided if we used the DNS instead. 
+* To fix the issue where we had to delete the frontend ReplicaSet to get the internal IP for the backend Service could be avoided if we used the DNS instead. 
 
