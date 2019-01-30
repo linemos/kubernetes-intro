@@ -60,11 +60,3 @@ Now that we are authenticated, we can look at the components in our cluster by u
     ```
    kubectl describe nodes <INSERT_NODE_NAME>
    ```
-
-3. We also have different namespaces:
-
-    ```
-   kubectl get namespace
-   ```
-
-This should list the namespaces `kube-system`, `kube-public` and `default`. The namespace `default`is where we will deploy our applications. `kube-system` is used by Kubernetes, `kube-public` is for resources that does not need authentication and `default` is, as the name says, the default namespace for resources. You can create your own namespaces, e.g. for test and prod.
