@@ -60,3 +60,5 @@ Now that we are authenticated, we can look at the components in our cluster by u
     ```
    kubectl describe nodes <INSERT_NODE_NAME>
    ```
+   
+   A node is a worker machine in Kubernetes. A node may be a VM or physical machine, depending on the cluster.
