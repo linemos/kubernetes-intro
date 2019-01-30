@@ -44,9 +44,8 @@ In order to explore the Kubernetes cluster on Google Kubernetes Engine you need 
 
 ### 3\. Initialize gcloud
 
-Do **all steps** in the guide until you have typed:  `gcloud init`.
-    - Authenticate in the browser when you are asked to.
-    - Pick an existing project as your default for now (*option 1*):
+Authenticate in the browser when you are asked to with the `gcloud init` command. 
+Pick an existing project as your default for now (*option 1*). Example on the output in your terminal:
     
     Pick cloud project to use:
      [1] arched-media-225216
@@ -60,7 +59,7 @@ Do **all steps** in the guide until you have typed:  `gcloud init`.
 We need a cluster where we want to run our application.
 
 You can create the cluster both in the Console view in your browser and by the gcloud command line tool.
-We will use the Console to do it and also look at the equivalent gcloud command. 
+We will use the Console to do it and also look at the equivalent gcloud command provided by the Google Console. 
 
   1. Visit [Google Cloud Console](https://console.cloud.google.com/) in your browser.
      Click on *Kubernetes Engine* in the left side menu. If you are asked to enable the engine, do so. Read [this](https://cloud.google.com/kubernetes-engine/kubernetes-comic/) cartoon while you wait for it to get ready.
@@ -142,25 +141,18 @@ Now that we are authenticated, we can look at the components in our cluster by u
     ```
    kubectl describe nodes <INSERT_NODE_NAME>
    ```
-
-3. We also have different namespaces:
-
-    ```
-   kubectl get namespace
-   ```
-
-This should list the namespaces `kube-system`, `kube-public` and `default`. The namespace `default`is where we will deploy our applications. `kube-system` is used by Kubernetes, `kube-public` is for resources that does not need authentication and `default` is, as the name says, the default namespace for resources. You can create your own namespaces, e.g. for test and prod.
+   
+   A node is a worker machine in Kubernetes. A node may be a VM or physical machine, depending on the cluster.
 
 <a name="forkthisrepository"></a>
 
 ## 4\. Fork this repository
 
-1. Visit [this](https://github.com/linemos/kubernetes-intro) repository and fork it to your own account
+1. Visit [this](https://github.com/linemos/kubernetes-intro) repository and fork it to your own Github account
 
 2. Clone it to your laptop.
 
-We need this to use build triggers in the next step. 
-
+You need your own fork of the repository to create build triggers that will listen to changes in your code.
 
 
 

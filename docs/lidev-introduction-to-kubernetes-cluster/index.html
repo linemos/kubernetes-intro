@@ -46,11 +46,8 @@
 <li>After installation has completed, accept the following options:<br>    - Start Cloud SDK Shell<br>    - Run <code>gcloud init</code><br>The installer starts a terminal window and runs the <code>gcloud init</code> command.<br>The default installation does not include the App Engine extensions required to deploy an application using gcloud commands.<br><br><br></li>
 </ol>
 <h2>3. Initialize gcloud</h2>
-<p>Do <strong>all steps</strong> in the guide until you have typed:  <code>gcloud init</code>.</p>
-<pre><code>- Authenticate in the browser when you are asked to.
-- Pick an existing project as your default for now (*option 1*):
-
-Pick cloud project to use:
+<p>Authenticate in the browser when you are asked to with the <code>gcloud init</code> command.<br>Pick an existing project as your default for now (<em>option 1</em>). Example on the output in your terminal:</p>
+<pre><code>Pick cloud project to use:
  [1] arched-media-225216
  [2] Create a new project
 Please enter numeric choice or text value (must exactly match list
@@ -62,7 +59,7 @@ item):  1
     
       <google-codelab-step label="2. Create a cluster" duration="0">
         <p>We need a cluster where we want to run our application.</p>
-<p>You can create the cluster both in the Console view in your browser and by the gcloud command line tool.<br>We will use the Console to do it and also look at the equivalent gcloud command.</p>
+<p>You can create the cluster both in the Console view in your browser and by the gcloud command line tool.<br>We will use the Console to do it and also look at the equivalent gcloud command provided by the Google Console.</p>
 <ol type="1">
 <li>Visit <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a> in your browser.<br> Click on <em>Kubernetes Engine</em> in the left side menu. If you are asked to enable the engine, do so. Read <a href="https://cloud.google.com/kubernetes-engine/kubernetes-comic/" target="_blank">this</a> cartoon while you wait for it to get ready.</li>
 <li>Click on the button <em>CREATE CLUSTER</em></li>
@@ -118,21 +115,18 @@ If the status of your cluster is <code>RUNNING</code>, move on to the step 3. If
 <li>If you want you can get more details about them by describing one of them:<pre><code>kubectl describe nodes &lt;INSERT_NODE_NAME&gt;
 </code></pre>
 </li>
-<li>We also have different namespaces:<pre><code>kubectl get namespace
-</code></pre>
-</li>
 </ol>
-<p>This should list the namespaces <code>kube-system</code>, <code>kube-public</code> and <code>default</code>. The namespace <code>default</code>is where we will deploy our applications. <code>kube-system</code> is used by Kubernetes, <code>kube-public</code> is for resources that does not need authentication and <code>default</code> is, as the name says, the default namespace for resources. You can create your own namespaces, e.g. for test and prod.</p>
+<p>A node is a worker machine in Kubernetes. A node may be a VM or physical machine, depending on the cluster.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="4. Fork this repository" duration="0">
         <ol type="1">
-<li>Visit <a href="https://github.com/linemos/kubernetes-intro" target="_blank">this</a> repository and fork it to your own account</li>
+<li>Visit <a href="https://github.com/linemos/kubernetes-intro" target="_blank">this</a> repository and fork it to your own Github account</li>
 <li>Clone it to your laptop.</li>
 </ol>
-<p>We need this to use build triggers in the next step.</p>
+<p>You need your own fork of the repository to create build triggers that will listen to changes in your code.</p>
 
 
       </google-codelab-step>

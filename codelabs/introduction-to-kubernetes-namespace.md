@@ -44,10 +44,28 @@ When you have received an service account, download the file. We will use it to 
 	```
 
 
+<a name="describecomponentsofthecluster"></a>
 
-<a name="forkthisrepository"></a>
+### 1\. Describe components of the cluster
+Now that we are authenticated, we can look at the components in our cluster by using the kubectl command.
 
-## 3\. Fork this repository
+1. Remember how Kubernetes consists of nodes? List them by this command:
+
+    ```
+   kubectl get nodes
+   ```
+
+2. If you want you can get more details about them by describing one of them:
+
+    ```
+   kubectl describe nodes <INSERT_NODE_NAME>
+   ```
+    
+   A node is a worker machine in Kubernetes. A node may be a VM or physical machine, depending on the cluster.
+
+<a name="clonethisrepository"></a>
+
+## 3\. Clone this repository
 
 1. Clone [this](https://github.com/linemos/kubernetes-intro) repository to your laptop.
 
@@ -76,7 +94,7 @@ There are a few things to notice in the deployment file:
   - `spec.template.metadata` is the label added to the Pods
   
 2. Open the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) and
-in the field `spec.template.spec.containers.image` insert your `gcr.io/ndc-london-kubernetes/frontend:1`.
+in the field `spec.template.spec.containers.image` insert `gcr.io/ndc-london-kubernetes/frontend:1`, which is a Docker image we have created for the frontend application.
 
 2. Create the resources for the backend and frontend (from root folder in the project):
   

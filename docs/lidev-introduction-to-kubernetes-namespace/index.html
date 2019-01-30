@@ -48,11 +48,22 @@ cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10
 </code></pre>
 </li>
 </ol>
+<h2>1. Describe components of the cluster</h2>
+<p>Now that we are authenticated, we can look at the components in our cluster by using the kubectl command.</p>
+<ol type="1">
+<li>Remember how Kubernetes consists of nodes? List them by this command:<pre><code>kubectl get nodes
+</code></pre>
+</li>
+<li>If you want you can get more details about them by describing one of them:<pre><code>kubectl describe nodes &lt;INSERT_NODE_NAME&gt;
+</code></pre>
+</li>
+</ol>
+<p>A node is a worker machine in Kubernetes. A node may be a VM or physical machine, depending on the cluster.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="3. Fork this repository" duration="0">
+      <google-codelab-step label="3. Clone this repository" duration="0">
         <ol type="1">
 <li>Clone <a href="https://github.com/linemos/kubernetes-intro" target="_blank">this</a> repository to your laptop.</li>
 </ol>
@@ -78,7 +89,7 @@ cv-cluster  europe-north1-a  1.10.2-gke.3    35.197.214.235  n1-standard-2  1.10
 </li>
 </ul>
 <ol type="1">
-<li>Open the file <a href="../../yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> and<br>in the field <code>spec.template.spec.containers.image</code> insert your <code>gcr.io/ndc-london-kubernetes/frontend:1</code>.</li>
+<li>Open the file <a href="../../yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> and<br>in the field <code>spec.template.spec.containers.image</code> insert <code>gcr.io/ndc-london-kubernetes/frontend:1</code>, which is a Docker image we have created for the frontend application.</li>
 <li>Create the resources for the backend and frontend (from root folder in the project):<pre><code>kubectl apply -f ./yaml/backend-deployment.yaml
 kubectl apply -f ./yaml/frontend-deployment.yaml
 </code></pre>
