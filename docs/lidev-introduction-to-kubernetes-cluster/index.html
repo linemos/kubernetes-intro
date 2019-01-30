@@ -274,7 +274,7 @@ kubectl apply -f ./yaml/frontend-service.yaml
 </ul>
 <p>As you can see, both services have defined internal IPs, <code>CLUSTER-IP</code>. These internal IPs are only available inside the cluster. But we want our frontend application to be available from the internet. In order to do so, we must expose an external IP.</p>
 <h2>Exposing your app</h2>
-<p>Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.<br>Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.</p>
+<p>Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.<br>Let&#39;s look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.</p>
 <ul>
 <li>Open the frontend service file again</li>
 <li>Set <code>type</code> to be <code>LoadBalancer</code></li>
@@ -301,32 +301,28 @@ By doing this, the Deployment will create a new ReplicaSet which will again crea
       <google-codelab-step label="Rolling updates" duration="0">
         <p>As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy.<br>You will now update the background color of the frontend application, see that the build trigger creates a new image and<br>update the deployment to use this in your web application.</p>
 <ol type="1">
-<li>Open the file <a href="../../frontend/src/index.css" target="_blank">frontend/src/index.css</a> and edit the field <code>background-color</code> to your favourite color</li>
+<li>Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/frontend/src/index.css" target="_blank">frontend/src/index.css</a> and edit the field <code>background-color</code> to your favourite color</li>
 <li>Commit your changes</li>
-<li>Create a <em>cv-frontend-2.0</em> tag like we did earlier.</li>
+<li>Create a <em>cv-frontend-2</em> tag like we did earlier (or a later tag version if this tag is already used).</li>
 <li>Go back to the cloud console in your browser and make sure that the build trigger finishes successfully</li>
-<li>Update the image specification on the file <a href="../../yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> by adding the tag <code>:2.0</code></li>
-<li>Open a new terminal window to watch the deletion and creation of Pods:<pre><code>watch kubectl get pods
+<li>Update the image specification on the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> by adding the tag <code>:2</code></li>
+<li>Open a new terminal window to watch the deletion and creation of Pods:<pre><code>  watch kubectl get pods
+</code></pre>
+If you don&#39;t have <code>watch</code> installed, you can use this command instead:<pre><code>  kubectl get pods -w
+</code></pre>
+Don&#39;t close this window.</li>
+<li>In the other terminal window, apply the updated Deployment specification<pre><code>  kubectl apply -f ./yaml/frontend-deployment.yaml
 </code></pre>
 </li>
 </ol>
-<p>If you don&#39;t have <code>watch</code> installed, you can use this command instead:</p>
-<pre><code>  kubectl get pods -w
-</code></pre>
-<p>Don&#39;t close this window.</p>
-<ol type="1">
-<li>In the other terminal window, apply the updated Deployment specification<pre><code>kubectl apply -f ./yaml/frontend-deployment.yaml
-</code></pre>
-</li>
-</ol>
-<p>and watch how the Pods are terminated and created in the other terminal window.<br>Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.</p>
+<p>Watch how the Pods are terminated and created in the other terminal window.<br>Notice that there are always at least one Pod running and that the last of the old Pods are first terminated when on of the new ones has the status running.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Inspection and logging" duration="0">
         <p>Ok, everything looks good!<br>But what if you need to inspect the logs and states of your applications?<br>Kubernetes have a built in log feature.</p>
-<p>Lets take a look at our backend application, and see what information we can retrieve.</p>
+<p>Let&#39;s take a look at our backend application, and see what information we can retrieve.</p>
 <ul>
 <li>View the logs of one container<ul>
 <li>First, list the pod names:<pre><code>kubectl get pods -l app=backend
@@ -342,7 +338,7 @@ The flag <code>l</code> is used to filter by pods with the label <code>app=backe
 </li>
 </ul>
 </li>
-<li>Ok, the logs were fine! Lets look at the environment variables set by Kubernetes in our containers:<pre><code>kubectl exec -it &lt;INSERT_THE_NAME_OF_A_POD&gt; -- printenv
+<li>Ok, the logs were fine! Let&#39;s look at the environment variables set by Kubernetes in our containers:<pre><code>kubectl exec -it &lt;INSERT_THE_NAME_OF_A_POD&gt; -- printenv
 </code></pre>
 </li>
 </ul>

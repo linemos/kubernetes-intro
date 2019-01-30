@@ -142,7 +142,7 @@ kubectl apply -f ./yaml/frontend-service.yaml
 </ul>
 <p>As you can see, both services have defined internal IPs, <code>CLUSTER-IP</code>. These internal IPs are only available inside the cluster. But we want our frontend application to be available from the internet. In order to do so, we must expose an external IP.</p>
 <h2>Exposing your app</h2>
-<p>Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.<br>Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.</p>
+<p>Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.<br>Let&#39;s look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.</p>
 <ul>
 <li>Open the frontend service file again</li>
 <li>Set <code>type</code> to be <code>LoadBalancer</code></li>
@@ -191,7 +191,7 @@ By doing this, the Deployment will create a new ReplicaSet which will again crea
     
       <google-codelab-step label="Inspection and logging" duration="0">
         <p>Ok, everything looks good!<br>But what if you need to inspect the logs and states of your applications?<br>Kubernetes have a built in log feature.</p>
-<p>Lets take a look at our backend application, and see what information we can retrieve.</p>
+<p>Let&#39;s take a look at our backend application, and see what information we can retrieve.</p>
 <ul>
 <li>View the logs of one container<ul>
 <li>First, list the pod names:<pre><code>kubectl get pods -l app=backend
@@ -207,7 +207,7 @@ The flag <code>l</code> is used to filter by pods with the label <code>app=backe
 </li>
 </ul>
 </li>
-<li>Ok, the logs were fine! Lets look at the environment variables set by Kubernetes in our containers:<pre><code>kubectl exec -it &lt;INSERT_THE_NAME_OF_A_POD&gt; -- printenv
+<li>Ok, the logs were fine! Let&#39;s look at the environment variables set by Kubernetes in our containers:<pre><code>kubectl exec -it &lt;INSERT_THE_NAME_OF_A_POD&gt; -- printenv
 </code></pre>
 </li>
 </ul>

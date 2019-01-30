@@ -3,7 +3,7 @@ Ok, everything looks good!
 But what if you need to inspect the logs and states of your applications?
 Kubernetes have a built in log feature.
 
-Lets take a look at our backend application, and see what information we can retrieve.
+Let's take a look at our backend application, and see what information we can retrieve.
 
 * View the logs of one container
   - First, list the pod names:
@@ -26,7 +26,7 @@ Lets take a look at our backend application, and see what information we can ret
     kubectl logs -l app=backend
     ```
 
-* Ok, the logs were fine! Lets look at the environment variables set by Kubernetes in our containers:
+* Ok, the logs were fine! Let's look at the environment variables set by Kubernetes in our containers:
   
   ```
   kubectl exec -it <INSERT_THE_NAME_OF_A_POD> -- printenv

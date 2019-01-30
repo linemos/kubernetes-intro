@@ -185,7 +185,7 @@ As you can see, both services have defined internal IPs, `CLUSTER-IP`. These int
 
 ###Exposing your app
 Ok, so now what? With the previous command, we saw that we had two services, one for our frontend and one for our backend. But they both had internal IPs, no external. We want to be able to browse our application from our browser.
-Lets look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.
+Let's look at another way. The Service resource can have a different type, it can be set as a LoadBalancer.
 
 * Open the frontend service file again
 * Set `type` to be `LoadBalancer`
@@ -200,7 +200,6 @@ Lets look at another way. The Service resource can have a different type, it can
   ```
   watch kubectl get service frontend
   ```
-
   or
   
   ```
@@ -265,7 +264,7 @@ Ok, everything looks good!
 But what if you need to inspect the logs and states of your applications?
 Kubernetes have a built in log feature.
 
-Lets take a look at our backend application, and see what information we can retrieve.
+Let's take a look at our backend application, and see what information we can retrieve.
 
 * View the logs of one container
   - First, list the pod names:
@@ -288,7 +287,7 @@ Lets take a look at our backend application, and see what information we can ret
     kubectl logs -l app=backend
     ```
 
-* Ok, the logs were fine! Lets look at the environment variables set by Kubernetes in our containers:
+* Ok, the logs were fine! Let's look at the environment variables set by Kubernetes in our containers:
   
   ```
   kubectl exec -it <INSERT_THE_NAME_OF_A_POD> -- printenv
