@@ -19,7 +19,7 @@ There are a few things to notice in the deployment file:
   - `spec.template.metadata` is the label added to the Pods
   
 2. Open the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) and
-in the field `spec.template.spec.containers.image` insert your `gcr.io/ndc-london-kubernetes/frontend:1`.
+in the field `spec.template.spec.containers.image` insert `gcr.io/ndc-london-kubernetes/frontend:1`, which is a Docker image we have created for the frontend application.
 
 2. Create the resources for the backend and frontend (from root folder in the project):
   
