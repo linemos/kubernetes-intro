@@ -198,13 +198,12 @@ If the status of your cluster is <code>RUNNING</code>, move on to the step 3. If
       </google-codelab-step>
     
       <google-codelab-step label="Deploy to your Kubernetes Cluster" duration="0">
-        <p>It&#39;s time to deploy the frontend and backend to your cluster!<br>The preferred way to configure Kubernetes resources is to specify them in YAML files.</p>
-<p>In the folder <a href="../../yaml" target="_blank">yaml/</a> you find the YAML files specifying what resources Kubernetes should create.<br>There are two services, one for the backend application and one for the frontend application.<br>Same for the deployments.</p>
+        <p>It&#39;s time to deploy the frontend and backend to your cluster!</p>
+<p>The preferred way to configure Kubernetes resources is to specify them in YAML files.</p>
+<p>In the folder <a href="https://github.com/linemos/kubernetes-intro/tree/master/yaml" target="_blank">yaml/</a> you find the YAML files specifying what resources Kubernetes should create.<br>There are two files for specifying services and two files for specifying deployments. One for the backend application (<em>backend-service.yaml</em>) and one for the frontend application (<em>frontend-service.yaml</em>).<br>Same for the deployments.</p>
 <ol type="1">
-<li>Open the file <a href="../../yaml/backend-deployment.yaml" target="_blank">yaml/backend-deployment.yaml</a> and<br>in the field <code>spec.template.spec.containers.image</code> insert your backend Docker image full name.<br>It should be something like <code>gcr.io/MY_PROJECT_ID/backend:TAG_NAME</code>, example: <code>gcr.io/my-kubernetes-project-1234/backend:cv-backend-1</code>.</li>
-</ol>
-<p>There are a few things to notice in the deployment file:</p>
-<ul>
+<li>Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-deployment.yaml" target="_blank">yaml/backend-deployment.yaml</a></li>
+<li>In the field <code>spec.template.spec.containers.image</code> insert the full name of your backend Docker image created in the previous step.<br>The name should be on the form <code>gcr.io/MY_PROJECT_ID/backend:TAG_NAME</code>, example: <code>gcr.io/my-kubernetes-project-1234/backend:cv-backend-1</code>.There are a few things to notice in the deployment file:<ul>
 <li>The number of replicas is set to 3. This is the number of pods we want running at all times</li>
 <li>The container spec has defined port 5000, so the Deployment will open this port on the containers</li>
 <li>The label <code>app: backend</code> is defined three places:<br><br><ul>
@@ -214,8 +213,9 @@ If the status of your cluster is <code>RUNNING</code>, move on to the step 3. If
 </ul>
 </li>
 </ul>
-<ol type="1">
-<li>Open the file <a href="../../yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a> and<br>in the field <code>spec.template.spec.containers.image</code> insert your frontend Docker image full name.<br>It should be something like <code>gcr.io/MY_PROJECT_ID/frontend:TAG_NAME</code>.</li>
+</li>
+<li>Open the file <a href="https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml" target="_blank">yaml/frontend-deployment.yaml</a>.</li>
+<li>Insert your Frontend Docker image name in the field <code>spec.template.spec.containers.image</code>.  The name should should be on the form <code>gcr.io/MY_PROJECT_ID/frontend:TAG_NAME</code>.</li>
 <li>Create the resources for the backend and frontend (from root folder in the project):<pre><code>kubectl apply -f ./yaml/backend-deployment.yaml
 kubectl apply -f ./yaml/frontend-deployment.yaml
 </code></pre>
@@ -228,7 +228,12 @@ kubectl apply -f ./yaml/frontend-deployment.yaml
 <pre><code>  kubectl get pods -w
 </code></pre>
 <p>When all pods are running, quit by <code>ctrl + q</code> (or <code>ctrl + c</code> when on Windows).</p>
-<p>Pods are Kubernetes resources that mostly just contains one or more containers,<br>along with some Kubernetes network stuff and specifications on how to run the container(s).<br>All of our pods contains only one container. There are several use cases where you might want to specify several<br>containers in one pod, for instance if you need a proxy in front of your application.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="About pods" duration="0">
+        <p>Pods are Kubernetes resources that mostly just contains one or more containers,<br>along with some Kubernetes network stuff and specifications on how to run the container(s).<br>All of our pods contains only one container. There are several use cases where you might want to specify several<br>containers in one pod, for instance if you need a proxy in front of your application.</p>
 <p>The Pods were created when you applied the specification of the type <code>Deployment</code>, which is a controller resource.<br>The Deployment specification contains a desired state and the Deployment controller changes the state to achieve this.<br>When creating the Deployment, it will create ReplicaSet, which it owns.</p>
 <p>The ReplicaSet will then create the desired number of pods, and recreate them if the Deployment specification changes,<br>e.g. if you want another number of pods running or if you update the Docker image to use.<br>It will do so in a rolling-update manner, which we will explore soon.</p>
 <p>The Pods are running on the cluster nodes.</p>

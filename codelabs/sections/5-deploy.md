@@ -1,36 +1,36 @@
 ## Deploy to your Kubernetes Cluster
 
 It's time to deploy the frontend and backend to your cluster!
+
 The preferred way to configure Kubernetes resources is to specify them in YAML files.
 
-In the folder [yaml/](../../yaml) you find the YAML files specifying what resources Kubernetes should create.
-There are two services, one for the backend application and one for the frontend application.
+In the folder [yaml/](https://github.com/linemos/kubernetes-intro/tree/master/yaml) you find the YAML files specifying what resources Kubernetes should create.
+There are two files for specifying services and two files for specifying deployments. One for the backend application (*backend-service.yaml*) and one for the frontend application (*frontend-service.yaml*).
 Same for the deployments.
 
-1. Open the file [yaml/backend-deployment.yaml](../../yaml/backend-deployment.yaml) and
-in the field `spec.template.spec.containers.image` insert your backend Docker image full name. 
-It should be something like `gcr.io/MY_PROJECT_ID/backend:TAG_NAME`, example: `gcr.io/my-kubernetes-project-1234/backend:cv-backend-1`.
+1. Open the file [yaml/backend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-deployment.yaml)
+2. In the field `spec.template.spec.containers.image` insert the full name of your backend Docker image created in the previous step. 
+The name should be on the form `gcr.io/MY_PROJECT_ID/backend:TAG_NAME`, example: `gcr.io/my-kubernetes-project-1234/backend:cv-backend-1`.
  
-There are a few things to notice in the deployment file:
-- The number of replicas is set to 3. This is the number of pods we want running at all times
-- The container spec has defined port 5000, so the Deployment will open this port on the containers
-- The label `app: backend` is defined three places:
-  - `metadata` is used by the service, which we will look at later
-  - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
-  - `spec.template.metadata` is the label added to the Pods
+    There are a few things to notice in the deployment file:
+    - The number of replicas is set to 3. This is the number of pods we want running at all times
+    - The container spec has defined port 5000, so the Deployment will open this port on the containers
+    - The label `app: backend` is defined three places:
+      - `metadata` is used by the service, which we will look at later
+      - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
+      - `spec.template.metadata` is the label added to the Pods
   
-2. Open the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) and
-in the field `spec.template.spec.containers.image` insert your frontend Docker image full name. 
-It should be something like `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`.
+3. Open the file [yaml/frontend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml). 
+4. Insert your Frontend Docker image name in the field `spec.template.spec.containers.image`.  The name should should be on the form `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`.
 
-2. Create the resources for the backend and frontend (from root folder in the project):
+5. Create the resources for the backend and frontend (from root folder in the project):
   
   ```
   kubectl apply -f ./yaml/backend-deployment.yaml
   kubectl apply -f ./yaml/frontend-deployment.yaml
   ```
 
-3. Watch the creation of pods:
+6. Watch the creation of pods:
   
   ```
   watch kubectl get pods
@@ -43,6 +43,8 @@ It should be something like `gcr.io/MY_PROJECT_ID/frontend:TAG_NAME`.
   ```
 
   When all pods are running, quit by `ctrl + q` (or `ctrl + c` when on Windows).
+
+## About pods 
 
 Pods are Kubernetes resources that mostly just contains one or more containers,
 along with some Kubernetes network stuff and specifications on how to run the container(s).
