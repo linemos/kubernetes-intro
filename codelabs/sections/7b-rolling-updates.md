@@ -2,7 +2,7 @@
 As you read earlier, Kubernetes can update your application without down time with a rolling-update strategy. 
 It is time to update to the newest version of the frontend application. This version has an updated background color.
  
-* Update the image specification on the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) by adding the tag `:2`
+* Update the image specification on the file [yaml/frontend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml) by adding the tag `:2`
 * Open a new terminal window to watch the deletion and creation of Pods:
   
   ```
