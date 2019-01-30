@@ -29,9 +29,8 @@ In order to explore the Kubernetes cluster on Google Kubernetes Engine you need 
     
 ### Initialize gcloud
 
-Do **all steps** in the guide until you have typed:  `gcloud init`.
-    - Authenticate in the browser when you are asked to.
-    - Pick an existing project as your default for now (*option 1*):
+Authenticate in the browser when you are asked to with the `gcloud init` command. 
+Pick an existing project as your default for now (*option 1*). Example on the output in your terminal:
     
     Pick cloud project to use:
      [1] arched-media-225216
