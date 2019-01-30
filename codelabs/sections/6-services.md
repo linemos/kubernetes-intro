@@ -1,4 +1,4 @@
-### Create services
+## Create services
 Now that our applications are running, we would like to route traffic to them.
 
 1. Open [yaml/backend-service.yaml](../../yaml/backend-service.yaml)
