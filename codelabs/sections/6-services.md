@@ -1,20 +1,20 @@
 ## Create services
 Now that our applications are running, we would like to route traffic to them.
 
-1. Open [yaml/backend-service.yaml](../../yaml/backend-service.yaml)
+* Open [yaml/backend-service.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-service.yaml)
   There are a few things to notice:
     - The protocol is set to TCP, which means that the Service sends requests to Pods on this protocol. UDP is also supported
     - The spec has defined port 80, so it will listen to traffic on port 80 and sends traffic to the Pods on the same port. We could also define `targetPort` if the port on the Pods are different from the incoming traffic port
     - The label `app: backend` defines that it should route requests to our Deployment with the same label
 
-2. Create the Services:
+* Create the Services:
 
   ```
   kubectl apply -f ./yaml/backend-service.yaml
   kubectl apply -f ./yaml/frontend-service.yaml
   ```
 
-2. List the created services:
+* List the created services:
   
   ```
   kubectl get service
