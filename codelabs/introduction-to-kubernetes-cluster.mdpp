@@ -15,4 +15,4 @@ id: lidev-introduction-to-kubernetes-cluster
 !INCLUDE "sections/9-extra-tasks-ingress.md"
 !INCLUDE "sections/9-extra-tasks-nodeport.md"
 !INCLUDE "sections/9-extra-tasks-healthcheck.md"
-!INCLUDE "sections/4-delete-tasks.mdpp"
+!INCLUDE "sections/10-delete-tasks.md"
