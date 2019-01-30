@@ -3,11 +3,11 @@
 It's time to deploy the frontend and backend to your cluster!
 The preferred way to configure Kubernetes resources is to specify them in YAML files.
 
-In the folder [yaml/](../../yaml) you find the YAML files specifying what resources Kubernetes should create.
+In the folder [yaml/](https://github.com/linemos/kubernetes-intro/blob/master/yaml/) you find the YAML files specifying what resources Kubernetes should create.
 There are two services, one for the backend application and one for the frontend application.
 Same for the deployments.
 
-1. Open the file [yaml/backend-deployment.yaml](../../yaml/backend-deployment.yaml) and
+1. Open the file [yaml/backend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/backend-deployment.yaml) and
 in the field `spec.template.spec.containers.image` insert the path to the Docker image we have created for the backend: `gcr.io/ndc-london-kubernetes/backend:1`. 
 
 There are a few things to notice in the deployment file:
@@ -18,7 +18,7 @@ There are a few things to notice in the deployment file:
   - `spec.selector.matchLabels` is how the Deployment knows which Pods to manage
   - `spec.template.metadata` is the label added to the Pods
   
-2. Open the file [yaml/frontend-deployment.yaml](../../yaml/frontend-deployment.yaml) and
+2. Open the file [yaml/frontend-deployment.yaml](https://github.com/linemos/kubernetes-intro/blob/master/yaml/frontend-deployment.yaml) and
 in the field `spec.template.spec.containers.image` insert `gcr.io/ndc-london-kubernetes/frontend:1`, which is a Docker image we have created for the frontend application.
 
 2. Create the resources for the backend and frontend (from root folder in the project):
