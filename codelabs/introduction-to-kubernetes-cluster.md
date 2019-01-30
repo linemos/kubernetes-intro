@@ -93,7 +93,7 @@ The cloud SDK installs the tool for you. This tool is not Google Cloud specific,
    gcloud container clusters list
    ```
 
-    If the status of your cluster is `RUNNING`, move on to the step 3. If there is no output, you might have the wrong project set in your config file. Do this to set the correct project:
+    If the status of your cluster is `RUNNING`, move on to the step 2. If there is no output, you might have the wrong project set in your config file. Do this to set the correct project:
   
     - Go back to your browser and click on the dropdown next to `Google Cloud Platform`. This should open a modal where at least one project is listed.
     - Copy the ID of the active project
