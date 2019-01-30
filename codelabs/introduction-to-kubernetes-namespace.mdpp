@@ -10,3 +10,13 @@ id: lidev-introduction-to-kubernetes-namespace
 !INCLUDE "sections/7b-rolling-updates.md"
 !INCLUDE "sections/8-logs-dns.md"
 !INCLUDE "sections/3-extra-tasks.mdpp"
+
+## And that's it! ⎈
+
+### Feedback? 😇
+
+We would love to get feedback to improve our workshop. You are awesome if you have time to fill out [this form](https://goo.gl/forms/7PnIF6r3mqQGG4M82). It is of course anonymous.
+
+### Any questions?
+
+Contact us on [@linemoseng](https://twitter.com/linemoseng) or [@ingridguren](https://twitter.com/ingridguren).

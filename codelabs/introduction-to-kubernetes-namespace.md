@@ -469,3 +469,19 @@ livenessProbe:
 
 
 
+
+<a name="andthat'sit!⎈"></a>
+
+##And that's it! ⎈
+
+<a name="feedback?😇"></a>
+
+###Feedback? 😇
+
+We would love to get feedback to improve our workshop. You are awesome if you have time to fill out [this form](https://goo.gl/forms/7PnIF6r3mqQGG4M82). It is of course anonymous.
+
+<a name="anyquestions?"></a>
+
+###Any questions?
+
+Contact us on [@linemoseng](https://twitter.com/linemoseng) or [@ingridguren](https://twitter.com/ingridguren).
