@@ -119,8 +119,8 @@ in the field `spec.template.spec.containers.image` insert `gcr.io/ndc-london-kub
 
 Pods are Kubernetes resources that mostly just contains one or more containers,
 along with some Kubernetes network stuff and specifications on how to run the container(s).
-Our pods all just contains one container. There are several use cases where you might want to specify several
-containers in one pod, for example if your application is using a proxy.
+All of our pods contains only one container. There are several use cases where you might want to specify several
+containers in one pod, for instance if you need a proxy in front of your application.
 
 The Pods were created when you applied the specification of the type `Deployment`,
 which is a controller resource. 
